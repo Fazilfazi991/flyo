@@ -6,7 +6,7 @@
   "rewrites": [
     {
       "source": "/packages/:slug",
-      "destination": "/packages/index.html"
+      "destination": "/packages/:slug/index.html"
     },
     {
       "source": "/((?!.*\\..*).*)",

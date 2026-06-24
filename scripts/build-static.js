@@ -16,6 +16,9 @@ const entries = [
   "public"
 ];
 
+const packageDataSource = path.join(root, "data", "packages.js");
+const packageTemplate = path.join(root, "packages", "index.html");
+
 function copyRecursive(source, target) {
   const stat = fs.statSync(source);
   if (stat.isDirectory()) {
@@ -34,6 +37,14 @@ fs.mkdirSync(outDir, { recursive: true });
 
 for (const entry of entries) {
   copyRecursive(path.join(root, entry), path.join(outDir, entry));
+}
+
+const packageSource = fs.readFileSync(packageDataSource, "utf8");
+const slugs = [...packageSource.matchAll(/slug:\s*"([^"]+)"/g)].map(match => match[1]);
+
+for (const slug of slugs) {
+  copyRecursive(packageTemplate, path.join(outDir, "packages", slug, "index.html"));
+  copyRecursive(packageTemplate, path.join(outDir, "packages", `${slug}.html`));
 }
 
 console.log(`Static site built to ${path.relative(root, outDir)}`);
