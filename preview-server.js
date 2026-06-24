@@ -12,7 +12,12 @@ const types = {
 
 http.createServer((request, response) => {
   const pathname = decodeURIComponent(request.url.split("?")[0]);
-  const filePath = path.join(root, pathname === "/" ? "index.html" : pathname);
+  const routePath = /^\/packages\/[^/.]+\/?$/.test(pathname)
+    ? "packages/index.html"
+    : pathname === "/"
+      ? "index.html"
+      : pathname;
+  const filePath = path.join(root, routePath);
   if (!filePath.startsWith(root)) {
     response.writeHead(403).end("Forbidden");
     return;

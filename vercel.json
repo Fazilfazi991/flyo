@@ -3,6 +3,10 @@
   "trailingSlash": false,
   "rewrites": [
     {
+      "source": "/packages/:slug",
+      "destination": "/packages/index.html"
+    },
+    {
       "source": "/((?!.*\\..*).*)",
       "destination": "/index.html"
     }
