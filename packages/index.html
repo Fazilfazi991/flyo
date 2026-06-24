@@ -40,7 +40,13 @@
         </div>
 
         <form class="quick-book" id="quick-book">
-          <h2 id="bookingTitle"></h2>
+          <div class="booking-card-head">
+            <span aria-hidden="true">▣</span>
+            <div>
+              <h2 id="bookingTitle"></h2>
+              <p>Check availability and secure your spot</p>
+            </div>
+          </div>
           <label>
             <span>Select Date</span>
             <input id="bookingDate" type="text">
@@ -115,20 +121,23 @@
           <h2 id="reviewTitle"></h2>
           <p id="reviewText"></p>
           <div class="trust-points" id="trustPoints"></div>
-          <a class="review-button" id="reviewButton" href="#"></a>
         </div>
         <div class="testimonial-grid-package" id="packageTestimonials"></div>
+        <a class="review-button" id="reviewButton" href="#"></a>
         <div class="stats-strip" id="statsStrip"></div>
       </div>
     </section>
 
-    <section class="package-section info-section">
+    <section class="package-section info-section" id="tour-info">
       <div class="package-container">
         <div class="section-title centered compact">
-          <h2>Essential Information</h2>
-          <div class="mini-divider">— ♙ —</div>
+          <span>Everything You Need to Know</span>
+          <h2>Tour Information</h2>
         </div>
-        <div class="info-grid" id="infoGrid"></div>
+        <div class="tour-info-layout">
+          <div class="info-tabs" id="infoTabs" role="tablist" aria-label="Tour information tabs"></div>
+          <article class="info-panel" id="infoPanel"></article>
+        </div>
         <div class="section-title centered compact faq-title">
           <h2>Frequently Asked Questions</h2>
           <div class="mini-divider">— ♙ —</div>

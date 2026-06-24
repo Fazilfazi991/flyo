@@ -19,13 +19,13 @@ export type PackageDetail = {
   highlights: Array<{ number: string; title: string; text: string; image: string }>;
   timeline: Array<{ icon: string; title: string; text: string }>;
   gallery: Array<{ icon: string; title: string; image: string }>;
-  options: Array<{ icon: string; title: string; description: string; price: string; suffix: string; featured?: boolean; badge?: string }>;
+  options: Array<{ icon: string; title: string; description: string; bestFor?: string; features?: string[]; price: string; suffix: string; cta?: string; featured?: boolean; badge?: string }>;
   packageTrust: Array<{ icon: string; title: string }>;
   reviewIntro: { badge: string; title: string; text: string; button: string };
   trustPoints: Array<{ icon: string; title: string }>;
   testimonials: Array<{ quote: string; name: string; location: string; initials: string; rating: number }>;
   stats: Array<{ icon: string; value: string; label: string }>;
-  essentialInfo: Array<{ icon: string; title: string; text?: string; items: string[]; link?: string }>;
+  essentialInfo: Array<{ icon: string; title: string; text?: string; items: Array<string | { title: string; text?: string }>; link?: string }>;
   faqs: Array<{ question: string; answer: string }>;
   cta: { title: string; text: string; buttons: Array<{ label: string; href: string }> };
 };
@@ -35,8 +35,8 @@ export const packages: PackageDetail[] = [
     slug: "dubai-desert-safari",
     title: "Dubai Desert Safari",
     eyebrow: "#1 Desert Experience in Dubai",
-    subtitle: "Adrenaline-pumping dune bashing, authentic Arabian hospitality, sunset magic and unforgettable moments in the heart of the desert.",
-    heroImage: "https://images.unsplash.com/photo-1509316785289-025f5b846b35?auto=format&fit=crop&w=2200&q=90",
+    subtitle: "Feel the rush of the dunes, savor authentic Arabian hospitality, and create unforgettable memories in the heart of the desert.",
+    heroImage: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=2400&q=92",
     phone: "+971 50 123 4567",
     booking: {
       title: "Quick Book Your Safari",
@@ -48,10 +48,10 @@ export const packages: PackageDetail[] = [
       note: "Secure Booking • No Hidden Charges"
     },
     heroFeatures: [
-      { icon: "▣", title: "Hotel Pickup & Drop-off" },
-      { icon: "▤", title: "4x4 Dune Bashing" },
-      { icon: "◇", title: "BBQ Dinner Included" },
-      { icon: "✧", title: "Live Shows & Entertainment" }
+      { icon: "⌖", title: "Hotel Pickup & Drop-off" },
+      { icon: "▱", title: "4x4 Dune Bashing" },
+      { icon: "◒", title: "BBQ Dinner Included" },
+      { icon: "♨", title: "Live Shows & Entertainment" }
     ],
     trustLine: ["Instant Confirmation", "Best Price Guarantee", "5-Star Experience"],
     highlights: [
@@ -97,10 +97,10 @@ export const packages: PackageDetail[] = [
       { icon: "✦", title: "Sandboarding", image: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=900&q=85" }
     ],
     options: [
-      { icon: "◎", title: "Standard Package", description: "Perfect for a quick desert adventure.", price: "AED 149", suffix: "/ Per Person" },
-      { icon: "◉", title: "Premium Package", description: "Our best-selling package with more delights.", price: "AED 229", suffix: "/ Per Person", featured: true, badge: "Most Popular" },
-      { icon: "♕", title: "VIP Majlis Package", description: "Luxury seating, premium dining & top service.", price: "AED 349", suffix: "/ Per Person" },
-      { icon: "△", title: "Overnight Experience", description: "Stay overnight in the desert under the stars.", price: "AED 499", suffix: "/ Per Person" }
+      { icon: "◎", title: "Standard Package", description: "Perfect for a quick desert adventure.", bestFor: "Best for quick desert adventure", features: ["Shared pickup", "Dune bashing", "BBQ dinner", "Live shows"], price: "AED 149", suffix: "/ Per Person", cta: "View Details" },
+      { icon: "◉", title: "Premium Package", description: "Our best-selling package with more delights.", bestFor: "Best value experience", features: ["Hotel pickup", "Extended dune bashing", "Premium camp seating", "BBQ dinner & shows"], price: "AED 229", suffix: "/ Per Person", cta: "Select Premium", featured: true, badge: "Most Popular" },
+      { icon: "♕", title: "VIP Majlis Package", description: "Luxury seating, premium dining & top service.", bestFor: "Best for luxury comfort", features: ["VIP seating", "Premium dining", "Priority service", "Private table option"], price: "AED 349", suffix: "/ Per Person", cta: "View Details" },
+      { icon: "△", title: "Overnight Experience", description: "Stay overnight in the desert under the stars.", bestFor: "Best for stargazing & camp stay", features: ["Overnight camp stay", "Dinner & breakfast", "Evening shows", "Desert sunrise experience"], price: "AED 499", suffix: "/ Per Person", cta: "View Details" }
     ],
     packageTrust: [
       { icon: "♡", title: "Instant Confirmation" },
@@ -133,12 +133,26 @@ export const packages: PackageDetail[] = [
       { icon: "☏", value: "24/7", label: "Customer Support" }
     ],
     essentialInfo: [
-      { icon: "☑", title: "What’s Included", items: ["Hotel Pickup & Drop-off", "Dune Bashing (30–40 mins)", "Sunset Photo Stop", "Camel Ride & Sandboarding", "BBQ Dinner (Veg & Non-Veg)", "Live Shows & Entertainment", "Water, Tea, Coffee"], link: "View All" },
-      { icon: "⌖", title: "Pickup Zones", text: "We pick up from all major areas in Dubai & Sharjah.", items: ["Dubai Marina", "Downtown Dubai", "Deira", "Bur Dubai", "Sharjah"], link: "View All Zones" },
-      { icon: "♙", title: "What to Wear", items: ["Comfortable casual wear", "Closed shoes or sneakers", "Light jacket (Nov–Feb)", "Sunglasses & Hat", "Sunscreen"] },
-      { icon: "♧", title: "Family Friendly", items: ["Suitable for all age groups", "Children under 3 years are free", "Child seats available on request", "Private tours for families"] },
-      { icon: "♡", title: "Cancellation Policy", items: ["Free cancellation up to 24 hours before tour", "50% refund for cancellations within 24 hours", "No-show: Non-refundable"], link: "View Full Policy" },
-      { icon: "▤", title: "Important Notes", items: ["Tour duration: 6–7 hours approx.", "Not recommended for pregnant women & people with back problems", "Timings may vary during Ramadan"] }
+      {
+        icon: "☑",
+        title: "What’s Included",
+        text: "Everything you need for an unforgettable Dubai Desert Safari experience — all included in your package.",
+        items: [
+          { title: "Hotel Pickup & Drop-off", text: "Convenient pickup and drop-off from your location" },
+          { title: "Dune Bashing (30–40 mins)", text: "Thrilling 4x4 adventure across the red dunes" },
+          { title: "Sunset Photo Stop", text: "Scenic stop to capture the stunning desert sunset" },
+          { title: "Camel Ride & Sandboarding", text: "Enjoy a short camel ride and try sandboarding" },
+          { title: "BBQ Dinner (Veg & Non-Veg)", text: "Delicious BBQ buffet with vegetarian and non-vegetarian options" },
+          { title: "Live Shows & Entertainment", text: "Traditional Tanoura, Belly Dance & Fire Show" },
+          { title: "Water, Tea, Coffee", text: "Complimentary refreshments throughout the tour" }
+        ],
+        link: "View all inclusions"
+      },
+      { icon: "⌖", title: "Pickup Zones", text: "We pick up from all major areas in Dubai & Sharjah.", items: ["Dubai Marina", "Downtown Dubai", "Deira", "Bur Dubai", "Sharjah", "Jumeirah"], link: "View all zones" },
+      { icon: "♙", title: "What to Wear", text: "Dress comfortably for the best desert safari experience.", items: ["Comfortable casual wear", "Closed shoes or sneakers", "Light jacket during Nov–Feb", "Sunglasses & hat", "Sunscreen"], link: "View all tips" },
+      { icon: "♧", title: "Family Friendly", text: "A comfortable desert experience suitable for families and all age groups.", items: ["Suitable for all age groups", "Children under 3 years are free", "Child seats available on request", "Private tours available for families"], link: "Learn more" },
+      { icon: "♡", title: "Cancellation Policy", text: "Flexible options and clear cancellation terms for peace of mind.", items: ["Free cancellation up to 24 hours before tour", "50% refund for cancellations within 24 hours", "No-show: Non-refundable"], link: "View full policy" },
+      { icon: "▤", title: "Important Notes", text: "Key things to know before booking your desert safari.", items: ["Tour duration: 6–7 hours approx.", "Not recommended for pregnant women and people with back problems", "Timings may vary during Ramadan", "Pickup time will be confirmed before the tour"], link: "Read important notes" }
     ],
     faqs: [
       { question: "What is the best time to go for a Dubai Desert Safari?", answer: "Late afternoon is ideal because you can enjoy dune bashing, sunset photos, dinner and evening entertainment in one smooth experience." },

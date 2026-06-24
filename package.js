@@ -17,6 +17,8 @@ if (!packageData) {
 const byId = id => document.getElementById(id);
 const textToLines = text => text.split("\n").join("<br>");
 const stars = count => "★".repeat(count);
+const itemTitle = item => typeof item === "string" ? item : item.title;
+const itemText = item => typeof item === "string" ? "" : item.text;
 
 document.title = `${packageData.title} | Flyo Tours & Travels`;
 document.documentElement.style.setProperty("--package-hero-image", `url("${packageData.heroImage}")`);
@@ -75,29 +77,34 @@ byId("galleryGrid").innerHTML = packageData.gallery.map(item => `
   </article>
 `).join("");
 
-byId("pricingGrid").innerHTML = packageData.options.map(item => `
-  <article class="price-card ${item.featured ? "featured" : ""}">
-    ${item.badge ? `<span class="popular-badge">★ ${item.badge}</span>` : ""}
-    <div class="price-icon">${item.icon}</div>
-    <h3>${item.title}</h3>
-    <p>${item.description}</p>
-    <div class="price">${item.price} <small>${item.suffix}</small></div>
-    <a href="#quick-book">View Details</a>
-  </article>
-`).join("");
+byId("pricingGrid").innerHTML = packageData.options.map(item => {
+  const [currency, amount] = item.price.split(" ");
+  return `
+    <article class="price-card ${item.featured ? "featured" : ""}">
+      ${item.badge ? `<span class="popular-badge">★ ${item.badge}</span>` : ""}
+      <div class="price-icon">${item.icon}</div>
+      <h3>${item.title}</h3>
+      <p class="best-for">${item.bestFor || item.description}</p>
+      <ul class="price-features">
+        ${(item.features || []).map(feature => `<li>${feature}</li>`).join("")}
+      </ul>
+      <div class="price"><span>${currency}</span> ${amount}<small>${item.suffix}</small></div>
+      <a href="#quick-book">${item.cta || "View Details"}</a>
+    </article>
+  `;
+}).join("");
 
 byId("packageTrust").innerHTML = packageData.packageTrust.map(item => `<span><b>${item.icon}</b>${item.title}</span>`).join("");
 
 byId("reviewBadge").textContent = `♥ ${packageData.reviewIntro.badge}`;
 byId("reviewTitle").innerHTML = textToLines(packageData.reviewIntro.title);
 byId("reviewText").textContent = packageData.reviewIntro.text;
-byId("reviewButton").innerHTML = `${packageData.reviewIntro.button} <span>→</span>`;
 byId("trustPoints").innerHTML = packageData.trustPoints.map(item => `
-  <div class="trust-point"><span>${item.icon}</span><strong>${item.title}</strong></div>
+  <div class="trust-point"><span>${item.icon}</span><strong>${item.title.split(" ").slice(0, -1).join(" ") || item.title}<small>${item.title.split(" ").slice(-1)[0] || ""}</small></strong></div>
 `).join("");
 
-byId("packageTestimonials").innerHTML = packageData.testimonials.map(item => `
-  <article class="package-testimonial">
+byId("packageTestimonials").innerHTML = packageData.testimonials.map((item, index) => `
+  <article class="package-testimonial ${index === 1 ? "featured" : ""}">
     <div class="quote-mark">“</div>
     <p>${item.quote}</p>
     <div class="review-person">
@@ -107,19 +114,58 @@ byId("packageTestimonials").innerHTML = packageData.testimonials.map(item => `
     </div>
   </article>
 `).join("");
+byId("reviewButton").innerHTML = `${packageData.reviewIntro.button} <span>→</span>`;
 
 byId("statsStrip").innerHTML = packageData.stats.map(item => `
   <article class="stat-item"><span>${item.icon}</span><div><strong>${item.value}</strong><small>${item.label}</small></div></article>
 `).join("");
 
-byId("infoGrid").innerHTML = packageData.essentialInfo.map(item => `
-  <article class="info-card">
-    <div class="info-head"><span>${item.icon}</span><h3>${item.title}</h3></div>
-    ${item.text ? `<p>${item.text}</p>` : ""}
-    <ul>${item.items.map(detail => `<li>${detail}</li>`).join("")}</ul>
-    ${item.link ? `<a href="#">${item.link}</a>` : ""}
-  </article>
+const renderInfoPanel = index => {
+  const info = packageData.essentialInfo[index];
+  byId("infoPanel").innerHTML = `
+    <div class="info-panel-head">
+      <div class="info-panel-icon">${info.icon}</div>
+      <div>
+        <h3>${info.title}</h3>
+        ${info.text ? `<p>${info.text}</p>` : ""}
+      </div>
+      <div class="desert-line-art" aria-hidden="true">
+        <span class="sun"></span>
+        <span class="cloud"></span>
+        <span class="dune dune-one"></span>
+        <span class="dune dune-two"></span>
+        <span class="palm"></span>
+      </div>
+    </div>
+    <div class="info-checklist">
+      ${info.items.map(detail => `
+        <div class="info-check-item">
+          <span>✓</span>
+          <div>
+            <strong>${itemTitle(detail)}</strong>
+            ${itemText(detail) ? `<p>${itemText(detail)}</p>` : ""}
+          </div>
+        </div>
+      `).join("")}
+    </div>
+    ${info.link ? `<a class="info-panel-link" href="#"><span>↗</span>${info.link}<b>→</b></a>` : ""}
+  `;
+  document.querySelectorAll(".info-tab").forEach((tab, tabIndex) => {
+    tab.classList.toggle("active", tabIndex === index);
+    tab.setAttribute("aria-selected", String(tabIndex === index));
+  });
+};
+
+byId("infoTabs").innerHTML = packageData.essentialInfo.map((item, index) => `
+  <button class="info-tab ${index === 0 ? "active" : ""}" type="button" role="tab" aria-selected="${index === 0}">
+    <span>${item.icon}</span>
+    <strong>${item.title}</strong>
+  </button>
 `).join("");
+renderInfoPanel(0);
+document.querySelectorAll(".info-tab").forEach((tab, index) => {
+  tab.addEventListener("click", () => renderInfoPanel(index));
+});
 
 byId("faqGrid").innerHTML = packageData.faqs.map(item => `
   <article class="faq-item">
