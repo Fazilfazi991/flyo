@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "build": "node scripts/build-static.js",
     "start": "npx serve . -l 4173",
     "check": "node --check script.js"
   }
