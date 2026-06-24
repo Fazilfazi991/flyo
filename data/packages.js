@@ -107,7 +107,7 @@ export const packages = [
   }
 ];
 
-export const navLinks = ["Home", "Destinations", "Experiences", "Packages", "About Us", "Contact Us"];
+export const navLinks = ["Home", "Destinations", "Packages", "Visa Services", "Holidays", "About", "Contact"];
 
 export const footerColumns = [
   { title: "Company", links: ["About Us", "Our Story", "Careers", "Blog", "Contact Us"] },

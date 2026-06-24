@@ -23,14 +23,15 @@ document.documentElement.style.setProperty("--package-hero-image", `url("${packa
 
 byId("packageNav").innerHTML = navLinks.map(link => {
   const hrefMap = {
-    Home: "../index.html",
-    Destinations: "../index.html#destinations",
-    Experiences: "#experiences",
+    Home: "/index.html",
+    Destinations: "/index.html#destinations",
     Packages: "#packages",
-    "About Us": "../index.html#why-flyo",
-    "Contact Us": "#contact"
+    "Visa Services": "/index.html#why-flyo",
+    Holidays: "/index.html#experiences",
+    About: "/index.html#why-flyo",
+    Contact: "#contact"
   };
-  return `<a href="${hrefMap[link] || "#"}">${link}</a>`;
+  return `<a class="${link === "Packages" ? "active" : ""}" href="${hrefMap[link] || "#"}">${link}</a>`;
 }).join("");
 
 byId("navPhone").textContent = `☎ ${packageData.phone}`;
