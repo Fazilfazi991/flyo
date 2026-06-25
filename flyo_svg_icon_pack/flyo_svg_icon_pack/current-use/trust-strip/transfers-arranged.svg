@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-labelledby="title">
+  <title>Transfers Arranged</title>
+<path d="M5 14.5l1.2-3.6A2 2 0 0 1 8.1 9.5h7.8a2 2 0 0 1 1.9 1.4L19 14.5"/>
+  <path d="M4.5 14.5h15a1.5 1.5 0 0 1 1.5 1.5V18a1 1 0 0 1-1 1h-1.5"/>
+  <path d="M3 19h1.5a1 1 0 0 0 1-1v-1.5"/>
+  <path d="M6 19h12"/>
+  <circle cx="7.5" cy="16.8" r="1"/>
+  <circle cx="16.5" cy="16.8" r="1"/>
+
+</svg>

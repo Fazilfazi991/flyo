@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-labelledby="title">
+  <title>24/7 Support</title>
+<path d="M5 13v-1a7 7 0 0 1 14 0v1"/>
+  <rect x="3.5" y="12.5" width="3" height="5" rx="1"/>
+  <rect x="17.5" y="12.5" width="3" height="5" rx="1"/>
+  <path d="M6.5 17.5a2.5 2.5 0 0 0 2.5 2.5H12"/>
+  <rect x="12" y="18.5" width="3" height="2.2" rx="1"/>
+  <path d="M12.5 6.5h2"/>
+  <path d="M12.5 9.5H16"/>
+
+</svg>

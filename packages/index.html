@@ -3,185 +3,221 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Flyo Tours & Travels package detail page.">
-  <title>Package | Flyo Tours & Travels</title>
+  <meta name="description" content="Explore Flyo international holiday packages with destinations, prices, highlights, and enquiry options.">
+  <title>Holiday Packages | Flyo Tours & Travels</title>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="/package.css">
+  <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-  <header class="package-header" id="top">
-    <div class="package-container nav-shell">
-      <a class="package-brand" href="/index.html" aria-label="Flyo Tours & Travels home">
+  <header class="site-header package-list-header" id="top">
+    <div class="container nav-wrap">
+      <a class="brand" href="/index.html" aria-label="Flyo Tours & Travels home">
         <img src="/public/flyo-logo-white.png" alt="Flyo Tours & Travels">
       </a>
-      <button class="package-menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
-      <nav class="package-nav" aria-label="Package navigation" id="packageNav"></nav>
-      <div class="nav-actions">
-        <a hidden href="tel:+971501234567" id="navPhone">+971 50 123 4567</a>
-        <a class="outline-button" href="#quick-book">Plan Your Trip <span>→</span></a>
-      </div>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="/index.html">Home</a>
+        <a class="active" href="/packages/">Packages</a>
+        <a href="/index.html#destinations">Destinations</a>
+        <a href="/index.html#why-flyo">Visa Services</a>
+        <a href="/index.html#why-flyo">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <a class="button button-primary nav-cta" href="#packageList">Explore Packages <span>→</span></a>
     </div>
   </header>
 
   <main>
-    <section class="package-hero">
-      <div class="hero-bg" aria-hidden="true"></div>
-      <div class="hero-overlay" aria-hidden="true"></div>
-      <div class="package-container hero-grid">
-        <div class="hero-copy">
-          <span class="hero-badge" id="heroBadge"></span>
-          <h1 id="heroTitle"></h1>
-          <p id="heroSubtitle"></p>
-          <div class="hero-features" id="heroFeatures"></div>
-          <a class="hero-cta" href="#packages">Book Your Adventure Now <span>→</span></a>
-          <div class="hero-trust" id="heroTrust"></div>
+    <section class="packages-hero">
+      <div class="container packages-hero-inner">
+        <div class="packages-hero-copy">
+          <p class="eyebrow">International holidays <span class="airline-mark" aria-hidden="true">✈</span></p>
+          <h1>Curated Holiday Packages</h1>
+          <div class="packages-heading-line" aria-hidden="true"></div>
+          <p>Browse Flyo's ready-to-plan packages with destinations, durations, highlights, and enquiry options. Every package can be customized around your dates, budget, and travel style.</p>
+          <div class="packages-hero-actions">
+            <a class="button button-primary" href="#packageList">Explore Packages</a>
+            <a class="button button-outline" data-whatsapp href="#">Plan Custom Trip</a>
+          </div>
         </div>
 
-        <form class="quick-book" id="quick-book">
-          <div class="booking-card-head">
-            <span aria-hidden="true">▣</span>
+        <div class="packages-hero-visual" aria-label="Featured holiday destinations">
+          <div class="hero-pattern hero-pattern-dots" aria-hidden="true"></div>
+          <div class="hero-pattern hero-pattern-panel" aria-hidden="true"></div>
+          <div class="packages-main-image" role="img" aria-label="Tropical Thailand seascape with cliffs, boat, blue water, and sky"></div>
+
+          <article class="floating-destination floating-thailand">
+            <img src="/public/flyo_travel_style_images_webp/beach_holidays.webp" alt="Thailand tropical beach">
             <div>
-              <h2 id="bookingTitle"></h2>
-              <p>Check availability and secure your spot</p>
+              <strong>Thailand</strong>
+              <span>7 Nights / 8 Days</span>
+            </div>
+          </article>
+
+          <article class="floating-destination floating-singapore">
+            <img src="/public/flyo_travel_style_images_webp/city_breaks.webp" alt="Singapore city holiday">
+            <div>
+              <strong>Singapore</strong>
+              <span>4 Nights / 5 Days</span>
+            </div>
+          </article>
+
+          <article class="floating-destination floating-kenya">
+            <img src="/public/flyo_travel_style_images_webp/safari_wildlife.webp" alt="Kenya safari">
+            <div>
+              <strong>Kenya</strong>
+              <span>6 Nights / 7 Days</span>
+            </div>
+          </article>
+
+          <div class="packages-trust-pill">Trusted journeys. Seamless experiences.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="packages-trust-strip" aria-label="Flyo package support">
+      <div class="container packages-trust-grid">
+        <article>
+          <span class="trust-strip-icon">AED</span>
+          <div>
+            <strong>Best Price Guidance</strong>
+            <small>Clear options before you book.</small>
+          </div>
+        </article>
+        <article>
+          <span class="trust-strip-icon">IT</span>
+          <div>
+            <strong>Customizable Itineraries</strong>
+            <small>Adjust dates, pace, and stays.</small>
+          </div>
+        </article>
+        <article>
+          <span class="trust-strip-icon">VS</span>
+          <div>
+            <strong>Visa Assistance</strong>
+            <small>Support for document needs.</small>
+          </div>
+        </article>
+        <article>
+          <span class="trust-strip-icon">24</span>
+          <div>
+            <strong>24/7 Travel Support</strong>
+            <small>Help before and during travel.</small>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section package-showcase package-list-section" id="packageList">
+      <div class="package-decor package-decor-flight" aria-hidden="true"></div>
+      <div class="package-decor package-decor-contour" aria-hidden="true"></div>
+      <div class="package-decor package-decor-wave" aria-hidden="true"></div>
+      <div class="package-decor package-decor-blob package-decor-blob-one" aria-hidden="true"></div>
+      <div class="package-decor package-decor-blob package-decor-blob-two" aria-hidden="true"></div>
+      <span class="floating-region-chip chip-thailand" aria-hidden="true">Thailand</span>
+      <span class="floating-region-chip chip-malaysia" aria-hidden="true">Malaysia</span>
+      <span class="floating-region-chip chip-singapore" aria-hidden="true">Singapore</span>
+      <span class="floating-region-chip chip-sri-lanka" aria-hidden="true">Sri Lanka</span>
+      <span class="floating-region-chip chip-kenya" aria-hidden="true">Kenya</span>
+      <span class="floating-region-chip chip-uae" aria-hidden="true">UAE</span>
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Packages</p>
+          <h2>Ready-to-Plan Holidays</h2>
+          <p class="section-subtitle">Explore ready-to-plan holidays across Thailand, Malaysia, Singapore, Sri Lanka, Kenya, UAE and more - all customizable around your dates and travel style.</p>
+        </div>
+        <div class="package-filter-panel" aria-label="Package filters">
+          <div class="finder-head">
+            <div>
+              <h3>Find your perfect package</h3>
+              <p>Filter by destination, travel style, duration, and budget.</p>
+            </div>
+            <label class="package-search">
+              <span>Search</span>
+              <input type="search" placeholder="Search destinations, packages, or experiences...">
+            </label>
+          </div>
+          <div class="filter-row">
+            <button class="filter-select" type="button"><span class="filter-icon"><svg viewBox="0 0 24 24"><path d="M12 21s7-5.2 7-12a7 7 0 0 0-14 0c0 6.8 7 12 7 12Z"/><circle cx="12" cy="9" r="2.4"/></svg></span>Destination<span class="filter-chevron">⌄</span></button>
+            <button class="filter-select" type="button"><span class="filter-icon"><svg viewBox="0 0 24 24"><path d="M9 7V5a3 3 0 0 1 6 0v2"/><rect x="4" y="7" width="16" height="13" rx="2"/><path d="M4 12h16"/></svg></span>Trip Type<span class="filter-chevron">⌄</span></button>
+            <button class="filter-select" type="button"><span class="filter-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 7v5l3 2"/></svg></span>Duration<span class="filter-chevron">⌄</span></button>
+            <button class="filter-select" type="button"><span class="filter-icon"><svg viewBox="0 0 24 24"><path d="M4 7h15a2 2 0 0 1 2 2v9H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h13"/><path d="M17 12h4v4h-4a2 2 0 0 1 0-4Z"/></svg></span>Budget<span class="filter-chevron">⌄</span></button>
+            <button class="filter-select" type="button"><span class="filter-icon"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 10h16"/></svg></span>Travel Month<span class="filter-chevron">⌄</span></button>
+            <button class="clear-filters" type="button"><span class="filter-icon"><svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7"/><path d="M20 4v6h-6"/></svg></span>Clear Filters</button>
+          </div>
+          <div class="quick-filter-row">
+            <div class="filter-chips" aria-label="Travel style quick filters">
+              <button class="filter-chip active" type="button"><span>▦</span>All Packages</button>
+              <button class="filter-chip" type="button"><span>♙</span>Family</button>
+              <button class="filter-chip" type="button"><span>♡</span>Honeymoon</button>
+              <button class="filter-chip" type="button"><span>☂</span>Beach</button>
+              <button class="filter-chip" type="button"><span>▥</span>City Break</button>
+              <button class="filter-chip" type="button"><span>♧</span>Safari</button>
+            </div>
+            <div class="sort-control">
+              <span>Sort by</span>
+              <button class="sort-select" type="button">Recommended <span>⌄</span></button>
             </div>
           </div>
-          <label>
-            <span>Select Date</span>
-            <input id="bookingDate" type="text">
-          </label>
-          <div class="form-row">
-            <label>
-              <span>Adults</span>
-              <select id="bookingAdults"><option>1</option><option>2</option><option>3</option><option>4</option></select>
-            </label>
-            <label>
-              <span>Children (4-11)</span>
-              <select id="bookingChildren"><option>0</option><option>1</option><option>2</option><option>3</option></select>
-            </label>
+        </div>
+        <div class="package-results-row">
+          <span>Showing 6 curated packages</span>
+          <div class="sort-control results-sort-control">
+            <span>Sort by</span>
+            <button class="sort-select" type="button">Recommended <span>v</span></button>
           </div>
-          <label>
-            <span>Package</span>
-            <select id="bookingPackage"></select>
-          </label>
-          <button id="bookingButton" type="submit"></button>
-          <small id="bookingNote"></small>
-        </form>
+        </div>
+        <div class="package-grid" id="packageGrid"></div>
       </div>
     </section>
 
-    <section class="package-section highlights" id="experiences">
-      <div class="package-container">
-        <div class="section-title centered">
-          <span>Experience Highlights</span>
-          <h2>Unforgettable Moments in the Desert</h2>
-          <p>Adrenaline, culture, cuisine and entertainment — all in one extraordinary desert adventure.</p>
+    <section class="container cta packages-custom-cta" id="plan">
+      <div class="cta-copy">
+        <h2>Need a Custom Holiday?</h2>
+        <p>Tell us where you want to go, and our travel team will help you build the right itinerary.</p>
+        <div class="cta-actions">
+          <a class="button button-white" data-whatsapp href="#">Chat on WhatsApp</a>
+          <a class="button button-primary" data-whatsapp href="#">Request Custom Package</a>
         </div>
-        <div class="highlight-grid" id="highlightGrid"></div>
       </div>
-    </section>
-
-    <section class="journey-section">
-      <div class="package-container">
-        <div class="section-title compact centered">
-          <h2>Your Desert Safari Journey</h2>
-        </div>
-        <div class="timeline" id="timeline"></div>
-      </div>
-    </section>
-
-    <section class="package-section gallery-section">
-      <div class="package-container">
-        <div class="gallery-heading">
-          <div>
-            <h2>Moments That Stay Forever</h2>
-            <p>Unforgettable experiences. Timeless memories. Pure desert magic.</p>
-          </div>
-          <a class="gallery-button" href="#">View Full Gallery <span>▦</span></a>
-        </div>
-        <div class="gallery-grid" id="galleryGrid"></div>
-      </div>
-    </section>
-
-    <section class="package-options" id="packages">
-      <div class="package-container options-panel">
-        <div class="section-title centered light compact">
-          <h2>Choose Your Experience</h2>
-        </div>
-        <div class="pricing-grid" id="pricingGrid"></div>
-        <div class="package-trust-row" id="packageTrust"></div>
-      </div>
-    </section>
-
-    <section class="package-section reviews-section">
-      <div class="package-container review-layout">
-        <div class="review-intro">
-          <span class="review-badge" id="reviewBadge"></span>
-          <h2 id="reviewTitle"></h2>
-          <p id="reviewText"></p>
-          <div class="trust-points" id="trustPoints"></div>
-        </div>
-        <div class="testimonial-grid-package" id="packageTestimonials"></div>
-        <a class="review-button" id="reviewButton" href="#"></a>
-        <div class="stats-strip" id="statsStrip"></div>
-      </div>
-    </section>
-
-    <section class="package-section info-section" id="tour-info">
-      <div class="package-container">
-        <div class="section-title centered compact">
-          <span>Everything You Need to Know</span>
-          <h2>Tour Information</h2>
-        </div>
-        <div class="tour-info-layout">
-          <div class="info-tabs" id="infoTabs" role="tablist" aria-label="Tour information tabs"></div>
-          <article class="info-panel" id="infoPanel"></article>
-        </div>
-        <div class="section-title centered compact faq-title">
-          <h2>Frequently Asked Questions</h2>
-          <div class="mini-divider">— ♙ —</div>
-        </div>
-        <div class="faq-grid" id="faqGrid"></div>
-        <div class="info-trust-row" id="infoTrust"></div>
-      </div>
-    </section>
-
-    <section class="package-container bottom-cta">
-      <div>
-        <h2 id="ctaTitle"></h2>
-        <p id="ctaText"></p>
-      </div>
-      <div class="bottom-actions" id="ctaActions"></div>
+      <div class="cta-visual" aria-hidden="true"></div>
     </section>
   </main>
 
-  <footer class="package-footer" id="contact">
-    <div class="package-container footer-grid-package">
-      <div class="footer-about">
+  <footer class="footer" id="contact">
+    <div class="container footer-grid">
+      <div class="footer-brand">
         <img src="/public/flyo-logo-white.png" alt="Flyo Tours & Travels">
-        <p>Creating unforgettable travel experiences with premium service and exceptional value.</p>
-        <div class="footer-socials"><a href="#">f</a><a href="#">◎</a><a href="#">◉</a><a href="#">▶</a></div>
+        <p>Flyo plans curated holidays across the world, from international packages to family trips, honeymoons, visa support, and custom itineraries.</p>
+        <div class="socials"><a href="#">f</a><a href="#">ig</a><a href="#">yt</a><a data-whatsapp href="#">wa</a></div>
       </div>
-      <div class="footer-columns" id="footerColumns"></div>
-      <div class="footer-contact">
-        <h3>Contact Us</h3>
-        <ul>
-          <li>☎ +971 50 123 4567</li>
-          <li>✉ info@flyotours.com</li>
-          <li>⌖ Office 1703, Al Fahidi Heights, Dubai, UAE</li>
-        </ul>
+      <div>
+        <h3>Quick Links</h3>
+        <ul><li><a href="/index.html">Home</a></li><li><a href="/packages/">Packages</a></li><li><a href="/index.html#destinations">Destinations</a></li><li><a href="/index.html#why-flyo">Visa Services</a></li><li><a href="/index.html#why-flyo">About</a></li><li><a href="#contact">Contact</a></li></ul>
+      </div>
+      <div>
+        <h3>Our Services</h3>
+        <ul><li>International Packages</li><li>UAE Tours</li><li>Visa Assistance</li><li>Custom Holidays</li><li>Honeymoon Packages</li><li>Family Holidays</li></ul>
+      </div>
+      <div class="offices">
+        <h3>Our Office</h3>
+        <h4>Dubai Office</h4>
+        <p>Office 1703, Al Fahidi Heights,<br>Dubai, UAE<br>Phone: +971 50 123 4567<br>Email: info@flyotours.com</p>
+      </div>
+      <div class="newsletter">
+        <h3>Newsletter</h3>
+        <p>Subscribe to get travel inspiration and exclusive offers.</p>
+        <form><input type="email" placeholder="Enter your email" aria-label="Email address"><button aria-label="Subscribe">Go</button></form>
+        <div class="trust-badges"><span>Curated<br>Packages</span><span>Secure<br>Payments</span></div>
       </div>
     </div>
-    <div class="package-container footer-bottom-package">
-      <span>© 2024 Flyo Tours &amp; Travels. All Rights Reserved.</span>
-      <span>♡ Best Price Guarantee</span>
-      <span>☆ 5-Star Experience</span>
-      <span>☏ 24/7 Customer Support</span>
-      <span>Made with passion in Dubai ♡</span>
+    <div class="container footer-bottom">
+      <span>Copyright 2026 Flyo Tours &amp; Travels. All rights reserved.</span>
+      <span><a href="#">Privacy Policy</a> &nbsp; | &nbsp; <a href="#">Terms &amp; Conditions</a></span>
     </div>
   </footer>
-
-  <script type="module" src="/package.js"></script>
+  <script type="module" src="/packages/listing.js"></script>
 </body>
 </html>

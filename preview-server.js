@@ -7,16 +7,22 @@ const types = {
   ".html": "text/html; charset=utf-8",
   ".css": "text/css; charset=utf-8",
   ".js": "text/javascript; charset=utf-8",
-  ".png": "image/png"
+  ".png": "image/png",
+  ".svg": "image/svg+xml",
+  ".webp": "image/webp"
 };
 
 http.createServer((request, response) => {
   const pathname = decodeURIComponent(request.url.split("?")[0]);
-  const routePath = /^\/packages\/[^/.]+\/?$/.test(pathname)
-    ? "packages/index.html"
-    : pathname === "/"
-      ? "index.html"
-      : pathname;
+  const routePath = pathname === "/"
+    ? "index.html"
+    : pathname === "/packages" || pathname === "/packages/"
+      ? "packages/index.html"
+      : /^\/packages\/[^/.]+\/?$/.test(pathname)
+        ? "packages/detail.html"
+        : pathname.endsWith("/")
+          ? path.join(pathname, "index.html")
+          : pathname;
   const filePath = path.join(root, routePath);
   if (!filePath.startsWith(root)) {
     response.writeHead(403).end("Forbidden");

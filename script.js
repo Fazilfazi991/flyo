@@ -1,61 +1,91 @@
+import { contact } from "./data/packages.js";
+
 const destinations = [
-  { name: "Dubai", region: "UAE", layout: "dubai", image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1400&q=88" },
-  { name: "Abu Dhabi", region: "UAE", layout: "abu-dhabi", image: "https://images.unsplash.com/photo-1512632578888-169bbbc64f33?auto=format&fit=crop&w=900&q=88" },
-  { name: "Ras Al Khaimah", region: "UAE", layout: "rak", image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=88" },
-  { name: "Munnar", region: "Kerala", layout: "munnar", image: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=900&q=88" },
-  { name: "Alleppey", region: "Kerala", layout: "alleppey", image: "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=900&q=88" },
-  { name: "Wayanad", region: "Kerala", layout: "wayanad", image: "https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=900&q=88" }
+  { name: "Thailand", region: "Asia", layout: "dubai", image: "https://images.unsplash.com/photo-1508009603885-50cf7c579365?auto=format&fit=crop&w=1200&q=88" },
+  { name: "Malaysia", region: "Asia", layout: "abu-dhabi", image: "https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=900&q=88" },
+  { name: "Singapore", region: "Asia", layout: "rak", image: "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=900&q=88" },
+  { name: "Sri Lanka", region: "Asia", layout: "munnar", image: "https://images.unsplash.com/photo-1588253099008-6f755b24dc52?auto=format&fit=crop&w=900&q=88" },
+  { name: "Kenya", region: "Africa", layout: "alleppey", image: "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=900&q=88" },
+  { name: "UAE", region: "Middle East", layout: "wayanad", image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=900&q=88" }
 ];
 
 const features = [
-  { icon: "♙", title: "Custom Itineraries", text: "Tailor-made plans designed around your style & budget." },
-  { icon: "▣", title: "Visa Assistance", text: "Hassle-free visa support for UAE & worldwide." },
-  { icon: "♕", title: "Luxury Stays", text: "Handpicked 4 & 5 star stays for a premium experience." },
-  { icon: "⌖", title: "Local Expertise", text: "Deep knowledge of UAE & Kerala for authentic journeys." },
-  { icon: "▱", title: "Seamless Transfers", text: "Comfortable private transfers & smooth on-ground support." }
+  { image: "/public/flyo_why_choose_images_webp/custom_itineraries.webp", title: "Custom Itineraries", text: "Tailor-made holidays planned around your dates, pace, budget, and travel style." },
+  { image: "/public/flyo_why_choose_images_webp/visa_assistance.webp", title: "Visa Assistance", text: "Clear support for documentation, appointment guidance, and destination visa needs." },
+  { image: "/public/flyo_why_choose_images_webp/handpicked_hotels.webp", title: "Handpicked Hotels", text: "Hotels and resorts selected for comfort, location, value, and guest experience." },
+  { image: "/public/flyo_why_choose_images_webp/private_shared_transfers.webp", title: "Private & Shared Transfers", text: "Airport, intercity, private, and shared tour transfers arranged with dependable partners." },
+  { image: "/public/flyo_why_choose_images_webp/local_experiences.webp", title: "Local Experiences", text: "Tours, attractions, safaris, theme parks, cruises, and cultural experiences." },
+  { image: "/public/flyo_why_choose_images_webp/travel_support_24_7.webp", title: "24/7 Travel Support", text: "Support before departure and while you travel, from small changes to urgent help." }
 ];
 
-const experiences = [
-  { name: "Desert Safari", text: "Thrilling adventures in the golden sands", icon: "☀", image: "https://images.unsplash.com/photo-1509316785289-025f5b846b35?auto=format&fit=crop&w=900&q=85" },
-  { name: "City Breaks", text: "Explore iconic landmarks & culture", icon: "♜", image: "https://images.unsplash.com/photo-1526495124232-a04e1849168c?auto=format&fit=crop&w=900&q=85" },
-  { name: "Honeymoons", text: "Romantic getaways made unforgettable", icon: "♡", image: "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=900&q=85" },
-  { name: "Family Holidays", text: "Fun-filled vacations for the whole family", icon: "♧", image: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=900&q=85" },
-  { name: "Backwater Escapes", text: "Relax & unwind in Kerala's serene backwaters", icon: "♨", image: "https://images.unsplash.com/photo-1593693411515-c20261bcad6e?auto=format&fit=crop&w=900&q=85" }
+const travelStyles = [
+  { name: "Family Holidays", text: "Easy-paced trips with family-friendly stays, sightseeing, transfers, and activities.", image: "/public/flyo_travel_style_images_webp/family_holidays.webp" },
+  { name: "Honeymoon Escapes", text: "Romantic destinations, beautiful stays, island moments, and private experiences.", image: "/public/flyo_travel_style_images_webp/honeymoon_escapes.webp" },
+  { name: "Beach Holidays", text: "Island hopping, coastal stays, turquoise waters, and relaxed tropical escapes.", image: "/public/flyo_travel_style_images_webp/beach_holidays.webp" },
+  { name: "City Breaks", text: "Short international getaways covering iconic landmarks, shopping, food, and culture.", image: "/public/flyo_travel_style_images_webp/city_breaks.webp" },
+  { name: "Safari & Wildlife", text: "Nature-led journeys with game drives, wildlife reserves, lodges, and scenic landscapes.", image: "/public/flyo_travel_style_images_webp/safari_wildlife.webp" },
+];
+
+const popularExperiences = [
+  { name: "Thailand Island Hopping", text: "Krabi, Phi Phi, Phuket, and tropical water days.", image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=85" },
+  { name: "Singapore Sentosa", text: "Theme parks, cable cars, oceanarium visits, and family fun.", image: "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=900&q=85" },
+  { name: "Kenya Safari", text: "Masai Mara, Lake Nakuru, game drives, and lodge stays.", image: "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=900&q=85" },
+  { name: "Sri Lanka Cultural Tour", text: "Kandy, tea country, temples, waterfalls, and Colombo.", image: "https://images.unsplash.com/photo-1588253099008-6f755b24dc52?auto=format&fit=crop&w=900&q=85" },
+  { name: "Kuala Lumpur City Break", text: "Skyline views, Batu Caves, Genting, and city touring.", image: "https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=900&q=85" },
+  { name: "Dubai Desert Safari", text: "Dune bashing, sunset photos, camp activities, and dinner.", image: "https://images.unsplash.com/photo-1509316785289-025f5b846b35?auto=format&fit=crop&w=900&q=85" }
 ];
 
 const testimonials = [
-  { name: "Rahul & Priya", location: "Mumbai, India", initials: "RP", review: "Our Dubai trip was absolutely perfect! Flyo took care of everything — from visas to luxury stays. Highly recommended!" },
-  { name: "Ananya Nair", location: "Kochi, India", initials: "AN", review: "The Kerala backwater experience was magical. Excellent service and great attention to detail." },
-  { name: "Arun Joseph", location: "Dubai, UAE", initials: "AJ", review: "Professional, responsive and trustworthy. Our family holiday to UAE was smooth and memorable." }
+  { name: "Nadia & Omar", location: "Dubai, UAE", initials: "NO", review: "Flyo planned our Thailand holiday end to end. The routing, transfers, and hotel choices were exactly what we needed." },
+  { name: "Aisha Khan", location: "Sharjah, UAE", initials: "AK", review: "The Singapore family trip was smooth, organized, and fun for the kids. The team was responsive throughout." },
+  { name: "Rohit Menon", location: "Abu Dhabi, UAE", initials: "RM", review: "Great support with visas, hotels, and a custom Sri Lanka itinerary. It felt personal, not like a generic package." }
 ];
 
 document.querySelector("#destinationGrid").innerHTML = `
   ${destinations.map(item => `
     <article class="destination-card destination-card-${item.layout}" style="--destination-image:url('${item.image}')">
       <div class="destination-image" aria-hidden="true"></div>
-      ${item.layout === "dubai" ? '<span class="destination-featured">☆ &nbsp; Featured</span>' : ""}
+      ${item.layout === "dubai" ? '<span class="destination-featured">Featured</span>' : ""}
       <div class="destination-copy">
         <strong>${item.name}</strong>
-        <small><span class="location-pin">⌖</span>${item.region}</small>
+        <small><span class="location-pin">PIN</span>${item.region}</small>
       </div>
-      <a class="destination-arrow" href="#" aria-label="Explore ${item.name}">→</a>
+      <a class="destination-arrow" href="/packages/" aria-label="Explore ${item.name}"></a>
     </article>`).join("")}`;
 
-document.querySelector("#featureGrid").innerHTML = features.map(item => `
-  <article class="feature-card"><span>${item.icon}</span><h3>${item.title}</h3><p>${item.text}</p></article>`).join("");
+document.querySelector("#travelStyleGrid").innerHTML = travelStyles.map(item => `
+  <article class="travel-style-card">
+    <div class="travel-style-image" style="background-image:url('${item.image}')" aria-hidden="true"></div>
+    <div class="travel-style-body">
+      <h3>${item.name}</h3>
+      <p>${item.text}</p>
+      <a href="/packages/">Explore</a>
+    </div>
+  </article>
+`).join("");
 
-document.querySelector("#experienceGrid").innerHTML = experiences.map(item => `
+document.querySelector("#featureGrid").innerHTML = features.map(item => `
+  <article class="feature-card">
+    <div class="feature-card-image" style="background-image:url('${item.image}')" aria-hidden="true"></div>
+    <div class="feature-card-body"><h3>${item.title}</h3><p>${item.text}</p></div>
+  </article>`).join("");
+
+document.querySelector("#experienceGrid").innerHTML = popularExperiences.map(item => `
   <article class="image-card experience-card" style="background-image:url('${item.image}')">
-    <div class="experience-icon">${item.icon}</div>
     <div class="card-copy"><strong>${item.name}</strong><small>${item.text}</small></div>
   </article>`).join("");
 
 document.querySelector("#testimonialGrid").innerHTML = testimonials.map(item => `
   <article class="testimonial-card">
     <div class="stars">★★★★★</div>
-    <p>“${item.review}”</p>
+    <p>"${item.review}"</p>
     <div class="person"><span>${item.initials}</span><div><strong>${item.name}</strong><small>${item.location}</small></div></div>
-  </article>`).join("");
+  </article>
+`).join("");
+
+document.querySelectorAll("[data-whatsapp]").forEach(link => {
+  link.setAttribute("href", contact.whatsapp);
+});
 
 const toggle = document.querySelector(".menu-toggle");
 const nav = document.querySelector(".main-nav");
@@ -65,7 +95,10 @@ toggle.addEventListener("click", () => {
 });
 nav.querySelectorAll("a").forEach(link => link.addEventListener("click", () => nav.classList.remove("open")));
 
-document.querySelectorAll("form").forEach(form => form.addEventListener("submit", event => event.preventDefault()));
+document.querySelectorAll("form").forEach(form => form.addEventListener("submit", event => {
+  event.preventDefault();
+  location.href = "/packages/";
+}));
 
 const hero = document.querySelector(".hero");
 const heroSlides = [...document.querySelectorAll(".hero-slide")];

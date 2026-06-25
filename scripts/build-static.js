@@ -17,7 +17,7 @@ const entries = [
 ];
 
 const packageDataSource = path.join(root, "data", "packages.js");
-const packageTemplate = path.join(root, "packages", "index.html");
+const packageTemplate = path.join(root, "packages", "detail.html");
 
 function copyRecursive(source, target) {
   const stat = fs.statSync(source);

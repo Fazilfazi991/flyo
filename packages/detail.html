@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Flyo Tours & Travels package detail page.">
+  <title>Package | Flyo Tours & Travels</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/package.css">
+</head>
+<body>
+  <header class="package-header" id="top">
+    <div class="package-container nav-shell">
+      <a class="package-brand" href="/index.html" aria-label="Flyo Tours & Travels home">
+        <img src="/public/flyo-logo-white.png" alt="Flyo Tours & Travels">
+      </a>
+      <button class="package-menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="package-nav" aria-label="Package navigation" id="packageNav"></nav>
+      <div class="nav-actions">
+        <a hidden href="tel:+971501234567" id="navPhone">+971 50 123 4567</a>
+        <a class="outline-button" href="#quick-book">Plan Your Trip</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="package-hero">
+      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="hero-overlay" aria-hidden="true"></div>
+      <div class="package-container hero-grid">
+        <div class="hero-copy">
+          <span class="hero-badge" id="heroBadge"></span>
+          <h1 id="heroTitle"></h1>
+          <p id="heroSubtitle"></p>
+          <div class="hero-features" id="heroFeatures"></div>
+          <a class="hero-cta" href="#packages">Enquire on WhatsApp</a>
+          <div class="hero-trust" id="heroTrust"></div>
+        </div>
+
+        <form class="quick-book" id="quick-book">
+          <div class="booking-card-head">
+            <span aria-hidden="true">FL</span>
+            <div>
+              <h2 id="bookingTitle"></h2>
+              <p>Check availability, hotel options, and customization.</p>
+            </div>
+          </div>
+          <label>
+            <span>Select Date</span>
+            <input id="bookingDate" type="text">
+          </label>
+          <div class="form-row">
+            <label>
+              <span>Adults</span>
+              <select id="bookingAdults"><option>1</option><option>2</option><option>3</option><option>4</option></select>
+            </label>
+            <label>
+              <span>Children (4-11)</span>
+              <select id="bookingChildren"><option>0</option><option>1</option><option>2</option><option>3</option></select>
+            </label>
+          </div>
+          <label>
+            <span>Package</span>
+            <select id="bookingPackage"></select>
+          </label>
+          <button id="bookingButton" type="submit"></button>
+          <small id="bookingNote"></small>
+        </form>
+      </div>
+    </section>
+
+    <section class="package-section highlights" id="experiences">
+      <div class="package-container">
+        <div class="section-title centered">
+          <span>Package Overview</span>
+          <h2>Curated Holiday Highlights</h2>
+          <p>Destination experiences, hotels, transfers, and support planned around your trip style.</p>
+        </div>
+        <div class="highlight-grid" id="highlightGrid"></div>
+      </div>
+    </section>
+
+    <section class="journey-section">
+      <div class="package-container">
+        <div class="section-title compact centered">
+          <h2>Day-by-Day Itinerary</h2>
+        </div>
+        <div class="timeline" id="timeline"></div>
+      </div>
+    </section>
+
+    <section class="package-section gallery-section">
+      <div class="package-container">
+        <div class="gallery-heading">
+          <div>
+            <h2>Related Packages</h2>
+            <p>More curated holidays Flyo can plan around your dates and travel style.</p>
+          </div>
+          <a class="gallery-button" href="/packages/">View All Packages</a>
+        </div>
+        <div class="gallery-grid" id="galleryGrid"></div>
+      </div>
+    </section>
+
+    <section class="package-options" id="packages">
+      <div class="package-container options-panel">
+        <div class="section-title centered light compact">
+          <h2>Stay Options &amp; Pricing</h2>
+        </div>
+        <div class="pricing-grid" id="pricingGrid"></div>
+        <div class="package-trust-row" id="packageTrust"></div>
+      </div>
+    </section>
+
+    <section class="package-section reviews-section">
+      <div class="package-container review-layout">
+        <div class="review-intro">
+          <span class="review-badge" id="reviewBadge"></span>
+          <h2 id="reviewTitle"></h2>
+          <p id="reviewText"></p>
+          <div class="trust-points" id="trustPoints"></div>
+        </div>
+        <div class="testimonial-grid-package" id="packageTestimonials"></div>
+        <a class="review-button" id="reviewButton" href="#"></a>
+        <div class="stats-strip" id="statsStrip"></div>
+      </div>
+    </section>
+
+    <section class="package-section info-section" id="tour-info">
+      <div class="package-container">
+        <div class="section-title centered compact">
+          <span>Everything You Need to Know</span>
+          <h2>Travel Information</h2>
+        </div>
+        <div class="tour-info-layout">
+          <div class="info-tabs" id="infoTabs" role="tablist" aria-label="Travel information tabs"></div>
+          <article class="info-panel" id="infoPanel"></article>
+        </div>
+        <div class="section-title centered compact faq-title">
+          <h2>Frequently Asked Questions</h2>
+          <div class="mini-divider">- FLYO -</div>
+        </div>
+        <div class="faq-grid" id="faqGrid"></div>
+        <div class="info-trust-row" id="infoTrust"></div>
+      </div>
+    </section>
+
+    <section class="package-container bottom-cta">
+      <div>
+        <h2 id="ctaTitle"></h2>
+        <p id="ctaText"></p>
+      </div>
+      <div class="bottom-actions" id="ctaActions"></div>
+    </section>
+  </main>
+
+  <footer class="package-footer" id="contact">
+    <div class="package-container footer-grid-package">
+      <div class="footer-about">
+        <img src="/public/flyo-logo-white.png" alt="Flyo Tours & Travels">
+        <p>Flyo plans curated holidays across the world, from international packages to family trips, honeymoons, visa support, and custom itineraries.</p>
+        <div class="footer-socials"><a href="#">f</a><a href="#">ig</a><a href="#">wa</a><a href="#">yt</a></div>
+      </div>
+      <div class="footer-columns" id="footerColumns"></div>
+      <div class="footer-contact">
+        <h3>Contact Us</h3>
+        <ul>
+          <li>Phone: +971 50 123 4567</li>
+          <li>Email: info@flyotours.com</li>
+          <li>Office 1703, Al Fahidi Heights, Dubai, UAE</li>
+        </ul>
+      </div>
+    </div>
+    <div class="package-container footer-bottom-package">
+      <span>Copyright 2026 Flyo Tours &amp; Travels. All Rights Reserved.</span>
+      <span>Custom Itineraries</span>
+      <span>Visa Assistance</span>
+      <span>24/7 Travel Support</span>
+    </div>
+  </footer>
+
+  <script type="module" src="/package.js"></script>
+</body>
+</html>

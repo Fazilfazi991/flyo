@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-labelledby="title">
+  <title>Hotel</title>
+<path d="M4 20V7.5l4-2v14.5"/>
+  <path d="M8 20V4.5h8V20"/>
+  <path d="M12 8h0"/>
+  <path d="M12 11h0"/>
+  <path d="M12 14h0"/>
+  <path d="M16 8h0"/>
+  <path d="M16 11h0"/>
+  <path d="M3 20h18"/>
+
+</svg>

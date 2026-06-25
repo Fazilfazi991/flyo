@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-labelledby="title">
+  <title>Family</title>
+<circle cx="8" cy="8" r="2"/>
+  <circle cx="16" cy="8" r="2.2"/>
+  <circle cx="12" cy="10.5" r="1.6"/>
+  <path d="M5.5 18v-1.5A2.5 2.5 0 0 1 8 14h0A2.5 2.5 0 0 1 10.5 16.5V18"/>
+  <path d="M12.5 18v-1.2A2.3 2.3 0 0 1 14.8 14.5h2.4a2.3 2.3 0 0 1 2.3 2.3V18"/>
+  <path d="M10.3 18v-1A2 2 0 0 1 12.3 15h0a2 2 0 0 1 2 2v1"/>
+
+</svg>
