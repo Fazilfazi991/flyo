@@ -24,6 +24,8 @@ const travelStyles = [
   { name: "Beach Holidays", text: "Island hopping, coastal stays, turquoise waters, and relaxed tropical escapes.", image: "/public/flyo_travel_style_images_webp/beach_holidays.webp" },
   { name: "City Breaks", text: "Short international getaways covering iconic landmarks, shopping, food, and culture.", image: "/public/flyo_travel_style_images_webp/city_breaks.webp" },
   { name: "Safari & Wildlife", text: "Nature-led journeys with game drives, wildlife reserves, lodges, and scenic landscapes.", image: "/public/flyo_travel_style_images_webp/safari_wildlife.webp" },
+  { name: "UAE Experiences", text: "Desert safaris, city highlights, family attractions, and memorable local experiences across the Emirates.", image: "/public/flyo_travel_style_images_webp/uae_experiences.webp" },
+  { name: "Group Tours", text: "Planned group getaways for friends, families, teams, and communities with smooth coordination from start to finish.", image: "/public/flyo_travel_style_images_webp/family_holidays.webp" },
 ];
 
 const popularExperiences = [

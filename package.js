@@ -43,6 +43,27 @@ const iconPaths = {
 
 const iconAsset = name => `<span class="ui-icon" style="--icon-url: url('${iconPaths[name]}')" aria-hidden="true"></span>`;
 const checkIcon = () => `<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4.2 4.2L19 6.8"/></svg>`;
+const siteHrefMap = {
+  Home: "/index.html",
+  Packages: "/packages/",
+  Destinations: "/index.html#destinations",
+  "UAE Experiences": "/packages/dubai-desert-safari/",
+  "Visa Services": "/index.html#why-flyo",
+  About: "/index.html#why-flyo",
+  Contact: "#contact",
+  "International Packages": "/packages/",
+  "UAE Tours": "/packages/dubai-desert-safari/",
+  "Visa Assistance": "/index.html#why-flyo",
+  "Custom Holidays": "/index.html#plan",
+  "Honeymoon Packages": "/packages/",
+  "Family Holidays": "/packages/",
+  Thailand: "/packages/",
+  Malaysia: "/packages/",
+  Singapore: "/packages/",
+  "Sri Lanka": "/packages/",
+  Kenya: "/packages/",
+  UAE: "/packages/dubai-desert-safari/"
+};
 
 const pricingOptions = (packageData.pricingOptions && packageData.pricingOptions.length
   ? packageData.pricingOptions
@@ -149,18 +170,15 @@ document.documentElement.style.setProperty("--package-hero-image", `url("${packa
 byId("packageNav").innerHTML = navLinks.map(link => {
   const hrefMap = {
     Home: "/index.html",
-    Packages: "/index.html#packages",
+    Packages: "/packages/",
     Destinations: "/index.html#destinations",
+    "UAE Experiences": "/packages/dubai-desert-safari/",
     "Visa Services": "/index.html#why-flyo",
     About: "/index.html#why-flyo",
     Contact: "#contact"
   };
   return `<a class="${link === "Packages" ? "active" : ""}" href="${hrefMap[link] || "#"}">${link}</a>`;
-}).join("");
-
-byId("navPhone").textContent = `Call ${contact.phone}`;
-byId("navPhone").href = `tel:${contact.phone.replace(/\D/g, "")}`;
-byId("navPhone").hidden = false;
+}).join("") + `<a class="mobile-nav-cta" href="/packages/">Explore Packages</a>`;
 byId("heroBadge").textContent = packageData.category || packageData.country;
 byId("heroTitle").innerHTML = packageData.title;
 byId("heroSubtitle").textContent = packageData.summary;
@@ -351,16 +369,22 @@ byId("ctaActions").innerHTML = [
   <a href="${item.href}">${textToLines(item.label)}</a>
 `).join("");
 
-byId("footerColumns").innerHTML = footerColumns.map(column => `
-  <div><h3>${column.title}</h3><ul>${column.links.map(link => `<li><a href="/index.html#packages">${link}</a></li>`).join("")}</ul></div>
-`).join("");
+const footerColumnTargets = {
+  "Quick Links": "footerQuickColumn",
+  Services: "footerServicesColumn",
+  Destinations: "footerDestinationsColumn"
+};
+
+footerColumns.forEach(column => {
+  const target = byId(footerColumnTargets[column.title]);
+  if (!target) return;
+  target.innerHTML = `<h3>${column.title}</h3><ul>${column.links.map(link => `<li><a href="${siteHrefMap[link] || "/packages/"}">${link}</a></li>`).join("")}</ul>`;
+});
 
 document.querySelector(".footer-about p").textContent = "Flyo plans curated holidays across the world, from international packages to family trips, honeymoons, visa support, and custom itineraries.";
 document.querySelector(".footer-bottom-package").innerHTML = `
-  <span>Copyright 2026 Flyo Tours & Travels. All Rights Reserved.</span>
-  <span>Custom Itineraries</span>
-  <span>Visa Assistance</span>
-  <span>24/7 Travel Support</span>
+  <span>Copyright 2026 Flyo Tours & Travels. All rights reserved.</span>
+  <span><a href="#">Privacy Policy</a> &nbsp; | &nbsp; <a href="#">Terms & Conditions</a></span>
 `;
 
 document.querySelectorAll("form").forEach(form => form.addEventListener("submit", event => {
