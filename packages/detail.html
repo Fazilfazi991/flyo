@@ -19,17 +19,15 @@
       </button>
       <nav class="package-nav" aria-label="Package navigation" id="packageNav"></nav>
       <div class="nav-actions">
-        <a class="outline-button" href="/packages/">Explore Packages</a>
+        <a class="outline-button" href="/packages/">Flights &amp; Holidays</a>
       </div>
     </div>
   </header>
 
   <main>
-    <section class="package-hero">
-      <div class="hero-bg" aria-hidden="true"></div>
-      <div class="hero-overlay" aria-hidden="true"></div>
-      <div class="package-container hero-grid">
-        <div class="hero-copy">
+    <section class="package-detail-hero">
+      <div class="package-container package-detail-grid">
+        <div class="package-detail-copy hero-copy">
           <span class="hero-badge" id="heroBadge"></span>
           <h1 id="heroTitle"></h1>
           <p id="heroSubtitle"></p>
@@ -38,35 +36,38 @@
           <div class="hero-trust" id="heroTrust"></div>
         </div>
 
-        <form class="quick-book" id="quick-book">
-          <div class="booking-card-head">
-            <span aria-hidden="true">FL</span>
-            <div>
-              <h2 id="bookingTitle"></h2>
-              <p>Check availability, hotel options, and customization.</p>
+        <div class="package-detail-side">
+          <div class="package-main-image" id="packageMainImage" role="img" aria-label="Package image"></div>
+          <form class="quick-book" id="quick-book">
+            <div class="booking-card-head">
+              <span aria-hidden="true">FL</span>
+              <div>
+                <h2 id="bookingTitle"></h2>
+                <p>Check availability, options, and customization.</p>
+              </div>
             </div>
-          </div>
-          <label>
-            <span>Select Date</span>
-            <input id="bookingDate" type="text">
-          </label>
-          <div class="form-row">
             <label>
-              <span>Adults</span>
-              <select id="bookingAdults"><option>1</option><option>2</option><option>3</option><option>4</option></select>
+              <span>Select Date</span>
+              <input id="bookingDate" type="text">
             </label>
+            <div class="form-row">
+              <label>
+                <span>Adults</span>
+                <select id="bookingAdults"><option>1</option><option>2</option><option>3</option><option>4</option></select>
+              </label>
+              <label>
+                <span>Children (4-11)</span>
+                <select id="bookingChildren"><option>0</option><option>1</option><option>2</option><option>3</option></select>
+              </label>
+            </div>
             <label>
-              <span>Children (4-11)</span>
-              <select id="bookingChildren"><option>0</option><option>1</option><option>2</option><option>3</option></select>
+              <span>Package</span>
+              <select id="bookingPackage"></select>
             </label>
-          </div>
-          <label>
-            <span>Package</span>
-            <select id="bookingPackage"></select>
-          </label>
-          <button id="bookingButton" type="submit"></button>
-          <small id="bookingNote"></small>
-        </form>
+            <button id="bookingButton" type="submit"></button>
+            <small id="bookingNote"></small>
+          </form>
+        </div>
       </div>
     </section>
 
@@ -78,6 +79,24 @@
           <p>Destination experiences, hotels, transfers, and support planned around your trip style.</p>
         </div>
         <div class="highlight-grid" id="highlightGrid"></div>
+      </div>
+    </section>
+
+    <section class="package-section inclusion-section">
+      <div class="package-container inclusion-layout">
+        <div class="section-title compact">
+          <span>Inclusions</span>
+          <h2>What Your Package Includes</h2>
+          <p>Clear package inclusions, shown in an easy-to-scan format.</p>
+        </div>
+        <div class="inclusion-grid" id="inclusionGrid"></div>
+        <div class="exclusion-panel">
+          <div class="section-title compact">
+            <span>Exclusions</span>
+            <h2>Not Included</h2>
+          </div>
+          <div class="exclusion-list" id="exclusionGrid"></div>
+        </div>
       </div>
     </section>
 
@@ -164,15 +183,6 @@
       </div>
       <div class="footer-quick-column" id="footerQuickColumn"></div>
       <div class="footer-services-column" id="footerServicesColumn"></div>
-      <div class="footer-destinations-column" id="footerDestinationsColumn"></div>
-      <div class="footer-contact footer-contact-column">
-        <h3>Contact / Support</h3>
-        <ul>
-          <li>Phone: +971 50 123 4567</li>
-          <li>Email: info@flyotours.com</li>
-          <li>Office: Office 1703, Al Fajer Heights, Dubai, UAE</li>
-        </ul>
-      </div>
     </div>
     <div class="package-container footer-bottom-package">
       <span>Copyright 2026 Flyo Tours &amp; Travels. All Rights Reserved.</span>

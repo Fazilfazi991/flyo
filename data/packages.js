@@ -404,12 +404,11 @@ export const packages = [
   }
 ];
 
-export const navLinks = ["Home", "Packages", "Destinations", "UAE Experiences", "Visa Services", "About", "Contact"];
+export const navLinks = ["Home", "Flights & Holidays", "Visa Services", "Special Travel Services", "Contact"];
 
 export const footerColumns = [
-  { title: "Quick Links", links: ["Home", "Packages", "Destinations", "Visa Services", "About", "Contact"] },
-  { title: "Services", links: ["International Packages", "UAE Tours", "Visa Assistance", "Custom Holidays", "Honeymoon Packages", "Family Holidays"] },
-  { title: "Destinations", links: ["Thailand", "Malaysia", "Singapore", "Sri Lanka", "Kenya", "UAE"] }
+  { title: "Quick Links", links: ["Home", "Flights & Holidays", "Visa Services", "Special Travel Services", "Contact"] },
+  { title: "Services", links: ["International Packages", "Visa Assistance", "MICE / Corporate Travel", "Education Travel", "Cruise Packages", "Custom Travel Assistance"] }
 ];
 
 export const contact = { phone, whatsapp };

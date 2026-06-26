@@ -125,6 +125,22 @@ h1 { max-width: 690px; margin: 0; color: white; font-size: var(--text-hero); lin
 .travel-style-card h3 { margin: 0 0 10px; color: var(--color-primary); font-size: 23px; line-height: 1.1; }
 .travel-style-card p { margin: 0; color: var(--color-black-60); font-size: 14px; line-height: 1.6; }
 .travel-style-card a { margin-top: 16px; padding-top: 0; color: var(--color-primary); font-size: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: .06em; }
+.visa-services { background: var(--color-white); }
+.visa-layout { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(32px, 5vw, 72px); align-items: center; }
+.visa-copy h2 { max-width: 620px; margin: 0 0 16px; color: var(--color-primary); font-size: clamp(34px, 3vw, 50px); line-height: 1.1; }
+.visa-copy p:not(.eyebrow) { max-width: 610px; margin: 0 0 24px; color: var(--color-black-60); font-size: var(--text-base); line-height: 1.7; }
+.visa-card-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.visa-card-grid article, .special-service-card { min-width: 0; border: 1px solid var(--color-primary-08); border-radius: 16px; background: var(--color-white); box-shadow: 0 14px 36px var(--color-black-06); }
+.visa-card-grid article { padding: 24px; }
+.visa-card-grid span { width: 46px; height: 46px; display: grid; place-items: center; border-radius: 12px; background: var(--color-primary-08); color: var(--color-primary); font-size: 13px; font-weight: 900; }
+.visa-card-grid h3, .special-service-card h3 { margin: 16px 0 8px; color: var(--color-primary); font-size: 21px; line-height: 1.15; }
+.visa-card-grid p, .special-service-card p { margin: 0; color: var(--color-black-60); font-size: 14px; line-height: 1.6; }
+.special-services { background: linear-gradient(180deg, rgba(6,21,112,.035), var(--color-white)); }
+.special-service-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.special-service-card { overflow: hidden; display: flex; flex-direction: column; }
+.special-service-image { min-height: 185px; background: var(--color-primary-08) center/cover; }
+.special-service-body { padding: 23px 24px 25px; display: flex; flex: 1; flex-direction: column; }
+.special-service-card a { margin-top: 16px; color: var(--color-primary); font-size: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: .06em; }
 .packages-trust-strip { position: relative; z-index: 3; padding: 18px 0 8px; background: linear-gradient(180deg, var(--color-white), rgba(238,245,255,.45)); }
 .packages-trust-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
 .packages-trust-grid article { min-height: 82px; padding: 15px 16px; border: 1px solid rgba(6,21,112,.09); border-radius: 16px; background: rgba(255,255,255,.92); box-shadow: 0 14px 34px rgba(6,21,112,.07); display: grid; grid-template-columns: 42px 1fr; gap: 12px; align-items: center; }
@@ -294,7 +310,7 @@ h1 { max-width: 690px; margin: 0; color: white; font-size: var(--text-hero); lin
 .cta-visual { min-height: 230px; border: 1px solid rgba(255,255,255,.8); border-radius: 18px; background: linear-gradient(180deg, rgba(6,21,112,.06), rgba(6,21,112,.14)), url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=78") center/cover; box-shadow: 0 18px 42px rgba(6,21,112,.14); }
 
 .footer { padding: 58px 0 24px; color: var(--color-white); background: var(--color-primary); }
-.footer-grid { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, .9fr) minmax(0, 1fr) minmax(0, .9fr) minmax(0, 1.2fr); gap: clamp(32px, 4vw, 72px); align-items: start; }
+.footer-grid { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, .9fr) minmax(0, 1fr); gap: clamp(32px, 4vw, 72px); align-items: start; }
 .footer-brand, .footer-quick-column, .footer-services-column, .footer-destinations-column, .footer-contact-column { min-width: 0; }
 .footer h3 { margin: 8px 0 22px; color: white; font-size: var(--text-base); line-height: 1.2; }
 .footer h4 { margin: 13px 0 5px; color: white; font-size: var(--text-sm); }
@@ -348,8 +364,7 @@ h1 { max-width: 690px; margin: 0; color: white; font-size: var(--text-hero); lin
 .package-list-section .section-subtitle { max-width: 860px; margin-top: 10px; line-height: 1.5; }
 
 @media (max-width: 1280px) {
-  .footer-grid { grid-template-columns: minmax(0, 1.25fr) repeat(3, minmax(0, 1fr)); }
-  .footer-contact-column { grid-column: span 2; }
+  .footer-grid { grid-template-columns: minmax(0, 1.25fr) repeat(2, minmax(0, 1fr)); }
 }
 
 @media (max-width: 1120px) {
@@ -398,6 +413,8 @@ h1 { max-width: 690px; margin: 0; color: white; font-size: var(--text-hero); lin
   .cta-visual { min-height: 240px; }
   .travel-style-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .travel-style-card, .travel-style-card:nth-child(5) { grid-column: auto; }
+  .visa-layout { grid-template-columns: 1fr; }
+  .special-service-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (max-width: 820px) {
@@ -469,10 +486,8 @@ h1 { max-width: 690px; margin: 0; color: white; font-size: var(--text-hero); lin
   .packages-custom-cta::before { width: 280px; }
   .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .footer-brand { order: 1; }
-  .footer-contact-column { order: 2; grid-column: auto; }
-  .footer-quick-column { order: 3; }
-  .footer-services-column { order: 4; }
-  .footer-destinations-column { order: 5; }
+  .footer-quick-column { order: 2; }
+  .footer-services-column { order: 3; }
 }
 
 @media (max-width: 560px) {
@@ -520,6 +535,7 @@ h1 { max-width: 690px; margin: 0; color: white; font-size: var(--text-hero); lin
   .travel-style-image { min-height: 190px; }
   .travel-style-body { min-height: 0; padding: 22px; }
   .packages-trust-grid { grid-template-columns: 1fr; }
+  .visa-card-grid, .special-service-grid { grid-template-columns: 1fr; }
   .packages-trust-grid small { display: none; }
   .package-list-section { padding-top: 42px; }
   .package-list-section .section-heading h2 { font-size: clamp(34px, 10vw, 42px); }

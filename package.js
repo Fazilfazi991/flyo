@@ -45,24 +45,16 @@ const iconAsset = name => `<span class="ui-icon" style="--icon-url: url('${iconP
 const checkIcon = () => `<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4.2 4.2L19 6.8"/></svg>`;
 const siteHrefMap = {
   Home: "/index.html",
-  Packages: "/packages/",
-  Destinations: "/index.html#destinations",
-  "UAE Experiences": "/packages/dubai-desert-safari/",
-  "Visa Services": "/index.html#why-flyo",
-  About: "/index.html#why-flyo",
+  "Flights & Holidays": "/packages/",
+  "Visa Services": "/index.html#visa-services",
+  "Special Travel Services": "/index.html#special-services",
   Contact: "#contact",
   "International Packages": "/packages/",
-  "UAE Tours": "/packages/dubai-desert-safari/",
-  "Visa Assistance": "/index.html#why-flyo",
-  "Custom Holidays": "/index.html#plan",
-  "Honeymoon Packages": "/packages/",
-  "Family Holidays": "/packages/",
-  Thailand: "/packages/",
-  Malaysia: "/packages/",
-  Singapore: "/packages/",
-  "Sri Lanka": "/packages/",
-  Kenya: "/packages/",
-  UAE: "/packages/dubai-desert-safari/"
+  "Visa Assistance": "/index.html#visa-services",
+  "MICE / Corporate Travel": "/index.html#special-services",
+  "Education Travel": "/index.html#special-services",
+  "Cruise Packages": "/index.html#special-services",
+  "Custom Travel Assistance": "/index.html#special-services"
 };
 
 const pricingOptions = (packageData.pricingOptions && packageData.pricingOptions.length
@@ -166,18 +158,17 @@ const shouldRenderPricingTable = pricingOptions.length > 3 || hasComplexPricing;
 
 document.title = `${packageData.title} | Flyo Tours & Travels`;
 document.documentElement.style.setProperty("--package-hero-image", `url("${packageData.heroImage}")`);
+byId("packageMainImage").style.backgroundImage = `url("${packageData.heroImage}")`;
 
 byId("packageNav").innerHTML = navLinks.map(link => {
   const hrefMap = {
     Home: "/index.html",
-    Packages: "/packages/",
-    Destinations: "/index.html#destinations",
-    "UAE Experiences": "/packages/dubai-desert-safari/",
-    "Visa Services": "/index.html#why-flyo",
-    About: "/index.html#why-flyo",
+    "Flights & Holidays": "/packages/",
+    "Visa Services": "/index.html#visa-services",
+    "Special Travel Services": "/index.html#special-services",
     Contact: "#contact"
   };
-  return `<a class="${link === "Packages" ? "active" : ""}" href="${hrefMap[link] || "#"}">${link}</a>`;
+  return `<a class="${link === "Flights & Holidays" ? "active" : ""}" href="${hrefMap[link] || "#"}">${link}</a>`;
 }).join("") + `<a class="mobile-nav-cta" href="/packages/">Explore Packages</a>`;
 byId("heroBadge").textContent = packageData.category || packageData.country;
 byId("heroTitle").innerHTML = packageData.title;
@@ -217,6 +208,27 @@ byId("highlightGrid").innerHTML = packageData.highlights.slice(0, 4).map((highli
       <p>${index === 0 ? packageData.summary : "A carefully selected part of the itinerary, planned with smooth timing and guest comfort in mind."}</p>
     </div>
   </article>
+`).join("");
+
+const inclusionIcon = detail => {
+  const value = detail.toLowerCase();
+  if (value.includes("hotel") || value.includes("accommodation") || value.includes("stay")) return "HT";
+  if (value.includes("transfer") || value.includes("pickup") || value.includes("drop")) return "TR";
+  if (value.includes("meal") || value.includes("breakfast") || value.includes("dinner")) return "ML";
+  if (value.includes("visa")) return "VS";
+  if (value.includes("guide") || value.includes("tour")) return "TG";
+  return "IN";
+};
+
+byId("inclusionGrid").innerHTML = packageData.inclusions.map(item => `
+  <article class="inclusion-card">
+    <span>${inclusionIcon(item)}</span>
+    <strong>${item}</strong>
+  </article>
+`).join("");
+
+byId("exclusionGrid").innerHTML = packageData.exclusions.map(item => `
+  <div class="exclusion-item"><span>${checkIcon()}</span>${item}</div>
 `).join("");
 
 document.querySelector(".journey-section .section-title h2").textContent = "Day-by-Day Itinerary";
@@ -371,8 +383,7 @@ byId("ctaActions").innerHTML = [
 
 const footerColumnTargets = {
   "Quick Links": "footerQuickColumn",
-  Services: "footerServicesColumn",
-  Destinations: "footerDestinationsColumn"
+  Services: "footerServicesColumn"
 };
 
 footerColumns.forEach(column => {

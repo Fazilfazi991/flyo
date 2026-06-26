@@ -1,4 +1,4 @@
-import { contact } from "./data/packages.js";
+import { contact, packages } from "./data/packages.js";
 
 const destinations = [
   { name: "Thailand", region: "Asia", layout: "dubai", image: "https://images.unsplash.com/photo-1508009603885-50cf7c579365?auto=format&fit=crop&w=1200&q=88" },
@@ -18,14 +18,20 @@ const features = [
   { image: "/public/flyo_why_choose_images_webp/travel_support_24_7.webp", title: "24/7 Travel Support", text: "Support before departure and while you travel, from small changes to urgent help." }
 ];
 
-const travelStyles = [
-  { name: "Family Holidays", text: "Easy-paced trips with family-friendly stays, sightseeing, transfers, and activities.", image: "/public/flyo_travel_style_images_webp/family_holidays.webp" },
-  { name: "Honeymoon Escapes", text: "Romantic destinations, beautiful stays, island moments, and private experiences.", image: "/public/flyo_travel_style_images_webp/honeymoon_escapes.webp" },
-  { name: "Beach Holidays", text: "Island hopping, coastal stays, turquoise waters, and relaxed tropical escapes.", image: "/public/flyo_travel_style_images_webp/beach_holidays.webp" },
-  { name: "City Breaks", text: "Short international getaways covering iconic landmarks, shopping, food, and culture.", image: "/public/flyo_travel_style_images_webp/city_breaks.webp" },
-  { name: "Safari & Wildlife", text: "Nature-led journeys with game drives, wildlife reserves, lodges, and scenic landscapes.", image: "/public/flyo_travel_style_images_webp/safari_wildlife.webp" },
-  { name: "UAE Experiences", text: "Desert safaris, city highlights, family attractions, and memorable local experiences across the Emirates.", image: "/public/flyo_travel_style_images_webp/uae_experiences.webp" },
-  { name: "Group Tours", text: "Planned group getaways for friends, families, teams, and communities with smooth coordination from start to finish.", image: "/public/flyo_travel_style_images_webp/family_holidays.webp" },
+const holidayPackages = packages.slice(0, 6).map(item => ({
+  name: item.title,
+  text: item.summary,
+  image: item.cardImage,
+  href: `/packages/${item.slug}/`
+}));
+
+const specialServices = [
+  { name: "MICE / Corporate Travel", text: "Meetings, incentives, conferences, events, and team travel planned with clear coordination.", image: "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=900&q=82" },
+  { name: "Education Travel", text: "Study tours, student groups, campus visits, and learning-led travel support.", image: "https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&w=900&q=82" },
+  { name: "Cruise Packages", text: "Cruise holiday assistance with routing, cabin options, extensions, and transfers.", image: "https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&fit=crop&w=900&q=82" },
+  { name: "Medical Tourism", text: "Travel coordination for wellness and medical visits with privacy-minded support.", image: "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=900&q=82" },
+  { name: "Group Tours", text: "Planned group getaways for friends, families, teams, and communities.", image: "/public/flyo_travel_style_images_webp/family_holidays.webp" },
+  { name: "Custom Travel Assistance", text: "Flexible help for unique routes, multi-city journeys, and special arrangements.", image: "/public/flyo_why_choose_images_webp/custom_itineraries.webp" }
 ];
 
 const popularExperiences = [
@@ -55,13 +61,24 @@ document.querySelector("#destinationGrid").innerHTML = `
       <a class="destination-arrow" href="/packages/" aria-label="Explore ${item.name}"></a>
     </article>`).join("")}`;
 
-document.querySelector("#travelStyleGrid").innerHTML = travelStyles.map(item => `
+document.querySelector("#travelStyleGrid").innerHTML = holidayPackages.map(item => `
   <article class="travel-style-card">
     <div class="travel-style-image" style="background-image:url('${item.image}')" aria-hidden="true"></div>
     <div class="travel-style-body">
       <h3>${item.name}</h3>
       <p>${item.text}</p>
-      <a href="/packages/">Explore</a>
+      <a href="${item.href}">View Package</a>
+    </div>
+  </article>
+`).join("");
+
+document.querySelector("#specialServiceGrid").innerHTML = specialServices.map(item => `
+  <article class="special-service-card">
+    <div class="special-service-image" style="background-image:url('${item.image}')" aria-hidden="true"></div>
+    <div class="special-service-body">
+      <h3>${item.name}</h3>
+      <p>${item.text}</p>
+      <a data-whatsapp href="#">Enquire</a>
     </div>
   </article>
 `).join("");
@@ -72,10 +89,13 @@ document.querySelector("#featureGrid").innerHTML = features.map(item => `
     <div class="feature-card-body"><h3>${item.title}</h3><p>${item.text}</p></div>
   </article>`).join("");
 
-document.querySelector("#experienceGrid").innerHTML = popularExperiences.map(item => `
-  <article class="image-card experience-card" style="background-image:url('${item.image}')">
-    <div class="card-copy"><strong>${item.name}</strong><small>${item.text}</small></div>
-  </article>`).join("");
+const experienceGrid = document.querySelector("#experienceGrid");
+if (experienceGrid) {
+  experienceGrid.innerHTML = popularExperiences.map(item => `
+    <article class="image-card experience-card" style="background-image:url('${item.image}')">
+      <div class="card-copy"><strong>${item.name}</strong><small>${item.text}</small></div>
+    </article>`).join("");
+}
 
 document.querySelector("#testimonialGrid").innerHTML = testimonials.map(item => `
   <article class="testimonial-card">
