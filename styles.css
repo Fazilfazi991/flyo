@@ -135,8 +135,12 @@ h1 { max-width: 690px; margin: 0; color: white; font-size: var(--text-hero); lin
 .travel-style-card h3 { margin: 0 0 10px; color: var(--color-primary); font-size: 1.35rem; line-height: 1.15; }
 .travel-style-card p { margin: 0; color: var(--color-black-60); font-size: .95rem; line-height: 1.6; }
 .travel-style-card a { margin-top: 16px; padding-top: 0; color: var(--color-primary); font-size: .85rem; font-weight: 900; text-transform: uppercase; letter-spacing: .04em; }
-.visa-services { padding: 80px 0; background: linear-gradient(180deg, rgba(238,245,255,.40), var(--color-white)); }
-.visa-layout { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(36px, 4.6vw, 56px); align-items: center; }
+.visa-services { position: relative; overflow: hidden; padding: 80px 0; background: linear-gradient(180deg, rgba(238,245,255,.40), var(--color-white)); }
+.visa-layout { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(36px, 4.6vw, 56px); align-items: center; }
+.visa-flight-path { position: absolute; z-index: 0; top: 56px; left: min(46vw, 720px); width: min(34vw, 430px); color: rgba(6,21,112,.42); pointer-events: none; }
+.visa-flight-path svg { width: 100%; height: auto; overflow: visible; display: block; }
+.visa-flight-path path { fill: none; stroke: currentColor; stroke-width: 3; stroke-linecap: round; stroke-dasharray: 6 14; }
+.visa-flight-path polygon { fill: currentColor; }
 .visa-copy { max-width: 560px; }
 .visa-copy h2 { max-width: 560px; margin: 14px 0 20px; color: var(--color-primary); font-size: clamp(35px, 4vw, 61px); line-height: 1.05; letter-spacing: 0; }
 .visa-copy p:not(.eyebrow) { max-width: 560px; margin: 0 0 28px; color: var(--color-black-60); font-size: 1rem; line-height: 1.6; }
@@ -461,6 +465,7 @@ h1 { max-width: 690px; margin: 0; color: white; font-size: var(--text-hero); lin
   .flight-form-actions { flex-direction: column; }
   .flight-form-actions .button { width: 100%; }
   .visa-services { padding: 56px 0; }
+  .visa-flight-path { display: none; }
   .visa-layout { gap: 32px; }
   .visa-copy h2 { font-size: clamp(35px, 8.4vw, 42px); }
   .packages-hero-visual { min-height: 0; display: flex; flex-direction: row; flex-wrap: wrap; gap: 10px; }
