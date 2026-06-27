@@ -25,15 +25,6 @@ const holidayPackages = packages.slice(0, 6).map(item => ({
   href: `/packages/${item.slug}/`
 }));
 
-const specialServices = [
-  { name: "MICE / Corporate Travel", text: "Meetings, incentives, conferences, events, and team travel planned with clear coordination.", image: "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=900&q=82" },
-  { name: "Education Travel", text: "Study tours, student groups, campus visits, and learning-led travel support.", image: "https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&w=900&q=82" },
-  { name: "Cruise Packages", text: "Cruise holiday assistance with routing, cabin options, extensions, and transfers.", image: "https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&fit=crop&w=900&q=82" },
-  { name: "Medical Tourism", text: "Travel coordination for wellness and medical visits with privacy-minded support.", image: "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=900&q=82" },
-  { name: "Group Tours", text: "Planned group getaways for friends, families, teams, and communities.", image: "/public/flyo_travel_style_images_webp/family_holidays.webp" },
-  { name: "Custom Travel Assistance", text: "Flexible help for unique routes, multi-city journeys, and special arrangements.", image: "/public/flyo_why_choose_images_webp/custom_itineraries.webp" }
-];
-
 const popularExperiences = [
   { name: "Thailand Island Hopping", text: "Krabi, Phi Phi, Phuket, and tropical water days.", image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=85" },
   { name: "Singapore Sentosa", text: "Theme parks, cable cars, oceanarium visits, and family fun.", image: "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=900&q=85" },
@@ -49,7 +40,8 @@ const testimonials = [
   { name: "Rohit Menon", location: "Abu Dhabi, UAE", initials: "RM", review: "Great support with visas, hotels, and a custom Sri Lanka itinerary. It felt personal, not like a generic package." }
 ];
 
-document.querySelector("#destinationGrid").innerHTML = `
+const destinationGrid = document.querySelector("#destinationGrid");
+if (destinationGrid) destinationGrid.innerHTML = `
   ${destinations.map(item => `
     <article class="destination-card destination-card-${item.layout}" style="--destination-image:url('${item.image}')">
       <div class="destination-image" aria-hidden="true"></div>
@@ -61,7 +53,8 @@ document.querySelector("#destinationGrid").innerHTML = `
       <a class="destination-arrow" href="/packages/" aria-label="Explore ${item.name}"></a>
     </article>`).join("")}`;
 
-document.querySelector("#travelStyleGrid").innerHTML = holidayPackages.map(item => `
+const travelStyleGrid = document.querySelector("#travelStyleGrid");
+if (travelStyleGrid) travelStyleGrid.innerHTML = holidayPackages.map(item => `
   <article class="travel-style-card">
     <div class="travel-style-image" style="background-image:url('${item.image}')" aria-hidden="true"></div>
     <div class="travel-style-body">
@@ -72,18 +65,8 @@ document.querySelector("#travelStyleGrid").innerHTML = holidayPackages.map(item 
   </article>
 `).join("");
 
-document.querySelector("#specialServiceGrid").innerHTML = specialServices.map(item => `
-  <article class="special-service-card">
-    <div class="special-service-image" style="background-image:url('${item.image}')" aria-hidden="true"></div>
-    <div class="special-service-body">
-      <h3>${item.name}</h3>
-      <p>${item.text}</p>
-      <a data-whatsapp href="#">Enquire</a>
-    </div>
-  </article>
-`).join("");
-
-document.querySelector("#featureGrid").innerHTML = features.map(item => `
+const featureGrid = document.querySelector("#featureGrid");
+if (featureGrid) featureGrid.innerHTML = features.map(item => `
   <article class="feature-card">
     <div class="feature-card-image" style="background-image:url('${item.image}')" aria-hidden="true"></div>
     <div class="feature-card-body"><h3>${item.title}</h3><p>${item.text}</p></div>
@@ -97,7 +80,8 @@ if (experienceGrid) {
     </article>`).join("");
 }
 
-document.querySelector("#testimonialGrid").innerHTML = testimonials.map(item => `
+const testimonialGrid = document.querySelector("#testimonialGrid");
+if (testimonialGrid) testimonialGrid.innerHTML = testimonials.map(item => `
   <article class="testimonial-card">
     <div class="stars">★★★★★</div>
     <p>"${item.review}"</p>
@@ -119,7 +103,7 @@ nav.querySelectorAll("a").forEach(link => link.addEventListener("click", () => n
 
 document.querySelectorAll("form").forEach(form => form.addEventListener("submit", event => {
   event.preventDefault();
-  location.href = "/packages/";
+  location.href = form.classList.contains("flight-form") ? contact.whatsapp : "/packages/";
 }));
 
 const hero = document.querySelector(".hero");
@@ -154,23 +138,25 @@ function startHeroAutoplay() {
   }
 }
 
-heroPrev.addEventListener("click", () => showHeroSlide(heroIndex - 1));
-heroNext.addEventListener("click", () => showHeroSlide(heroIndex + 1));
-heroDots.forEach((dot, index) => dot.addEventListener("click", () => showHeroSlide(index)));
-hero.addEventListener("mouseenter", () => clearInterval(heroTimer));
-hero.addEventListener("mouseleave", startHeroAutoplay);
-hero.addEventListener("focusin", () => clearInterval(heroTimer));
-hero.addEventListener("focusout", startHeroAutoplay);
-hero.addEventListener("touchstart", event => {
-  touchStartX = event.changedTouches[0].clientX;
-}, { passive: true });
-hero.addEventListener("touchend", event => {
-  const distance = event.changedTouches[0].clientX - touchStartX;
-  if (Math.abs(distance) > 45) showHeroSlide(heroIndex + (distance < 0 ? 1 : -1));
-}, { passive: true });
-hero.addEventListener("keydown", event => {
-  if (event.key === "ArrowLeft") showHeroSlide(heroIndex - 1);
-  if (event.key === "ArrowRight") showHeroSlide(heroIndex + 1);
-});
-reduceMotion.addEventListener("change", startHeroAutoplay);
-startHeroAutoplay();
+if (hero && heroSlides.length) {
+  heroPrev.addEventListener("click", () => showHeroSlide(heroIndex - 1));
+  heroNext.addEventListener("click", () => showHeroSlide(heroIndex + 1));
+  heroDots.forEach((dot, index) => dot.addEventListener("click", () => showHeroSlide(index)));
+  hero.addEventListener("mouseenter", () => clearInterval(heroTimer));
+  hero.addEventListener("mouseleave", startHeroAutoplay);
+  hero.addEventListener("focusin", () => clearInterval(heroTimer));
+  hero.addEventListener("focusout", startHeroAutoplay);
+  hero.addEventListener("touchstart", event => {
+    touchStartX = event.changedTouches[0].clientX;
+  }, { passive: true });
+  hero.addEventListener("touchend", event => {
+    const distance = event.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(distance) > 45) showHeroSlide(heroIndex + (distance < 0 ? 1 : -1));
+  }, { passive: true });
+  hero.addEventListener("keydown", event => {
+    if (event.key === "ArrowLeft") showHeroSlide(heroIndex - 1);
+    if (event.key === "ArrowRight") showHeroSlide(heroIndex + 1);
+  });
+  reduceMotion.addEventListener("change", startHeroAutoplay);
+  startHeroAutoplay();
+}

@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Flyo flight booking assistance for UAE travelers.">
+  <title>Flights | Flyo Tours & Travels</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="site-header package-list-header" id="top">
+    <div class="container nav-wrap">
+      <a class="brand" href="/index.html" aria-label="Flyo Tours & Travels home">
+        <img src="/public/flyo-logo-navy.svg" alt="Flyo Tours & Travels">
+      </a>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="/index.html">Home</a>
+        <a class="active" href="/flights/">Flights</a>
+        <a href="/packages/">Holidays</a>
+        <a href="/index.html#visa-services">Visa Services</a>
+        <a href="#contact">Contact</a>
+        <a class="mobile-nav-cta" data-whatsapp href="#">WhatsApp Flight Enquiry</a>
+      </nav>
+      <a class="button button-primary nav-cta" data-whatsapp href="#">WhatsApp Flight Enquiry</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="section flights-page">
+      <div class="container flights-layout">
+        <div class="flights-copy">
+          <p class="eyebrow">Flights</p>
+          <h1>Flight Booking Assistance</h1>
+          <p>Share your destination, dates, and passenger details. Our team will help you find suitable flight options.</p>
+          <a class="button button-primary" data-whatsapp href="#">WhatsApp Flight Enquiry</a>
+        </div>
+        <form class="flight-form" action="#">
+          <div class="form-row">
+            <label><span>From</span><input type="text" placeholder="Dubai"></label>
+            <label><span>To</span><input type="text" placeholder="Destination"></label>
+          </div>
+          <div class="form-row">
+            <label><span>Departure Date</span><input type="text" placeholder="Preferred date"></label>
+            <label><span>Return Date</span><input type="text" placeholder="Optional"></label>
+          </div>
+          <div class="form-row">
+            <label><span>Passengers</span><input type="text" placeholder="2 Adults"></label>
+            <label><span>Travel Class</span><select><option>Economy</option><option>Premium Economy</option><option>Business</option><option>First</option></select></label>
+          </div>
+          <div class="form-row">
+            <label><span>Name</span><input type="text" placeholder="Your name"></label>
+            <label><span>Phone / WhatsApp</span><input type="text" placeholder="+971"></label>
+          </div>
+          <label><span>Message</span><textarea placeholder="Route preference, airline, baggage, or timing notes"></textarea></label>
+          <div class="flight-form-actions">
+            <button class="button button-primary" type="submit">Submit Enquiry</button>
+            <a class="button button-white" data-whatsapp href="#">WhatsApp Flight Enquiry</a>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" id="contact">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <img src="/public/flyo-logo-white.svg" alt="Flyo Tours & Travels">
+        <p>Flyo plans curated holidays, flight assistance, visa support, and custom itineraries with clear guidance from start to finish.</p>
+        <div class="socials"><a href="#">f</a><a href="#">ig</a><a data-whatsapp href="#">wa</a><a href="#">yt</a></div>
+      </div>
+      <div class="footer-quick-column">
+        <h3>Quick Links</h3>
+        <ul><li><a href="/index.html">Home</a></li><li><a href="/flights/">Flights</a></li><li><a href="/packages/">Holidays</a></li><li><a href="/index.html#visa-services">Visa Services</a></li><li><a href="#contact">Contact</a></li></ul>
+      </div>
+      <div class="footer-services-column">
+        <h3>Services</h3>
+        <ul><li>Flight Booking Assistance</li><li>Holiday Packages</li><li>Visa Assistance</li><li>Custom Holidays</li><li>Honeymoon Packages</li><li>Family Holidays</li></ul>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <span>Copyright 2026 Flyo Tours &amp; Travels. All rights reserved.</span>
+      <span><a href="#">Privacy Policy</a> &nbsp; | &nbsp; <a href="#">Terms &amp; Conditions</a></span>
+    </div>
+  </footer>
+  <script type="module" src="/script.js"></script>
+</body>
+</html>

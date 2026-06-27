@@ -12,6 +12,7 @@ const entries = [
   "package.js",
   "favicon.svg",
   "data",
+  "flights",
   "packages",
   "public"
 ];

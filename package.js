@@ -45,16 +45,17 @@ const iconAsset = name => `<span class="ui-icon" style="--icon-url: url('${iconP
 const checkIcon = () => `<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4.2 4.2L19 6.8"/></svg>`;
 const siteHrefMap = {
   Home: "/index.html",
-  "Flights & Holidays": "/packages/",
+  Flights: "/flights/",
+  Holidays: "/packages/",
   "Visa Services": "/index.html#visa-services",
-  "Special Travel Services": "/index.html#special-services",
   Contact: "#contact",
+  "Flight Booking Assistance": "/flights/",
+  "Holiday Packages": "/packages/",
   "International Packages": "/packages/",
   "Visa Assistance": "/index.html#visa-services",
-  "MICE / Corporate Travel": "/index.html#special-services",
-  "Education Travel": "/index.html#special-services",
-  "Cruise Packages": "/index.html#special-services",
-  "Custom Travel Assistance": "/index.html#special-services"
+  "Custom Holidays": "/packages/",
+  "Honeymoon Packages": "/packages/",
+  "Family Holidays": "/packages/"
 };
 
 const pricingOptions = (packageData.pricingOptions && packageData.pricingOptions.length
@@ -163,12 +164,12 @@ byId("packageMainImage").style.backgroundImage = `url("${packageData.heroImage}"
 byId("packageNav").innerHTML = navLinks.map(link => {
   const hrefMap = {
     Home: "/index.html",
-    "Flights & Holidays": "/packages/",
+    Flights: "/flights/",
+    Holidays: "/packages/",
     "Visa Services": "/index.html#visa-services",
-    "Special Travel Services": "/index.html#special-services",
     Contact: "#contact"
   };
-  return `<a class="${link === "Flights & Holidays" ? "active" : ""}" href="${hrefMap[link] || "#"}">${link}</a>`;
+  return `<a class="${link === "Holidays" ? "active" : ""}" href="${hrefMap[link] || "#"}">${link}</a>`;
 }).join("") + `<a class="mobile-nav-cta" href="/packages/">Explore Packages</a>`;
 byId("heroBadge").textContent = packageData.category || packageData.country;
 byId("heroTitle").innerHTML = packageData.title;

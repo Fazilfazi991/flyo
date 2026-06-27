@@ -4,83 +4,86 @@ const packageList = packages.filter(item => item.slug !== "dubai-desert-safari")
 
 const cardDetails = {
   "kuala-lumpur-getaway": {
-    badge: "Best Seller",
     location: "Kuala Lumpur, Malaysia",
     duration: "3 Nights / 4 Days",
     tag: "City Break",
     price: "AED 899",
-    highlights: ["KL Tower", "Genting Highlands", "Batu Caves"]
+    highlights: ["KL Tower", "Genting Highlands", "Batu Caves", "City Break"]
   },
   "thai-wonders": {
-    badge: "Popular",
     location: "Bangkok & Pattaya, Thailand",
     duration: "4 Nights / 5 Days",
     tag: "Beach",
     price: "AED 999",
-    highlights: ["Coral Island", "Tiger Park", "Alcazar Show"]
+    highlights: ["Coral Island", "Tiger Park", "Alcazar Show", "Bangkok Tour"]
   },
   "sri-lanka-highlights": {
-    badge: "New",
     location: "Kandy, Nuwara Eliya, Colombo",
     duration: "3 Nights / 4 Days",
     tag: "Cultural",
     price: "AED 1,899",
-    highlights: ["Pinnawala", "Kandy Temple", "Colombo Tour"],
+    highlights: ["Pinnawala", "Kandy Temple", "Colombo Tour", "Nature"],
     image: "https://images.unsplash.com/photo-1586861635167-e5223aadc9fe?auto=format&fit=crop&w=1000&q=85"
   },
   "singapore-family-escape": {
-    badge: "Family Favourite",
     location: "Singapore",
     duration: "4 Nights / 5 Days",
     tag: "Family",
     price: "AED 2,999",
-    highlights: ["Universal Studios", "Sentosa", "Gardens by the Bay"]
+    highlights: ["Universal Studios", "Sentosa", "Gardens by the Bay", "Family Trip"]
   },
   "beaches-of-thailand": {
-    badge: "Trending",
     location: "Krabi, Phi Phi, Phuket",
     duration: "6 Nights / 7 Days",
     tag: "Beach",
     price: "AED 1,875",
-    highlights: ["Island Hopping", "James Bond Island", "Phuket City Tour"]
+    highlights: ["Island Hopping", "James Bond Island", "Phuket City Tour", "Beach"]
   },
   "kenya-inspiring-safari": {
-    badge: "Premium",
     location: "Lake Nakuru, Masai Mara",
     duration: "3 Nights / 4 Days",
     tag: "Safari",
     price: "AED 9,385",
-    highlights: ["Private Safari", "Game Drives", "Full Board"]
+    highlights: ["Private Safari", "Game Drives", "Full Board", "Wildlife"]
   }
+};
+
+const icon = type => {
+  const icons = {
+    star: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.7 5.5 6.1.9-4.4 4.3 1 6-5.4-2.9-5.4 2.9 1-6-4.4-4.3 6.1-.9L12 3Z"/></svg>',
+    route: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-5.2 7-12a7 7 0 0 0-14 0c0 6.8 7 12 7 12Z"/><circle cx="12" cy="9" r="2.4"/></svg>',
+    duration: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 10h16"/></svg>',
+    bag: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 7V6a3 3 0 0 1 6 0v1"/><rect x="5" y="7" width="14" height="13" rx="2"/><path d="M9 11v1M15 11v1"/></svg>',
+    chat: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a7.5 7.5 0 0 1-10.9 6.7L4 20l1.8-5.6A7.5 7.5 0 1 1 21 11.5Z"/><path d="M8.5 11.5h.01M12 11.5h.01M15.5 11.5h.01"/></svg>'
+  };
+  return icons[type] || "";
 };
 
 document.querySelector("#packageGrid").innerHTML = packageList.map(item => {
   const details = cardDetails[item.slug] || {
-    badge: item.tags[0] || "Featured",
     location: item.route || item.country,
     duration: item.duration,
     tag: item.category || item.tags[0] || "Holiday",
     price: item.price,
-    highlights: item.highlights.slice(0, 3)
+    highlights: item.highlights.slice(0, 4)
   };
 
   return `
   <article class="package-card">
-    <a class="package-card-image" href="/packages/${item.slug}/" style="background-image:url('${details.image || item.cardImage}')" aria-label="View ${item.title}">
-      <span class="package-badge">${details.badge}</span>
-      <span class="wishlist-button" aria-hidden="true">&hearts;</span>
+    <a class="package-card-image" href="/packages/${item.slug}/" aria-label="View ${item.title}">
+      <img src="${details.image || item.cardImage}" alt="${item.title}">
+      <span class="package-badge">${icon("star")}Best Seller</span>
     </a>
     <div class="package-card-body">
       <h3>${item.title}</h3>
       <div class="package-card-meta">
-        <span>Route: ${details.location}</span>
-        <span>Duration: ${details.duration}</span>
+        <span>${icon("route")}<b>Route:</b> ${details.location}</span>
+        <span>${icon("duration")}<b>Duration:</b> ${details.duration}</span>
       </div>
       <div class="package-highlight-row">
-        ${details.highlights.slice(0, 3).map(highlight => `<span>${highlight}</span>`).join("")}
+        ${details.highlights.slice(0, 4).map(highlight => `<span>${highlight}</span>`).join("")}
       </div>
       <div class="package-card-footer">
-        <span class="package-category-chip">${details.tag}</span>
         <div class="package-price">
           <small>From</small>
           <strong>${details.price}</strong>
@@ -88,8 +91,8 @@ document.querySelector("#packageGrid").innerHTML = packageList.map(item => {
         </div>
       </div>
       <div class="package-action-row">
-        <a class="package-view-link" href="/packages/${item.slug}/">View Package</a>
-        <a class="package-enquire-link" href="${contact.whatsapp}?text=${encodeURIComponent(`Hi Flyo, I would like to enquire about ${item.title}.`)}">Enquire Now</a>
+        <a class="package-view-link" href="/packages/${item.slug}/">${icon("bag")}View Package</a>
+        <a class="package-enquire-link" href="${contact.whatsapp}?text=${encodeURIComponent(`Hi Flyo, I would like to enquire about ${item.title}.`)}">${icon("chat")}Enquire Now</a>
       </div>
     </div>
   </article>

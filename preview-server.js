@@ -16,6 +16,8 @@ http.createServer((request, response) => {
   const pathname = decodeURIComponent(request.url.split("?")[0]);
   const routePath = pathname === "/"
     ? "index.html"
+    : pathname === "/flights" || pathname === "/flights/"
+      ? "flights/index.html"
     : pathname === "/packages" || pathname === "/packages/"
       ? "packages/index.html"
       : /^\/packages\/[^/.]+\/?$/.test(pathname)

@@ -404,11 +404,11 @@ export const packages = [
   }
 ];
 
-export const navLinks = ["Home", "Flights & Holidays", "Visa Services", "Special Travel Services", "Contact"];
+export const navLinks = ["Home", "Flights", "Holidays", "Visa Services", "Contact"];
 
 export const footerColumns = [
-  { title: "Quick Links", links: ["Home", "Flights & Holidays", "Visa Services", "Special Travel Services", "Contact"] },
-  { title: "Services", links: ["International Packages", "Visa Assistance", "MICE / Corporate Travel", "Education Travel", "Cruise Packages", "Custom Travel Assistance"] }
+  { title: "Quick Links", links: ["Home", "Flights", "Holidays", "Visa Services", "Contact"] },
+  { title: "Services", links: ["Flight Booking Assistance", "Holiday Packages", "Visa Assistance", "Custom Holidays", "Honeymoon Packages", "Family Holidays"] }
 ];
 
 export const contact = { phone, whatsapp };
