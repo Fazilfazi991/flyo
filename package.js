@@ -198,15 +198,15 @@ byId("bookingPackage").innerHTML = pricingOptions.map(item => `<option>${item.la
 byId("bookingButton").textContent = "Send Enquiry";
 byId("bookingNote").textContent = "Flyo will confirm availability, final rates, and customization options.";
 
-document.querySelector(".highlights .section-title span").textContent = "Package Overview";
-document.querySelector(".highlights .section-title h2").textContent = `Why Choose ${packageData.title}`;
+document.querySelector(".highlights .section-title span").textContent = "Package Highlights";
+document.querySelector(".highlights .section-title h2").textContent = "Trip Highlights";
 document.querySelector(".highlights .section-title p").textContent = packageData.overview;
 byId("highlightGrid").innerHTML = packageData.highlights.slice(0, 4).map((highlight, index) => `
   <article class="highlight-card">
     <div class="highlight-image" style="background-image:url('${packageData.cardImage}')"></div>
     <div class="highlight-body">
       <div class="number-title"><span>${String(index + 1).padStart(2, "0")}</span><h3>${highlight}</h3></div>
-      <p>${index === 0 ? packageData.summary : "A carefully selected part of the itinerary, planned with smooth timing and guest comfort in mind."}</p>
+      <p>${index === 0 ? "A polished start to the trip with key sights and smooth routing." : "Planned with clear timing, comfortable transfers, and easy pacing."}</p>
     </div>
   </article>
 `).join("");
@@ -312,66 +312,12 @@ byId("statsStrip").innerHTML = [
   <article class="stat-item"><span>${item.icon}</span><div><strong>${item.value}</strong><small>${item.label}</small></div></article>
 `).join("");
 
-const infoSections = [
-  { icon: "IN", title: "Inclusions", text: "What is planned as part of this package.", items: packageData.inclusions },
-  { icon: "EX", title: "Exclusions", text: "Items that are usually not included in the starting rate.", items: packageData.exclusions },
-  { icon: "NT", title: "Important Notes", text: "Useful details before confirming your booking.", items: packageData.notes },
-  { icon: "VI", title: "Visa Support", text: "Flyo can guide documentation based on nationality and destination rules.", items: ["Document checklist guidance", "Appointment and application support where applicable", "Final visa approval remains subject to embassy or authority decision"] },
-  { icon: "CU", title: "Customization", text: "Turn this package into your exact holiday.", items: ["Add extra nights", "Upgrade hotels", "Add honeymoon or family experiences", "Adjust private or SIC transfers"] }
-];
-
-const renderInfoPanel = index => {
-  const info = infoSections[index];
-  byId("infoPanel").innerHTML = `
-    <div class="info-panel-head">
-      <div class="info-panel-icon">${info.icon}</div>
-      <div>
-        <h3>${info.title}</h3>
-        ${info.text ? `<p>${info.text}</p>` : ""}
-      </div>
-      <div class="desert-line-art" aria-hidden="true">
-        <span class="sun"></span>
-        <span class="cloud"></span>
-        <span class="dune dune-one"></span>
-        <span class="dune dune-two"></span>
-        <span class="palm"></span>
-      </div>
-    </div>
-    <div class="info-checklist">
-      ${info.items.map(detail => `
-        <div class="info-check-item">
-          <span>${checkIcon()}</span>
-          <div><strong>${detail}</strong></div>
-        </div>
-      `).join("")}
-    </div>
-    <a class="info-panel-link" href="${whatsappFor(info.title)}"><span>Ask</span>${info.title}</a>
-  `;
-  document.querySelectorAll(".info-tab").forEach((tab, tabIndex) => {
-    tab.classList.toggle("active", tabIndex === index);
-    tab.setAttribute("aria-selected", String(tabIndex === index));
-  });
-};
-
-byId("infoTabs").innerHTML = infoSections.map((item, index) => `
-  <button class="info-tab ${index === 0 ? "active" : ""}" type="button" role="tab" aria-selected="${index === 0}">
-    <span>${item.icon}</span>
-    <strong>${item.title}</strong>
-  </button>
-`).join("");
-renderInfoPanel(0);
-document.querySelectorAll(".info-tab").forEach((tab, index) => {
-  tab.addEventListener("click", () => renderInfoPanel(index));
-});
-
-byId("faqGrid").innerHTML = packageData.faqs.map(item => `
+byId("faqGrid").innerHTML = packageData.faqs.slice(0, 5).map(item => `
   <article class="faq-item">
     <button class="faq-question" type="button"><span>${item.question}</span><b>+</b></button>
     <div class="faq-answer">${item.answer}</div>
   </article>
 `).join("");
-
-byId("infoTrust").innerHTML = ["Custom holidays", "Visa support", "Secure booking", "Clear inclusions", "WhatsApp support"].map(item => `<span><b>${checkIcon()}</b>${item}</span>`).join("");
 
 byId("ctaTitle").textContent = `Ready to Book ${packageData.title}?`;
 byId("ctaText").textContent = `Speak with Flyo for live availability, hotel options, visa support, and a custom quote for ${packageData.country}.`;
@@ -428,21 +374,24 @@ const revealDelay = index => `reveal-delay-${(index % 6) + 1}`;
 
 function initScrollReveal() {
   const revealSelectors = [
-    ".package-detail-main",
-    ".package-gallery",
-    ".package-overview-card",
-    ".package-quick-card",
+    ".package-detail-copy",
+    ".package-detail-side",
+    ".section-title",
     ".highlight-card",
-    ".pricing-card",
-    ".custom-pricing-card",
     ".inclusion-card",
-    ".exclusion-card",
-    ".itinerary-item",
-    ".info-panel",
+    ".exclusion-panel",
+    ".timeline-step",
+    ".gallery-card",
+    ".options-panel",
+    ".price-card",
+    ".custom-option-card",
+    ".trust-strip-item",
+    ".review-intro",
+    ".trust-point",
+    ".package-testimonial",
     ".faq-item",
-    ".related-card",
-    ".final-cta",
-    ".footer"
+    ".bottom-cta",
+    ".package-footer"
   ];
   revealSelectors.forEach(selector => {
     document.querySelectorAll(selector).forEach((element, index) => {
@@ -450,7 +399,7 @@ function initScrollReveal() {
       if (!element.className.match(/reveal-delay-/)) element.classList.add(revealDelay(index));
     });
   });
-  document.querySelectorAll(".gallery-main, .related-card-image").forEach(element => element.classList.add("reveal-image"));
+  document.querySelectorAll(".package-main-image, .highlight-image, .gallery-card").forEach(element => element.classList.add("reveal-image"));
   const revealElements = document.querySelectorAll(".reveal, .reveal-image");
   if (!revealElements.length) return;
   if (!("IntersectionObserver" in window) || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
