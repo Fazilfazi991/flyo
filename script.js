@@ -125,7 +125,7 @@ function initScrollReveal() {
       if (!element.className.match(/reveal-delay-/)) element.classList.add(revealDelay(index));
     });
   });
-  document.querySelectorAll(".hero-slide img, .visa-feature-image img, .visa-small-card > img, .cta-visual").forEach(element => element.classList.add("reveal-image"));
+  document.querySelectorAll(".hero-slide img, .visa-card-image img, .cta-visual").forEach(element => element.classList.add("reveal-image"));
   const revealElements = document.querySelectorAll(".reveal, .reveal-image");
   if (!revealElements.length) return;
   if (!("IntersectionObserver" in window) || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
