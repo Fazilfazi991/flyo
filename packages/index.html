@@ -59,6 +59,8 @@
               <input type="search" placeholder="Search destinations, packages, or experiences...">
             </label>
           </div>
+          <button class="filter-toggle" type="button" aria-expanded="false" aria-controls="packageFilterControls">Show Filters</button>
+          <div class="filter-controls" id="packageFilterControls">
           <div class="filter-row">
             <button class="filter-select" type="button"><span class="filter-icon"><svg viewBox="0 0 24 24"><path d="M12 21s7-5.2 7-12a7 7 0 0 0-14 0c0 6.8 7 12 7 12Z"/><circle cx="12" cy="9" r="2.4"/></svg></span>Destination<span class="filter-chevron">⌄</span></button>
             <button class="filter-select" type="button"><span class="filter-icon"><svg viewBox="0 0 24 24"><path d="M9 7V5a3 3 0 0 1 6 0v2"/><rect x="4" y="7" width="16" height="13" rx="2"/><path d="M4 12h16"/></svg></span>Trip Type<span class="filter-chevron">⌄</span></button>
@@ -80,6 +82,7 @@
               <span>Sort by</span>
               <button class="sort-select" type="button">Recommended <span>⌄</span></button>
             </div>
+          </div>
           </div>
         </div>
         <div class="package-results-row">

@@ -59,18 +59,20 @@ const icon = type => {
   return icons[type] || "";
 };
 
-document.querySelector("#packageGrid").innerHTML = packageList.map(item => {
+const revealDelay = index => `reveal-delay-${(index % 6) + 1}`;
+
+document.querySelector("#packageGrid").innerHTML = packageList.map((item, index) => {
   const details = cardDetails[item.slug] || {
     location: item.route || item.country,
     duration: item.duration,
     tag: item.category || item.tags[0] || "Holiday",
     price: item.price,
-    highlights: item.highlights.slice(0, 4)
+    highlights: item.highlights.slice(0, 3)
   };
 
   return `
-  <article class="package-card">
-    <a class="package-card-image" href="/packages/${item.slug}/" aria-label="View ${item.title}">
+  <article class="package-card reveal ${revealDelay(index)}">
+    <a class="package-card-image reveal-image" href="/packages/${item.slug}/" aria-label="View ${item.title}">
       <img src="${details.image || item.cardImage}" alt="${item.title}">
       <span class="package-badge">${icon("star")}Best Seller</span>
     </a>
@@ -81,7 +83,7 @@ document.querySelector("#packageGrid").innerHTML = packageList.map(item => {
         <span>${icon("duration")}<b>Duration:</b> ${details.duration}</span>
       </div>
       <div class="package-highlight-row">
-        ${details.highlights.slice(0, 4).map(highlight => `<span>${highlight}</span>`).join("")}
+        ${details.highlights.slice(0, 3).map(highlight => `<span>${highlight}</span>`).join("")}
       </div>
       <div class="package-card-footer">
         <div class="package-price">
@@ -106,6 +108,50 @@ document.querySelectorAll("form").forEach(form => form.addEventListener("submit"
   event.preventDefault();
   location.href = contact.whatsapp;
 }));
+
+function initScrollReveal() {
+  const revealSelectors = [
+    ".section-heading",
+    ".package-filter-panel",
+    ".package-results-row",
+    ".packages-custom-cta",
+    ".cta-visual",
+    ".footer-grid"
+  ];
+  revealSelectors.forEach(selector => {
+    document.querySelectorAll(selector).forEach((element, index) => {
+      element.classList.add("reveal");
+      if (!element.className.match(/reveal-delay-/)) element.classList.add(revealDelay(index));
+    });
+  });
+  const revealElements = document.querySelectorAll(".reveal, .reveal-image");
+  if (!revealElements.length) return;
+  if (!("IntersectionObserver" in window) || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    revealElements.forEach(element => element.classList.add("is-visible"));
+    return;
+  }
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
+  revealElements.forEach(element => revealObserver.observe(element));
+}
+
+initScrollReveal();
+
+const filterToggle = document.querySelector(".filter-toggle");
+const filterControls = document.querySelector(".filter-controls");
+if (filterToggle && filterControls) {
+  filterToggle.addEventListener("click", () => {
+    const open = filterControls.classList.toggle("is-open");
+    filterToggle.setAttribute("aria-expanded", String(open));
+    filterToggle.textContent = open ? "Hide Filters" : "Show Filters";
+  });
+}
 
 const toggle = document.querySelector(".menu-toggle");
 const nav = document.querySelector(".main-nav");

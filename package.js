@@ -423,3 +423,49 @@ nav.addEventListener("click", event => {
     menuToggle.setAttribute("aria-expanded", "false");
   }
 });
+
+const revealDelay = index => `reveal-delay-${(index % 6) + 1}`;
+
+function initScrollReveal() {
+  const revealSelectors = [
+    ".package-detail-main",
+    ".package-gallery",
+    ".package-overview-card",
+    ".package-quick-card",
+    ".highlight-card",
+    ".pricing-card",
+    ".custom-pricing-card",
+    ".inclusion-card",
+    ".exclusion-card",
+    ".itinerary-item",
+    ".info-panel",
+    ".faq-item",
+    ".related-card",
+    ".final-cta",
+    ".footer"
+  ];
+  revealSelectors.forEach(selector => {
+    document.querySelectorAll(selector).forEach((element, index) => {
+      element.classList.add("reveal");
+      if (!element.className.match(/reveal-delay-/)) element.classList.add(revealDelay(index));
+    });
+  });
+  document.querySelectorAll(".gallery-main, .related-card-image").forEach(element => element.classList.add("reveal-image"));
+  const revealElements = document.querySelectorAll(".reveal, .reveal-image");
+  if (!revealElements.length) return;
+  if (!("IntersectionObserver" in window) || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    revealElements.forEach(element => element.classList.add("is-visible"));
+    return;
+  }
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
+  revealElements.forEach(element => revealObserver.observe(element));
+}
+
+initScrollReveal();

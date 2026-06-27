@@ -25,6 +25,8 @@ const holidayPackages = packages.slice(0, 6).map(item => ({
   href: `/packages/${item.slug}/`
 }));
 
+const revealDelay = index => `reveal-delay-${(index % 6) + 1}`;
+
 const popularExperiences = [
   { name: "Thailand Island Hopping", text: "Krabi, Phi Phi, Phuket, and tropical water days.", image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=85" },
   { name: "Singapore Sentosa", text: "Theme parks, cable cars, oceanarium visits, and family fun.", image: "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=900&q=85" },
@@ -42,8 +44,8 @@ const testimonials = [
 
 const destinationGrid = document.querySelector("#destinationGrid");
 if (destinationGrid) destinationGrid.innerHTML = `
-  ${destinations.map(item => `
-    <article class="destination-card destination-card-${item.layout}" style="--destination-image:url('${item.image}')">
+  ${destinations.map((item, index) => `
+    <article class="destination-card destination-card-${item.layout} reveal ${revealDelay(index)}" style="--destination-image:url('${item.image}')">
       <div class="destination-image" aria-hidden="true"></div>
       ${item.layout === "dubai" ? '<span class="destination-featured">Featured</span>' : ""}
       <div class="destination-copy">
@@ -54,9 +56,9 @@ if (destinationGrid) destinationGrid.innerHTML = `
     </article>`).join("")}`;
 
 const travelStyleGrid = document.querySelector("#travelStyleGrid");
-if (travelStyleGrid) travelStyleGrid.innerHTML = holidayPackages.map(item => `
-  <article class="travel-style-card">
-    <div class="travel-style-image" style="background-image:url('${item.image}')" aria-hidden="true"></div>
+if (travelStyleGrid) travelStyleGrid.innerHTML = holidayPackages.map((item, index) => `
+  <article class="travel-style-card reveal ${revealDelay(index)}">
+    <div class="travel-style-image reveal-image" style="background-image:url('${item.image}')" aria-hidden="true"></div>
     <div class="travel-style-body">
       <h3>${item.name}</h3>
       <p>${item.text}</p>
@@ -66,23 +68,23 @@ if (travelStyleGrid) travelStyleGrid.innerHTML = holidayPackages.map(item => `
 `).join("");
 
 const featureGrid = document.querySelector("#featureGrid");
-if (featureGrid) featureGrid.innerHTML = features.map(item => `
-  <article class="feature-card">
-    <div class="feature-card-image" style="background-image:url('${item.image}')" aria-hidden="true"></div>
+if (featureGrid) featureGrid.innerHTML = features.map((item, index) => `
+  <article class="feature-card reveal ${revealDelay(index)}">
+    <div class="feature-card-image reveal-image" style="background-image:url('${item.image}')" aria-hidden="true"></div>
     <div class="feature-card-body"><h3>${item.title}</h3><p>${item.text}</p></div>
   </article>`).join("");
 
 const experienceGrid = document.querySelector("#experienceGrid");
 if (experienceGrid) {
-  experienceGrid.innerHTML = popularExperiences.map(item => `
-    <article class="image-card experience-card" style="background-image:url('${item.image}')">
+  experienceGrid.innerHTML = popularExperiences.map((item, index) => `
+    <article class="image-card experience-card reveal ${revealDelay(index)}" style="background-image:url('${item.image}')">
       <div class="card-copy"><strong>${item.name}</strong><small>${item.text}</small></div>
     </article>`).join("");
 }
 
 const testimonialGrid = document.querySelector("#testimonialGrid");
-if (testimonialGrid) testimonialGrid.innerHTML = testimonials.map(item => `
-  <article class="testimonial-card">
+if (testimonialGrid) testimonialGrid.innerHTML = testimonials.map((item, index) => `
+  <article class="testimonial-card reveal ${revealDelay(index)}">
     <div class="stars">★★★★★</div>
     <p>"${item.review}"</p>
     <div class="person"><span>${item.initials}</span><div><strong>${item.name}</strong><small>${item.location}</small></div></div>
@@ -105,6 +107,43 @@ document.querySelectorAll("form").forEach(form => form.addEventListener("submit"
   event.preventDefault();
   location.href = form.classList.contains("flight-form") ? contact.whatsapp : "/packages/";
 }));
+
+function initScrollReveal() {
+  const revealSelectors = [
+    ".section-heading",
+    ".visa-copy",
+    ".visa-card-grid article",
+    ".why-intro",
+    ".cta",
+    ".stats-luxury-box",
+    ".flight-form",
+    ".flights-copy"
+  ];
+  revealSelectors.forEach(selector => {
+    document.querySelectorAll(selector).forEach((element, index) => {
+      element.classList.add("reveal");
+      if (!element.className.match(/reveal-delay-/)) element.classList.add(revealDelay(index));
+    });
+  });
+  document.querySelectorAll(".hero-slide img, .visa-feature-image img, .visa-small-card > img, .cta-visual").forEach(element => element.classList.add("reveal-image"));
+  const revealElements = document.querySelectorAll(".reveal, .reveal-image");
+  if (!revealElements.length) return;
+  if (!("IntersectionObserver" in window) || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    revealElements.forEach(element => element.classList.add("is-visible"));
+    return;
+  }
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
+  revealElements.forEach(element => revealObserver.observe(element));
+}
+
+initScrollReveal();
 
 const hero = document.querySelector(".hero");
 const heroSlides = [...document.querySelectorAll(".hero-slide")];
