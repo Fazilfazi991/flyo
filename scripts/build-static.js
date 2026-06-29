@@ -10,6 +10,8 @@ const entries = [
   "script.js",
   "package.css",
   "package.js",
+  "footer-animations.css",
+  "footer-animations.js",
   "favicon.svg",
   "data",
   "flights",
@@ -21,6 +23,9 @@ const packageDataSource = path.join(root, "data", "packages.js");
 const packageTemplate = path.join(root, "packages", "detail.html");
 
 function copyRecursive(source, target) {
+  if (!fs.existsSync(source)) {
+    return;
+  }
   const stat = fs.statSync(source);
   if (stat.isDirectory()) {
     fs.mkdirSync(target, { recursive: true });

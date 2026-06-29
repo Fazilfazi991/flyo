@@ -1,4 +1,4 @@
-import { contact, packages } from "./data/packages.js";
+import { contact } from "./data/packages.js";
 
 const destinations = [
   { name: "Thailand", region: "Asia", layout: "dubai", image: "https://images.unsplash.com/photo-1508009603885-50cf7c579365?auto=format&fit=crop&w=1200&q=88" },
@@ -18,11 +18,38 @@ const features = [
   { image: "/public/flyo_why_choose_images_webp/travel_support_24_7.webp", title: "24/7 Travel Support", text: "Support before departure and while you travel, from small changes to urgent help." }
 ];
 
-const holidayPackages = packages.slice(0, 6).map(item => ({
-  name: item.title,
-  text: item.summary,
-  image: item.cardImage,
-  href: `/packages/${item.slug}/`
+const aroyaCruisePackages = [
+  {
+    title: "Aroya Dubai Arabian Escape",
+    url: "/packages/aroya-dubai-arabian-escape.html",
+    image: "https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&fit=crop&w=1200&q=86",
+    durationBadge: "7N / 8D",
+    price: "from AED 2590"
+  },
+  {
+    title: "Aroya Dubai Arabian Signature Voyage",
+    url: "/packages/aroya-dubai-arabian-signature-voyage.html",
+    image: "https://images.unsplash.com/photo-1601925663568-2d11d2a697f9?auto=format&fit=crop&w=1200&q=86",
+    durationBadge: "7N / 8D",
+    price: "from AED 2590"
+  },
+  {
+    title: "Aroya Dubai Short Escape",
+    url: "/packages/aroya-dubai-short-escape.html",
+    image: "https://images.unsplash.com/photo-1566552881560-0be862a7c445?auto=format&fit=crop&w=1200&q=86",
+    durationBadge: "2N / 3D",
+    price: "from AED 791"
+  },
+  {
+    title: "Aroya Arabian Gulf Signature Voyage",
+    url: "/packages/aroya-arabian-gulf-signature-voyage.html",
+    image: "https://images.unsplash.com/photo-1599640842225-85d111c60e6b?auto=format&fit=crop&w=1200&q=86",
+    durationBadge: "7N / 8D",
+    price: "from AED 2474"
+  }
+].map(item => ({
+  ...item,
+  whatsappMessage: `Hi, I'm interested in ${item.title}. Please share more details.`
 }));
 
 const revealDelay = index => `reveal-delay-${(index % 6) + 1}`;
@@ -56,16 +83,22 @@ if (destinationGrid) destinationGrid.innerHTML = `
     </article>`).join("")}`;
 
 const travelStyleGrid = document.querySelector("#travelStyleGrid");
-if (travelStyleGrid) travelStyleGrid.innerHTML = holidayPackages.map((item, index) => `
-  <article class="travel-style-card reveal ${revealDelay(index)}">
-    <div class="travel-style-image reveal-image" style="background-image:url('${item.image}')" aria-hidden="true"></div>
-    <div class="travel-style-body">
-      <h3>${item.name}</h3>
-      <p>${item.text}</p>
-      <a href="${item.href}">View Package</a>
+if (travelStyleGrid) travelStyleGrid.innerHTML = aroyaCruisePackages.map((item, index) => {
+  return `
+  <article class="cruise-package-card reveal ${revealDelay(index)}">
+    <a class="cruise-image-link" href="${item.url}" aria-label="View ${item.title}">
+      <img src="${item.image}" alt="${item.title} cruise ship" loading="lazy" width="640" height="400">
+      <span class="cruise-duration-pill">${item.durationBadge}</span>
+    </a>
+    <div class="cruise-card-body">
+      <a class="cruise-card-title" href="${item.url}"><h3>${item.title}</h3></a>
+      <div class="cruise-card-bottom">
+        <div class="cruise-price"><small>Starting price</small><strong>${item.price}</strong></div>
+      </div>
+      <a class="cruise-view-button" href="${item.url}">View Package</a>
     </div>
   </article>
-`).join("");
+`;}).join("");
 
 const featureGrid = document.querySelector("#featureGrid");
 if (featureGrid) featureGrid.innerHTML = features.map((item, index) => `
@@ -95,6 +128,40 @@ document.querySelectorAll("[data-whatsapp]").forEach(link => {
   link.setAttribute("href", contact.whatsapp);
 });
 
+let activeSearchType = "holidays";
+const searchForm = document.querySelector("[data-search-form]");
+const searchTabs = document.querySelectorAll("[data-search-tab]");
+const searchPanels = document.querySelectorAll("[data-search-panel]");
+
+const setSearchType = type => {
+  activeSearchType = type;
+  searchTabs.forEach(tab => {
+    const active = tab.dataset.searchTab === type;
+    tab.classList.toggle("active", active);
+    tab.setAttribute("aria-selected", String(active));
+  });
+  searchPanels.forEach(panel => {
+    panel.classList.toggle("active", panel.dataset.searchPanel === type);
+  });
+};
+
+searchTabs.forEach(tab => {
+  tab.addEventListener("click", () => setSearchType(tab.dataset.searchTab));
+});
+
+const linkDateMinimum = (startId, endId) => {
+  const start = document.getElementById(startId);
+  const end = document.getElementById(endId);
+  if (!start || !end) return;
+  start.addEventListener("change", () => {
+    end.min = start.value;
+    if (end.value && start.value && end.value < start.value) end.value = start.value;
+  });
+};
+
+linkDateMinimum("holidayCheckin", "holidayCheckout");
+linkDateMinimum("flightDepart", "flightReturn");
+
 const toggle = document.querySelector(".menu-toggle");
 const nav = document.querySelector(".main-nav");
 toggle.addEventListener("click", () => {
@@ -105,6 +172,10 @@ nav.querySelectorAll("a").forEach(link => link.addEventListener("click", () => n
 
 document.querySelectorAll("form").forEach(form => form.addEventListener("submit", event => {
   event.preventDefault();
+  if (form === searchForm) {
+    location.href = activeSearchType === "flights" ? "/flights/" : "/packages/";
+    return;
+  }
   location.href = form.classList.contains("flight-form") ? contact.whatsapp : "/packages/";
 }));
 

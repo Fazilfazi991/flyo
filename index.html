@@ -7,6 +7,7 @@
   <title>Flyo Tours & Travels</title>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="/footer-animations.css">
 </head>
 <body>
   <header class="site-header" id="top">
@@ -65,24 +66,65 @@
         </div>
         <button class="hero-arrow hero-next" type="button" aria-label="Next hero image">&gt;</button>
       </div>
-      <form class="booking-card container" action="#">
-        <label>
-          <span>Destination</span>
-          <div class="field"><input type="text" placeholder="Where do you want to go?"></div>
-        </label>
-        <label>
-          <span>Travel Date</span>
-          <div class="field"><input type="text" placeholder="Select dates"></div>
-        </label>
-        <label>
-          <span>Guests</span>
-          <div class="field"><input type="text" placeholder="2 Adults, 0 Children"></div>
-        </label>
-        <label>
-          <span>Trip Type</span>
-          <div class="field"><input type="text" placeholder="Family, honeymoon, beach..."></div>
-        </label>
-        <button class="button button-blue" type="submit">Explore Now</button>
+      <form class="booking-card search-panel container" action="#" data-search-form>
+        <div class="search-tabs" role="tablist" aria-label="Travel search type">
+          <button class="search-tab" type="button" role="tab" aria-selected="false" data-search-tab="flights">
+            <span aria-hidden="true">✈</span>
+            Flights
+          </button>
+          <button class="search-tab active" type="button" role="tab" aria-selected="true" data-search-tab="holidays">
+            <span aria-hidden="true">▣</span>
+            Holidays
+          </button>
+        </div>
+
+        <div class="search-form-row active" data-search-panel="holidays">
+          <label>
+            <span>Destination</span>
+            <div class="field"><input type="text" placeholder="Where do you want to go?"></div>
+          </label>
+          <label>
+            <span>Check-in</span>
+            <div class="field date-field"><input id="holidayCheckin" type="date" aria-label="Select check-in date"></div>
+          </label>
+          <label>
+            <span>Check-out</span>
+            <div class="field date-field"><input id="holidayCheckout" type="date" aria-label="Select check-out date"></div>
+          </label>
+          <label>
+            <span>Guests</span>
+            <div class="field"><input type="text" placeholder="2 Adults, 0 Children"></div>
+          </label>
+          <label>
+            <span>Trip Type</span>
+            <div class="field"><input type="text" placeholder="Family, honeymoon, beach."></div>
+          </label>
+          <button class="button button-blue" type="submit">Explore Now</button>
+        </div>
+
+        <div class="search-form-row" data-search-panel="flights">
+          <label>
+            <span>From</span>
+            <div class="field"><input type="text" placeholder="Where from?"></div>
+          </label>
+          <label>
+            <span>To</span>
+            <div class="field"><input type="text" placeholder="Where to?"></div>
+          </label>
+          <label>
+            <span>Depart</span>
+            <div class="field date-field"><input id="flightDepart" type="date" aria-label="Select depart date"></div>
+          </label>
+          <label>
+            <span>Return</span>
+            <div class="field date-field"><input id="flightReturn" type="date" aria-label="Select return date"></div>
+          </label>
+          <label>
+            <span>Travellers &amp; Class</span>
+            <div class="field"><input type="text" placeholder="1 Traveller, Economy"></div>
+          </label>
+          <button class="button button-blue" type="submit">Search Flights</button>
+        </div>
       </form>
     </section>
 
@@ -147,13 +189,13 @@
     <section class="section travel-way" id="holidays">
       <div class="container">
         <div class="section-heading">
-          <p class="eyebrow">Flights &amp; Holidays</p>
-          <h2>Holiday Packages</h2>
-          <p class="section-subtitle">Explore ready-to-plan holidays, family trips, honeymoons, city breaks, beach escapes, and UAE experiences customized around your dates.</p>
+          <p class="eyebrow">Cruise Holidays</p>
+          <h2>Cruise Packages</h2>
+          <p class="section-subtitle">Discover premium Arabian Gulf cruise escapes with handpicked Aroya itineraries.</p>
         </div>
         <div class="travel-style-grid" id="travelStyleGrid"></div>
         <div class="section-action">
-          <a class="button button-primary" href="/packages/">Explore Holiday Packages</a>
+          <a class="button button-primary" data-whatsapp href="#">Enquire About Cruise Packages</a>
         </div>
       </div>
     </section>
@@ -253,20 +295,30 @@
     </section>
   </main>
 
-  <footer class="footer" id="contact">
-    <div class="container footer-grid">
-      <div class="footer-brand">
-        <img src="public/flyo-logo-white.svg" alt="Flyo Tours & Travels">
-        <p>Flyo plans curated holidays across the world, from international packages to family trips, honeymoons, visa support, and custom itineraries.</p>
-        <div class="socials"><a href="#">f</a><a href="#">ig</a><a data-whatsapp href="#">wa</a><a href="#">yt</a></div>
+  <footer class="site-footer footer" id="contact">
+    <div class="footer-container container footer-grid">
+      <div class="footer-brand footer-column">
+        <img class="footer-logo" src="public/flyo-logo-white.svg" alt="Flyo Tours & Travels">
+        <p class="footer-description">Flyo plans curated holidays across the world, from international packages to family trips, honeymoons, visa support, and custom itineraries.</p>
+        <h3 class="footer-follow-heading">Follow Us On:</h3>
+        <div class="footer-social socials"><a class="footer-social-link" aria-label="Facebook" href="#">f</a><a class="footer-social-link" aria-label="Instagram" href="#">ig</a><a class="footer-social-link" aria-label="WhatsApp" data-whatsapp href="#">wa</a><a class="footer-social-link" aria-label="YouTube" href="#">yt</a><a class="footer-social-link" aria-label="LinkedIn" href="#">in</a></div>
       </div>
-      <div class="footer-quick-column">
-        <h3>Quick Links</h3>
-        <ul><li><a href="#top">Home</a></li><li><a href="/flights/">Flights</a></li><li><a href="/packages/">Holidays</a></li><li><a href="#visa-services">Visa Services</a></li><li><a href="#contact">Contact</a></li></ul>
+      <div class="footer-column footer-quick-column">
+        <h3 class="footer-heading">Quick Links</h3>
+        <ul class="footer-links"><li><a href="#top">Home</a></li><li><a href="/flights/">Flights</a></li><li><a href="/packages/">Holidays</a></li><li><a href="#visa-services">Visa Services</a></li><li><a href="#contact">Contact</a></li><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms &amp; Conditions</a></li></ul>
       </div>
-      <div class="footer-services-column">
-        <h3>Services</h3>
-        <ul><li>Flight Booking Assistance</li><li>Holiday Packages</li><li>Visa Assistance</li><li>Custom Holidays</li><li>Honeymoon Packages</li><li>Family Holidays</li></ul>
+      <div class="footer-column footer-services-column">
+        <h3 class="footer-heading">Services</h3>
+        <ul class="footer-links"><li>Flight Booking Assistance</li><li>Holiday Packages</li><li>Visa Assistance</li><li>Custom Holidays</li><li>Honeymoon Packages</li><li>Family Holidays</li><li>Group Tours</li></ul>
+      </div>
+      <div class="footer-column footer-reachout footer-contact">
+        <h3 class="footer-heading">Reach Out To Us</h3>
+        <ul class="footer-contact-list">
+          <li class="footer-contact-item"><span class="footer-contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"></circle><path d="M12 7v5l3 2"></path></svg></span><small>Hours: 10:00 - 7:00 (Mon - Fri), 10:00 - 6:00 Sat</small></li>
+          <li class="footer-contact-item"><span class="footer-contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.7 19.7 0 0 1-8.6-3.1 19.4 19.4 0 0 1-6-6A19.7 19.7 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8 10a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2z"></path></svg></span><small><a href="tel:+97154000000">+971 54 000 000</a>, <a href="tel:+919511111">+91 95111 11</a></small></li>
+          <li class="footer-contact-item"><span class="footer-contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 7 9 6 9-6"></path></svg></span><small><a href="mailto:sales@flyotours.com">sales@flyotours.com</a></small></li>
+          <li class="footer-contact-item"><span class="footer-contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></span><small>ADCB Commercial Tower B - Building No 17<br>Electra Street - Al Danah - Zone 1 - Abu Dhabi</small></li>
+        </ul>
       </div>
     </div>
     <div class="container footer-bottom">
@@ -275,5 +327,6 @@
     </div>
   </footer>
   <script type="module" src="script.js"></script>
+  <script type="module" src="/footer-animations.js"></script>
 </body>
 </html>

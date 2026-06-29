@@ -1,6 +1,10 @@
 import { contact, packages } from "../data/packages.js";
 
 const packageList = packages.filter(item => item.slug !== "dubai-desert-safari");
+const resultCount = document.querySelector(".package-results-row > span");
+if (resultCount) {
+  resultCount.textContent = `Showing ${packageList.length} curated packages`;
+}
 
 const cardDetails = {
   "kuala-lumpur-getaway": {

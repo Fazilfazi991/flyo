@@ -1,5 +1,6 @@
 const phone = "+971 50 123 4567";
 const whatsapp = "https://wa.me/971501234567";
+const email = "info@flyotravels.com";
 
 const commonInclusions = [
   "Hotel accommodation as selected",
@@ -22,6 +23,163 @@ const commonNotes = [
   "Rooms and tours are subject to confirmation at the time of booking.",
   "Final itinerary can be customized for families, couples, groups, or honeymoon travelers."
 ];
+
+const commonCruiseInclusions = [
+  "All meals onboard including snacks",
+  "Water, tea, and coffee during meals",
+  "Onboard entertainment activities",
+  "Games, competitions, tournaments, parties, dance lessons, and themed evenings",
+  "Musical shows in the onboard theatre",
+  "Entertainment for kids and teenagers",
+  "Use of ship facilities including swimming pools, sunbeds, beach towels, gym, jogging area, library, and leisure areas",
+  "Fitness and gym access"
+];
+
+const commonCruiseExclusions = [
+  "Airfare",
+  "Entry visa to any ports of call",
+  "Pre or post-cruise accommodation",
+  "Land transportation",
+  "Shore excursions",
+  "Room service except for villas",
+  "Spa amenities",
+  "Beverages outside included meal service",
+  "Specialty dining",
+  "Internet",
+  "Beauty salon",
+  "Duty-free shops and boutiques",
+  "Laundry except for suites and villas",
+  "Alcoholic beverages are not available onboard",
+  "Casino facilities are not offered"
+];
+
+const commonCruiseImportantInfo = [
+  "Prices are starting prices and subject to change at confirmation.",
+  "Adult rates apply for the first and second guest regardless of age.",
+  "Additional cabin fare, port charges, and gratuities may apply for extra adults.",
+  "Single occupancy may be charged at 200% of cabin fare plus port taxes and gratuities.",
+  "Itinerary timings may vary depending on cruise schedules.",
+  "Passports should be valid for at least 6 months.",
+  "Guests should check visa requirements before booking.",
+  "Pregnant guests should check cruise pregnancy policies before travel."
+];
+
+const cruiseVisaNote = "Visa requirements depend on nationality, residency status, and cruise route. Please contact our team before booking so we can guide you with the correct visa information.";
+
+const cruisePackages = [
+  {
+    slug: "aroya-dubai-arabian-escape",
+    title: "Aroya Dubai Arabian Escape",
+    duration: "7 Nights / 8 Days",
+    price: "AED 2590",
+    availability: "Feb 2027 - 06",
+    route: "Dubai, At Sea, Muscat, Khasab, Abu Dhabi, Sir Bani Yas",
+    heroImage: "https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&fit=crop&w=2400&q=90",
+    cardImage: "https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&fit=crop&w=1200&q=86",
+    overview: "A 7-night Arabian Gulf cruise round-trip from Dubai with a mix of relaxation, culture, scenic coastlines, and city experiences.",
+    itinerary: [
+      { day: "Day 1", title: "Dubai", text: "Board the cruise in Dubai, explore onboard facilities, enjoy dining and entertainment, and set sail late evening." },
+      { day: "Day 2", title: "At Sea", text: "Relax onboard with pool time, spa options, activities, dining, and ocean views." },
+      { day: "Day 3", title: "Muscat", text: "Explore Muscat's traditional charm, coastal scenery, cultural landmarks, markets, and Omani hospitality." },
+      { day: "Day 4", title: "Khasab", text: "Visit Khasab, known for dramatic mountain landscapes, fjord-like views, and natural beauty." },
+      { day: "Day 5", title: "Abu Dhabi", text: "Arrive in Abu Dhabi and explore architecture, cultural attractions, shopping, and modern landmarks." },
+      { day: "Day 6", title: "Abu Dhabi", text: "Continue enjoying Abu Dhabi with extra time for sightseeing and relaxation before departure." },
+      { day: "Day 7", title: "Sir Bani Yas", text: "Experience Sir Bani Yas Island, known for wildlife, beaches, and natural landscapes." },
+      { day: "Day 8", title: "Dubai", text: "Return to Dubai in the morning." }
+    ],
+    timings: ["Day 1: Dubai | Depart 11:59 PM", "Day 2: At Sea", "Day 3: Muscat | 07:00 AM to 07:00 PM", "Day 4: Khasab", "Day 5: Abu Dhabi | Arrive 08:00 AM", "Day 6: Abu Dhabi | Depart 02:00 AM", "Day 7: Sir Bani Yas | 08:00 AM to 06:00 PM", "Day 8: Dubai | Arrive 08:00 AM"]
+  },
+  {
+    slug: "aroya-dubai-arabian-signature-voyage",
+    title: "Aroya Dubai Arabian Signature Voyage",
+    duration: "7 Nights / 8 Days",
+    price: "AED 2590",
+    availability: "Feb 2027 - 27",
+    route: "Dubai, Khasab, Abu Dhabi, Sir Bani Yas, Doha, Bahrain",
+    heroImage: "https://images.unsplash.com/photo-1601925663568-2d11d2a697f9?auto=format&fit=crop&w=2400&q=90",
+    cardImage: "https://images.unsplash.com/photo-1601925663568-2d11d2a697f9?auto=format&fit=crop&w=1200&q=86",
+    overview: "A 7-night Arabian Gulf cruise round-trip from Dubai combining culture, modern cities, natural beauty, and relaxation.",
+    itinerary: [
+      { day: "Day 1", title: "Dubai", text: "Board the ship in Dubai, settle into the cabin, enjoy onboard facilities, and depart late night." },
+      { day: "Day 2", title: "Khasab", text: "Discover fjord-like landscapes, rugged mountains, scenic coastal views, and cultural experiences." },
+      { day: "Day 3", title: "Abu Dhabi", text: "Explore modern architecture, cultural attractions, shopping destinations, and waterfront areas." },
+      { day: "Day 4", title: "Sir Bani Yas", text: "Visit Sir Bani Yas Island for beaches, nature, outdoor activities, and wildlife experiences." },
+      { day: "Day 5", title: "Doha", text: "Explore Doha's blend of modern skyline, traditional culture, markets, attractions, and waterfront views." },
+      { day: "Day 6", title: "Bahrain", text: "Experience Bahrain's Gulf heritage, historical sites, modern districts, and cultural atmosphere." },
+      { day: "Day 7", title: "At Sea", text: "Enjoy onboard entertainment, dining, pools, leisure facilities, and relaxation." },
+      { day: "Day 8", title: "Dubai", text: "Return to Dubai with memories of the Arabian Gulf journey." }
+    ],
+    timings: ["Day 1: Dubai | Depart 11:59 PM", "Day 2: Khasab | 09:00 AM to 08:00 PM", "Day 3: Abu Dhabi | 08:00 AM to 11:00 PM", "Day 4: Sir Bani Yas | 08:00 AM to 06:00 PM", "Day 5: Doha | 08:00 AM to 08:00 PM", "Day 6: Bahrain | 10:00 AM to 08:00 PM", "Day 7: At Sea", "Day 8: Dubai | Arrive 08:00 AM"]
+  },
+  {
+    slug: "aroya-dubai-short-escape",
+    title: "Aroya Dubai Short Escape",
+    duration: "2 Nights / 3 Days",
+    price: "AED 791",
+    availability: "Feb 2027 - Apr 2027",
+    route: "Dubai, Khasab, Abu Dhabi",
+    heroImage: "https://images.unsplash.com/photo-1566552881560-0be862a7c445?auto=format&fit=crop&w=2400&q=90",
+    cardImage: "https://images.unsplash.com/photo-1566552881560-0be862a7c445?auto=format&fit=crop&w=1200&q=86",
+    overview: "A short Arabian Gulf cruise from Dubai to Abu Dhabi aboard Aroya Cruises with scenic coastal views, onboard relaxation, and destination experiences.",
+    itinerary: [
+      { day: "Day 1", title: "Dubai", text: "Begin in Dubai, settle into the cruise, enjoy onboard facilities, dining, and entertainment, then sail late evening." },
+      { day: "Day 2", title: "Khasab", text: "Visit Khasab, known for dramatic mountains, fjord-like views, traditional culture, and natural scenery." },
+      { day: "Day 3", title: "Abu Dhabi", text: "Arrive in Abu Dhabi and explore architecture, cultural attractions, shopping, and modern landmarks." }
+    ],
+    timings: ["Day 1: Dubai | Depart 10:00 PM", "Day 2: Khasab | 09:00 AM to 08:00 PM", "Day 3: Abu Dhabi | Arrive 08:00 AM"]
+  },
+  {
+    slug: "aroya-arabian-gulf-signature-voyage",
+    title: "Aroya Arabian Gulf Signature Voyage",
+    duration: "7 Nights / 8 Days",
+    price: "AED 2474",
+    availability: "Apr 2027 - 10",
+    route: "Dubai, At Sea, Muscat, Salalah, Jeddah",
+    heroImage: "https://images.unsplash.com/photo-1599640842225-85d111c60e6b?auto=format&fit=crop&w=2400&q=90",
+    cardImage: "https://images.unsplash.com/photo-1599640842225-85d111c60e6b?auto=format&fit=crop&w=1200&q=86",
+    overview: "A relaxing 7-night voyage aboard Aroya Cruises from Dubai to Jeddah, featuring scenic days at sea and stops in Muscat and Salalah.",
+    itinerary: [
+      { day: "Day 1", title: "Dubai", text: "Board Aroya Cruises in Dubai and begin the Arabian Gulf journey." },
+      { day: "Day 2", title: "At Sea", text: "Relax onboard with entertainment, dining, and panoramic ocean views." },
+      { day: "Day 3", title: "Muscat", text: "Discover Muscat's traditional Omani culture, scenic mountains, and waterfronts." },
+      { day: "Day 4", title: "At Sea", text: "Enjoy a peaceful cruising day with time to unwind and explore ship amenities." },
+      { day: "Day 5", title: "Salalah", text: "Experience Salalah's tropical charm, lush landscapes, and Arabian heritage." },
+      { day: "Day 6", title: "At Sea", text: "Spend the day enjoying leisure activities, dining, and relaxation at sea." },
+      { day: "Day 7", title: "At Sea", text: "Enjoy the final full day onboard with sunsets and cruise experiences." },
+      { day: "Day 8", title: "Jeddah", text: "Arrive in Jeddah, the gateway to the Red Sea and Saudi culture." }
+    ],
+    timings: ["Day 1: Dubai | Depart 11:59 PM", "Day 2: At Sea", "Day 3: Muscat | 07:00 AM to 07:00 PM", "Day 4: At Sea", "Day 5: Salalah | 07:00 AM to 02:00 PM", "Day 6: At Sea", "Day 7: At Sea", "Day 8: Jeddah | Arrive 07:00 AM"]
+  }
+].map(item => ({
+  ...item,
+  country: "Arabian Gulf",
+  category: "Cruise Package",
+  tags: ["Cruise Package", "Aroya Cruises", "Arabian Gulf"],
+  summary: item.overview,
+  highlights: ["Aroya Cruises", "Arabian Gulf route", "Onboard dining", "Entertainment", "Port experiences"],
+  pricingOptions: [{
+    label: "Cruise Fare",
+    badge: "Starting Price",
+    hotels: ["Cabin options selected based on availability"],
+    mealPlan: "Onboard meals included",
+    transferType: "Cruise-only package",
+    price: item.price,
+    priceNote: "per person",
+    features: ["Aroya cruise itinerary", "Onboard dining", "Entertainment activities", "Port schedule"],
+    cta: "Enquire Now"
+  }],
+  inclusions: commonCruiseInclusions,
+  exclusions: commonCruiseExclusions,
+  notes: commonNotes,
+  optionalTours: ["Shore excursions can be requested at an additional charge.", "Private transfers and pre or post-cruise hotel stays can be added on request."],
+  visaDetails: cruiseVisaNote,
+  importantInfo: commonCruiseImportantInfo,
+  faqs: [
+    { question: "Are shore excursions included?", answer: "Shore excursions are optional and can be quoted separately based on route, availability, and guest preference." },
+    { question: "Does Flyo help with cruise visa guidance?", answer: "Yes. Flyo can guide you based on nationality, residency, cruise route, and current port requirements." }
+  ],
+  whatsappMessage: `Hi, I'm interested in ${item.title}. Please share more details.`
+}));
 
 export const packages = [
   {
@@ -402,13 +560,13 @@ export const packages = [
       { question: "Can I book a private safari?", answer: "Yes. Private transfers and private safari experiences can be arranged on request." }
     ]
   }
-];
+].concat(cruisePackages);
 
 export const navLinks = ["Home", "Flights", "Holidays", "Visa Services", "Contact"];
 
 export const footerColumns = [
-  { title: "Quick Links", links: ["Home", "Flights", "Holidays", "Visa Services", "Contact"] },
-  { title: "Services", links: ["Flight Booking Assistance", "Holiday Packages", "Visa Assistance", "Custom Holidays", "Honeymoon Packages", "Family Holidays"] }
+  { title: "Quick Links", links: ["Home", "Flights", "Holidays", "Visa Services", "Contact", "Privacy Policy", "Terms & Conditions"] },
+  { title: "Services", links: ["Flight Booking Assistance", "Holiday Packages", "Visa Assistance", "Custom Holidays", "Honeymoon Packages", "Family Holidays", "Group Tours"] }
 ];
 
-export const contact = { phone, whatsapp };
+export const contact = { phone, whatsapp, email };
