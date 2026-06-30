@@ -64,6 +64,7 @@ const siteHrefMap = {
   Home: "/index.html",
   Flights: "/flights/",
   Holidays: "/packages/",
+  Experiences: "/experiences.html",
   "Visa Services": "/index.html#visa-services",
   Contact: "#contact",
   "Flight Booking Assistance": "/flights/",
@@ -192,6 +193,7 @@ byId("packageNav").innerHTML = navLinks.map(link => {
     Home: "/index.html",
     Flights: "/flights/",
     Holidays: "/packages/",
+    Experiences: "/experiences.html",
     "Visa Services": "/index.html#visa-services",
     Contact: "#contact"
   };

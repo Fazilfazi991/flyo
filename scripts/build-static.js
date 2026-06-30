@@ -6,6 +6,7 @@ const outDir = path.join(root, "dist");
 
 const entries = [
   "index.html",
+  "experiences.html",
   "styles.css",
   "script.js",
   "package.css",

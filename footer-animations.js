@@ -5,6 +5,11 @@ const revealFooter = footer => {
   footer.classList.add("is-visible");
 };
 
+const isFooterInView = footer => {
+  const rect = footer.getBoundingClientRect();
+  return rect.top < window.innerHeight && rect.bottom > 0;
+};
+
 const markBlock = (footer, selector, delay) => {
   const block = footer.querySelector(selector);
   if (!block) return;
@@ -65,7 +70,13 @@ const initFooterAnimations = () => {
     });
   }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
 
-  footers.forEach(footer => observer.observe(footer));
+  footers.forEach(footer => {
+    if (isFooterInView(footer)) {
+      requestAnimationFrame(() => revealFooter(footer));
+      return;
+    }
+    observer.observe(footer);
+  });
 };
 
 if (document.readyState === "loading") {

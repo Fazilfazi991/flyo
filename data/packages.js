@@ -562,10 +562,10 @@ export const packages = [
   }
 ].concat(cruisePackages);
 
-export const navLinks = ["Home", "Flights", "Holidays", "Visa Services", "Contact"];
+export const navLinks = ["Home", "Flights", "Holidays", "Experiences", "Visa Services", "Contact"];
 
 export const footerColumns = [
-  { title: "Quick Links", links: ["Home", "Flights", "Holidays", "Visa Services", "Contact", "Privacy Policy", "Terms & Conditions"] },
+  { title: "Quick Links", links: ["Home", "Flights", "Holidays", "Experiences", "Visa Services", "Contact", "Privacy Policy", "Terms & Conditions"] },
   { title: "Services", links: ["Flight Booking Assistance", "Holiday Packages", "Visa Assistance", "Custom Holidays", "Honeymoon Packages", "Family Holidays", "Group Tours"] }
 ];
 

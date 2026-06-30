@@ -20,24 +20,31 @@
   --black-06: rgba(0, 0, 0, 0.06);
   --black-55: rgba(0, 0, 0, 0.55);
   --white-90: rgba(255, 255, 255, 0.9);
-  --font-primary: "Creato Display", sans-serif;
+  --font-primary: "Inter", "Plus Jakarta Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
   --text-xs: 12px;
   --text-sm: 13px;
   --text-base: 16px;
   --text-lg: 18px;
   --text-xl: 22px;
   --text-2xl: 32px;
-  --text-hero: clamp(52px, 5vw, 82px);
+  --text-hero: clamp(36px, 5vw, 62px);
+  --line-tight: 1.1;
+  --line-heading: 1.2;
+  --line-body: 1.6;
 }
 
 * { box-sizing: border-box; font-family: var(--font-primary); }
 *::before, *::after { box-sizing: border-box; }
 html { width: 100%; overflow-x: hidden; scroll-behavior: smooth; }
-body { width: 100%; max-width: 100%; margin: 0; font-family: var(--font-primary); color: var(--color-black); background: var(--color-white); overflow-x: clip; font-size: var(--text-base); line-height: 1.6; font-weight: 500; }
+body { width: 100%; max-width: 100%; margin: 0; font-family: var(--font-primary); color: var(--color-black); background: var(--color-white); overflow-x: clip; font-size: var(--text-base); line-height: var(--line-body); font-weight: var(--font-weight-regular); }
 a { color: inherit; text-decoration: none; }
 button, input, select, textarea { font: inherit; }
 img { max-width: 100%; display: block; }
-h1, h2, h3, h4, h5, h6 { font-family: var(--font-primary); font-weight: 800; }
+h1, h2, h3, h4, h5, h6 { font-family: var(--font-primary); font-weight: var(--font-weight-bold); }
 
 .package-container { width: min(100% - 88px, 1500px); margin-inline: auto; }
 
@@ -2504,6 +2511,54 @@ svg.ui-icon { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-lineca
   padding-top: 148px;
 }
 
+/* Responsive stability overrides */
+.package-header.site-header.header-solid,
+.package-header.site-header {
+  position: relative;
+  z-index: 30;
+  color: var(--color-white);
+  background: var(--color-primary);
+  box-shadow: 0 10px 28px rgba(6,21,112,.12);
+}
+.package-header .package-container,
+.package-header .container.package-container {
+  width: min(100% - 48px, 1280px);
+  max-width: 1280px;
+}
+.package-header .nav-wrap,
+.package-header .nav-shell {
+  height: 92px;
+  min-height: 92px;
+  padding: 0;
+}
+.package-header .brand img,
+.package-header .package-brand img {
+  width: 108px;
+  height: 78px;
+}
+.package-header .main-nav,
+.package-header .package-nav {
+  justify-content: flex-end;
+}
+.package-header .nav-cta {
+  min-height: 50px;
+  padding-inline: 24px;
+  border-radius: 14px;
+  font-size: 16px;
+}
+.package-detail-hero {
+  padding-top: 56px;
+}
+.package-detail-grid {
+  grid-template-columns: minmax(0, 1fr) minmax(420px, .9fr);
+}
+.package-detail-copy,
+.package-detail-side,
+.quick-book,
+.package-main-image {
+  min-width: 0;
+}
+
 @media (max-width: 1120px) {
   .package-header .nav-wrap {
     height: 92px;
@@ -2560,7 +2615,7 @@ svg.ui-icon { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-lineca
     display: none;
   }
   .package-detail-hero {
-    padding-top: 116px;
+    padding-top: 44px;
   }
 }
 
@@ -2582,6 +2637,202 @@ svg.ui-icon { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-lineca
     border-radius: 12px;
   }
   .package-detail-hero {
-    padding-top: 98px;
+    padding-top: 34px;
   }
+}
+
+@media (max-width: 1180px) {
+  .package-detail-grid {
+    grid-template-columns: 1fr;
+  }
+  .package-detail-side {
+    width: 100%;
+  }
+}
+
+@media (max-width: 760px) {
+  .package-header .package-container,
+  .package-header .container.package-container {
+    width: min(100% - 30px, 560px);
+  }
+  .package-header .nav-wrap,
+  .package-header .nav-shell {
+    height: 78px;
+    min-height: 78px;
+  }
+  .package-header .brand img,
+  .package-header .package-brand img {
+    width: 83px;
+    height: 65px;
+  }
+  .package-detail-side .quick-book,
+  .quick-book {
+    width: 100%;
+  }
+}
+
+/* Global package typography refinement */
+body,
+p,
+li,
+input,
+select,
+textarea {
+  font-weight: var(--font-weight-regular);
+}
+
+h1,
+h2,
+h3,
+.section-title h2,
+.gallery-heading h2,
+.review-intro h2,
+.options-panel .section-title h2,
+.package-detail-copy h1,
+.package-detail-hero .package-detail-copy h1 {
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-heading);
+  letter-spacing: -.02em;
+}
+
+.package-detail-copy h1,
+.package-detail-hero .package-detail-copy h1 {
+  font-size: clamp(36px, 5vw, 62px);
+  line-height: 1.05;
+  letter-spacing: -.03em;
+}
+
+.package-detail-copy p,
+.package-detail-hero .package-detail-copy p {
+  font-size: clamp(16px, 1.15vw, 17px);
+  font-weight: var(--font-weight-regular);
+  line-height: 1.65;
+}
+
+.section-title h2,
+.gallery-heading h2,
+.review-intro h2,
+.options-panel .section-title h2 {
+  font-size: clamp(28px, 3vw, 38px);
+}
+
+.package-nav,
+.package-header .main-nav,
+.package-header .package-nav {
+  font-size: clamp(15px, .82vw, 16px);
+  font-weight: var(--font-weight-medium);
+}
+
+.outline-button,
+.nav-cta,
+.hero-cta,
+.package-cta-buttons a,
+.quick-book button,
+.package-detail-tab,
+.price-card a,
+.custom-option-card a,
+.pricing-table a,
+.gallery-button,
+.review-button,
+.bottom-actions a,
+.faq-question {
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.hero-badge,
+.section-title span,
+.hero-feature small,
+.package-detail-copy .hero-feature small,
+.popular-badge,
+.custom-option-card span,
+.pricing-table th,
+.pricing-table td::before,
+.review-badge,
+.package-includes-heading span {
+  font-size: 11px;
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: .08em;
+}
+
+.hero-feature strong,
+.package-detail-copy .hero-feature strong,
+.package-timing-card strong,
+.itinerary-day-badge,
+.itinerary-day-title,
+.inclusion-card strong,
+.exclusion-item strong,
+.price-card h3,
+.custom-option-card h3,
+.trust-point strong,
+.info-tab strong,
+.info-check-item strong,
+.package-includes-column h3 {
+  font-weight: var(--font-weight-semibold);
+}
+
+.itinerary-day-title {
+  font-size: clamp(19px, 1.6vw, 27px);
+  line-height: 1.28;
+}
+
+.itinerary-day-summary,
+.itinerary-day-content p,
+.travel-note-block p,
+.travel-note-block li,
+.highlight-card p,
+.price-card p,
+.best-for,
+.hotel-list,
+.stay-meta span,
+.quick-book input,
+.quick-book select,
+.quick-book textarea {
+  font-weight: var(--font-weight-regular);
+}
+
+.itinerary-chip-row span,
+.inclusion-card small,
+.price-features li::before,
+.trust-strip-item,
+.pricing-seasonal-disclaimer,
+.seasonal-note,
+.pricing-table td span,
+.package-includes-list strong {
+  font-weight: var(--font-weight-semibold);
+}
+
+.quick-book h2 {
+  font-size: clamp(24px, 2vw, 28px);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.2;
+}
+
+.quick-book label {
+  font-size: 13px;
+  font-weight: var(--font-weight-semibold);
+}
+
+.quick-book input,
+.quick-book select,
+.quick-book textarea {
+  font-size: 14px;
+}
+
+.price {
+  font-weight: var(--font-weight-bold);
+}
+
+.package-footer .footer-heading,
+.package-footer .footer-follow-heading,
+.package-footer .footer-grid-package h3 {
+  font-weight: var(--font-weight-bold);
+}
+
+.package-footer .footer-description,
+.package-footer .footer-grid-package li,
+.package-footer .footer-grid-package a,
+.package-footer .footer-contact-list small {
+  font-weight: var(--font-weight-regular);
 }
