@@ -2,7 +2,13 @@ const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 const defaultWhatsapp = "https://wa.me/971501234567";
 
 const revealFooter = footer => {
-  footer.classList.add("is-visible");
+  footer.classList.add("is-visible", "footer-visible");
+  document.body.classList.add("footer-in-view");
+};
+
+const hideFooter = footer => {
+  footer.classList.remove("is-visible", "footer-visible");
+  document.body.classList.remove("footer-in-view");
 };
 
 const isFooterInView = footer => {
@@ -47,7 +53,13 @@ const initFooterAnimations = () => {
   if (!footers.length) return;
 
   footers.forEach(footer => {
-    footer.classList.add("footer-animate");
+    footer.classList.add("footer-animate", "reveal-footer");
+    footer.querySelectorAll(".footer-brand, .footer-about, .footer-quick-column, .footer-services-column, .footer-reachout, .footer-bottom, .footer-bottom-package").forEach(item => {
+      item.classList.add("footer-reveal-item");
+    });
+    footer.querySelectorAll(".footer-contact-item").forEach(item => {
+      item.classList.add("footer-reveal-contact");
+    });
     markBlock(footer, ".footer-brand, .footer-about", 0);
     markBlock(footer, ".footer-quick-column", 80);
     markBlock(footer, ".footer-services-column", 130);
@@ -64,16 +76,17 @@ const initFooterAnimations = () => {
 
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      revealFooter(entry.target);
-      observer.unobserve(entry.target);
+      if (entry.isIntersecting) {
+        revealFooter(entry.target);
+        return;
+      }
+      hideFooter(entry.target);
     });
   }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
 
   footers.forEach(footer => {
     if (isFooterInView(footer)) {
       requestAnimationFrame(() => revealFooter(footer));
-      return;
     }
     observer.observe(footer);
   });
