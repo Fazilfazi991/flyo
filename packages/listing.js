@@ -12,6 +12,7 @@ const cardDetails = {
     duration: "3 Nights / 4 Days",
     tag: "City Break",
     price: "AED 899",
+    image: "/packages/Kuala_Lumpur_WebP_Images/KL_Day.webp",
     highlights: ["KL Tower", "Genting Highlands", "Batu Caves", "City Break"]
   },
   "thai-wonders": {
@@ -19,6 +20,7 @@ const cardDetails = {
     duration: "4 Nights / 5 Days",
     tag: "Beach",
     price: "AED 999",
+    image: "/packages/Thai_Wonder_WebP_Images/Thai_Wonder_Night.webp",
     highlights: ["Coral Island", "Tiger Park", "Alcazar Show", "Bangkok Tour"]
   },
   "sri-lanka-highlights": {
@@ -27,7 +29,7 @@ const cardDetails = {
     tag: "Cultural",
     price: "AED 1,899",
     highlights: ["Pinnawala", "Kandy Temple", "Colombo Tour", "Nature"],
-    image: "https://images.unsplash.com/photo-1586861635167-e5223aadc9fe?auto=format&fit=crop&w=1000&q=85"
+    image: "/packages/Sri_Lanka_Highlights_WebP/SriLanka_Sigiriya.webp"
   },
   "singapore-family-escape": {
     location: "Singapore",
