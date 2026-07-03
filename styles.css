@@ -484,6 +484,9 @@ h1 { max-width: 690px; margin: 0; color: white; font-size: var(--text-hero); lin
 .experience-category-card h3 { margin: 0 0 10px; color: var(--color-primary); font-size: clamp(20px, 1.7vw, 26px); line-height: 1.15; }
 .experience-category-card p { margin: 0; color: rgba(0,0,0,.64); font-size: 15px; line-height: 1.65; }
 .experience-category-card a { margin-top: auto; padding-top: 20px; color: var(--color-primary); font-weight: 900; text-decoration: none; }
+.experience-service-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; width: 100%; margin: 16px 0 18px; padding: 0; list-style: none; }
+.experience-service-list li { position: relative; padding-left: 14px; color: rgba(0,0,0,.68); font-size: 13px; line-height: 1.35; }
+.experience-service-list li::before { content: ""; position: absolute; left: 0; top: .55em; width: 6px; height: 6px; border-radius: 50%; background: var(--color-primary); box-shadow: 0 0 0 4px rgba(47,107,255,.08); }
 .popular-experience-ideas { background: linear-gradient(180deg, #f8fbff, #ffffff); }
 .compact-heading { margin-bottom: 26px; }
 .experience-pill-grid { display: flex; flex-wrap: wrap; gap: 12px; }
@@ -1082,6 +1085,104 @@ svg {
   white-space: nowrap;
 }
 
+.nav-dropdown {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.nav-dropdown-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border: 0;
+  background: transparent;
+  color: var(--color-white);
+  font: inherit;
+  font-weight: inherit;
+  padding: 16px 0;
+  cursor: pointer;
+  position: relative;
+}
+
+.site-header.header-solid .nav-dropdown-toggle,
+.package-list-header .nav-dropdown-toggle {
+  color: var(--color-primary);
+}
+
+.nav-dropdown-toggle::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 6px;
+  width: 0;
+  height: 3px;
+  border-radius: 999px;
+  background: currentColor;
+  transition: width .25s ease;
+}
+
+.nav-dropdown:hover .nav-dropdown-toggle::after,
+.nav-dropdown.active .nav-dropdown-toggle::after,
+.nav-dropdown-toggle.active::after {
+  width: 100%;
+}
+
+.nav-dropdown-toggle b {
+  font-size: 14px;
+  line-height: 1;
+  transition: transform .25s ease;
+}
+
+.nav-dropdown.is-open .nav-dropdown-toggle b,
+.nav-dropdown:hover .nav-dropdown-toggle b {
+  transform: rotate(45deg);
+}
+
+.nav-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  z-index: 40;
+  width: min(260px, 86vw);
+  padding: 10px;
+  border: 1px solid rgba(12, 28, 128, .1);
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 22px 58px rgba(5, 13, 55, .18);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 10px);
+  transition: opacity .25s ease, transform .25s ease;
+}
+
+.nav-dropdown.is-open .nav-dropdown-menu,
+.nav-dropdown:hover .nav-dropdown-menu {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, 0);
+}
+
+.main-nav .nav-dropdown-menu a {
+  display: block;
+  padding: 10px 12px;
+  border-radius: 10px;
+  color: var(--color-primary);
+  font-size: 14px;
+  font-weight: 800;
+  white-space: normal;
+}
+
+.main-nav .nav-dropdown-menu a::after {
+  display: none;
+}
+
+.main-nav .nav-dropdown-menu a:hover {
+  background: rgba(47, 107, 255, .08);
+  color: #2f4fff;
+  transform: translateX(3px);
+}
+
 .nav-currency span {
   font-size: 12px;
   opacity: .68;
@@ -1178,6 +1279,54 @@ svg {
 }
 
 @media (max-width: 1120px) {
+  .main-nav.open .nav-dropdown {
+    display: grid;
+    width: 100%;
+  }
+
+  .main-nav.open .nav-dropdown-toggle {
+    width: 100%;
+    justify-content: space-between;
+    padding: 11px 12px;
+    color: var(--color-white);
+  }
+
+  .main-nav.open .nav-dropdown-toggle::after {
+    display: none;
+  }
+
+  .main-nav.open .nav-dropdown-menu {
+    position: static;
+    width: 100%;
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 0 0 12px;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+    transition: max-height .25s ease, padding .25s ease;
+  }
+
+  .main-nav.open .nav-dropdown.is-open .nav-dropdown-menu {
+    max-height: 420px;
+    padding: 4px 0 8px 12px;
+  }
+
+  .main-nav.open .nav-dropdown-menu a {
+    padding: 9px 12px;
+    color: rgba(255, 255, 255, .9);
+    font-size: 14px;
+  }
+
+  .main-nav.open .nav-dropdown-menu a:hover {
+    background: rgba(255, 255, 255, .08);
+    color: #fff;
+  }
+
   .main-nav.open .nav-currency,
   .main-nav.open .partner-login-button {
     width: 100%;

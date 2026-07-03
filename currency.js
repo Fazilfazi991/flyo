@@ -1,6 +1,16 @@
 const AED_TO_INR = 22.75;
 const STORAGE_KEY = "flyoCurrency";
 const SUPPORTED_CURRENCIES = ["AED", "INR"];
+const experienceMenuItems = [
+  { label: "Activities", href: "/experiences.html#activities" },
+  { label: "MICE", href: "/experiences.html#mice" },
+  { label: "Sightseeing", href: "/experiences.html#sightseeing" },
+  { label: "Adventure", href: "/experiences.html#adventure" },
+  { label: "Cruise Experiences", href: "/experiences.html#cruise" },
+  { label: "Honeymoon Experiences", href: "/experiences.html#honeymoon" },
+  { label: "Family Experiences", href: "/experiences.html#family" },
+  { label: "Group Tours", href: "/experiences.html#group-tours" }
+];
 
 const safeStorage = {
   get() {
@@ -109,14 +119,81 @@ const createPartnerButton = () => {
   return button;
 };
 
+const closeExperienceDropdowns = except => {
+  document.querySelectorAll(".nav-dropdown.is-open").forEach(dropdown => {
+    if (dropdown !== except) {
+      dropdown.classList.remove("is-open");
+      dropdown.querySelector(".nav-dropdown-toggle")?.setAttribute("aria-expanded", "false");
+    }
+  });
+};
+
+const enhanceExperienceDropdown = nav => {
+  if (nav.dataset.experienceDropdownReady === "true") return;
+  const link = [...nav.querySelectorAll("a")].find(anchor => {
+    const href = anchor.getAttribute("href") || "";
+    return /experiences\.html/.test(href) && !anchor.classList.contains("mobile-nav-cta");
+  });
+  if (!link) return;
+
+  nav.dataset.experienceDropdownReady = "true";
+  const isActive = link.classList.contains("active") || location.pathname.toLowerCase().includes("experiences");
+  const dropdown = document.createElement("div");
+  dropdown.className = `nav-dropdown${isActive ? " active" : ""}`;
+  dropdown.innerHTML = `
+    <button class="nav-dropdown-toggle${isActive ? " active" : ""}" type="button" aria-expanded="false">
+      <span>Experiences</span><b aria-hidden="true">+</b>
+    </button>
+    <div class="nav-dropdown-menu">
+      ${experienceMenuItems.map(item => `<a href="${item.href}">${item.label}</a>`).join("")}
+    </div>
+  `;
+  link.replaceWith(dropdown);
+
+  const toggle = dropdown.querySelector(".nav-dropdown-toggle");
+  const close = () => {
+    dropdown.classList.remove("is-open");
+    toggle.setAttribute("aria-expanded", "false");
+  };
+  const open = () => {
+    closeExperienceDropdowns(dropdown);
+    dropdown.classList.add("is-open");
+    toggle.setAttribute("aria-expanded", "true");
+  };
+
+  toggle.addEventListener("click", event => {
+    event.stopPropagation();
+    dropdown.classList.contains("is-open") ? close() : open();
+  });
+
+  dropdown.addEventListener("mouseenter", () => {
+    if (window.matchMedia("(min-width: 1121px)").matches) open();
+  });
+  dropdown.addEventListener("mouseleave", () => {
+    if (window.matchMedia("(min-width: 1121px)").matches) close();
+  });
+  dropdown.querySelectorAll(".nav-dropdown-menu a").forEach(anchor => {
+    anchor.addEventListener("click", () => {
+      close();
+      nav.classList.remove("open");
+      document.querySelector(".menu-toggle, .package-menu-toggle")?.setAttribute("aria-expanded", "false");
+    });
+  });
+};
+
 export const initFlyoCurrencyNav = () => {
   document.querySelectorAll(".main-nav, .package-nav").forEach(nav => {
+    enhanceExperienceDropdown(nav);
     if (nav.dataset.currencyEnhanced === "true") return;
     nav.dataset.currencyEnhanced = "true";
     nav.append(createCurrencyControl(), createPartnerButton());
   });
   updateCurrencyControls();
 };
+
+document.addEventListener("click", event => {
+  if (!event.target.closest(".nav-dropdown")) closeExperienceDropdowns();
+});
 
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", initFlyoCurrencyNav, { once: true });
