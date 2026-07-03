@@ -7,6 +7,7 @@ const revealFooter = footer => {
 };
 
 const hideFooter = footer => {
+  if (footer.dataset.footerRevealed === "true") return;
   footer.classList.remove("is-visible", "footer-visible", "visible");
   document.body.classList.remove("footer-in-view");
 };
@@ -78,6 +79,8 @@ const initFooterAnimations = () => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         revealFooter(entry.target);
+        entry.target.dataset.footerRevealed = "true";
+        observer.unobserve(entry.target);
         return;
       }
       hideFooter(entry.target);

@@ -1258,3 +1258,111 @@ svg {
     animation: none !important;
   }
 }
+
+/* Calm footer animation override: one smooth reveal, no glitchy drift */
+.site-footer::before,
+.site-footer::after {
+  transform: none !important;
+  animation: none !important;
+  transition: opacity .8s ease !important;
+  will-change: opacity;
+}
+
+.site-footer::before {
+  opacity: .10;
+}
+
+.site-footer.footer-visible::before,
+.site-footer.is-visible::before,
+.site-footer.visible::before {
+  opacity: .13;
+}
+
+.site-footer.footer-animate,
+.site-footer.reveal-footer {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0);
+  transition:
+    opacity .82s cubic-bezier(.22, 1, .36, 1),
+    transform .82s cubic-bezier(.22, 1, .36, 1);
+  will-change: opacity, transform;
+}
+
+.site-footer.footer-visible,
+.site-footer.is-visible,
+.site-footer.visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.site-footer .footer-reveal-block,
+.site-footer .footer-reveal-item,
+.site-footer .footer-animate-item,
+.site-footer .footer-social-link,
+.site-footer .footer-contact-item,
+.site-footer .footer-contact-list li {
+  opacity: 0;
+  transform: translate3d(0, 14px, 0);
+  animation: none !important;
+  transition:
+    opacity .62s cubic-bezier(.22, 1, .36, 1),
+    transform .62s cubic-bezier(.22, 1, .36, 1),
+    color .25s ease,
+    background .25s ease,
+    border-color .25s ease,
+    box-shadow .25s ease;
+  will-change: opacity, transform;
+}
+
+.site-footer.footer-visible .footer-reveal-block,
+.site-footer.footer-visible .footer-reveal-item,
+.site-footer.footer-visible .footer-animate-item,
+.site-footer.footer-visible .footer-social-link,
+.site-footer.footer-visible .footer-contact-item,
+.site-footer.footer-visible .footer-contact-list li,
+.site-footer.is-visible .footer-reveal-block,
+.site-footer.is-visible .footer-reveal-item,
+.site-footer.is-visible .footer-animate-item,
+.site-footer.is-visible .footer-social-link,
+.site-footer.is-visible .footer-contact-item,
+.site-footer.is-visible .footer-contact-list li,
+.site-footer.visible .footer-reveal-block,
+.site-footer.visible .footer-reveal-item,
+.site-footer.visible .footer-animate-item,
+.site-footer.visible .footer-social-link,
+.site-footer.visible .footer-contact-item,
+.site-footer.visible .footer-contact-list li {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.site-footer .footer-brand.footer-reveal-item,
+.site-footer .footer-about.footer-reveal-item {
+  transition-delay: .04s;
+}
+
+.site-footer .footer-social-link {
+  transition-delay: .10s;
+}
+
+.site-footer .footer-quick-column.footer-reveal-item {
+  transition-delay: .14s;
+}
+
+.site-footer .footer-services-column.footer-reveal-item {
+  transition-delay: .20s;
+}
+
+.site-footer .footer-contact.footer-reveal-item,
+.site-footer .footer-reachout.footer-reveal-item {
+  transition-delay: .26s;
+}
+
+.site-footer .footer-bottom.footer-reveal-item,
+.site-footer .footer-bottom-package.footer-reveal-item {
+  transition-delay: .32s;
+}
+
+.footer-animate.is-visible .footer-reveal-block {
+  animation: none !important;
+}
