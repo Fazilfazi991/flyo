@@ -2851,7 +2851,33 @@ body {
   max-width: 100%;
   min-height: 100%;
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: hidden;
+  overflow-y: clip;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+html::-webkit-scrollbar {
+  width: 12px;
+}
+
+html::-webkit-scrollbar-track {
+  background: #f2f6ff;
+}
+
+html::-webkit-scrollbar-thumb {
+  border: 3px solid #f2f6ff;
+  border-radius: 999px;
+  background: rgba(6, 21, 112, .48);
+}
+
+html::-webkit-scrollbar-thumb:hover {
+  background: rgba(6, 21, 112, .68);
 }
 
 *,
@@ -2902,4 +2928,17 @@ canvas {
 
 svg {
   max-width: 100%;
+}
+
+:where(a, button, .outline-button, .hero-cta, .package-cta-buttons a, .quick-book button, .price-card, .custom-option-card, .gallery-card, .highlight-card, .inclusion-card, .package-testimonial) {
+  -webkit-tap-highlight-color: transparent;
+}
+
+:where(.outline-button, .hero-cta, .package-cta-buttons a, .quick-book button, .price-card, .custom-option-card, .gallery-card, .highlight-card, .inclusion-card, .package-testimonial) {
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+:target {
+  scroll-margin-top: 96px;
 }

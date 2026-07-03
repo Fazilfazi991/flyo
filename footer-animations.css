@@ -1053,7 +1053,15 @@ body {
   max-width: 100%;
   min-height: 100%;
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: hidden;
+  overflow-y: clip;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
 }
 
 body,
@@ -1211,6 +1219,10 @@ svg {
 .flyo-whatsapp-float,
 .flyo-back-top {
   max-width: 100%;
+}
+
+:where(.site-footer, .footer-reveal-block, .footer-reveal-item, .footer-animate-item, .footer-social-link, .footer-contact-item, .flyo-whatsapp-float, .flyo-back-top) {
+  backface-visibility: hidden;
 }
 
 @media (max-width: 640px) {
