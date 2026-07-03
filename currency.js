@@ -130,9 +130,15 @@ const closeExperienceDropdowns = except => {
 
 const enhanceExperienceDropdown = nav => {
   if (nav.dataset.experienceDropdownReady === "true") return;
+  const existingDropdown = nav.querySelector(".nav-dropdown");
+  if (existingDropdown) {
+    nav.dataset.experienceDropdownReady = "true";
+    wireExperienceDropdown(nav, existingDropdown);
+    return;
+  }
   const link = [...nav.querySelectorAll("a")].find(anchor => {
     const href = anchor.getAttribute("href") || "";
-    return /experiences\.html/.test(href) && !anchor.classList.contains("mobile-nav-cta");
+    return /experiences\.html/.test(href) && !anchor.classList.contains("mobile-nav-cta") && !anchor.closest(".nav-dropdown");
   });
   if (!link) return;
 
@@ -149,8 +155,14 @@ const enhanceExperienceDropdown = nav => {
     </div>
   `;
   link.replaceWith(dropdown);
+  wireExperienceDropdown(nav, dropdown);
+};
 
+const wireExperienceDropdown = (nav, dropdown) => {
+  if (dropdown.dataset.dropdownWired === "true") return;
+  dropdown.dataset.dropdownWired = "true";
   const toggle = dropdown.querySelector(".nav-dropdown-toggle");
+  if (!toggle) return;
   const close = () => {
     dropdown.classList.remove("is-open");
     toggle.setAttribute("aria-expanded", "false");

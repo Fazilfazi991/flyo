@@ -206,6 +206,23 @@ byId("packageNav").innerHTML = navLinks.map(link => {
     "Visa Services": "/index.html#visa-services",
     Contact: "#contact"
   };
+  if (link === "Experiences") {
+    return `
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-toggle" type="button" aria-expanded="false"><span>Experiences</span><b aria-hidden="true">+</b></button>
+        <div class="nav-dropdown-menu">
+          <a href="/experiences.html#activities">Activities</a>
+          <a href="/experiences.html#mice">MICE</a>
+          <a href="/experiences.html#sightseeing">Sightseeing</a>
+          <a href="/experiences.html#adventure">Adventure</a>
+          <a href="/experiences.html#cruise">Cruise Experiences</a>
+          <a href="/experiences.html#honeymoon">Honeymoon Experiences</a>
+          <a href="/experiences.html#family">Family Experiences</a>
+          <a href="/experiences.html#group-tours">Group Tours</a>
+        </div>
+      </div>
+    `;
+  }
   return `<a class="${link === "Holidays" ? "active" : ""}" href="${hrefMap[link] || "#"}">${link}</a>`;
 }).join("") + `<a class="mobile-nav-cta" href="/packages/">Explore Packages</a>`;
 delete byId("packageNav").dataset.currencyEnhanced;

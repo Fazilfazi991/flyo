@@ -3321,3 +3321,31 @@ svg {
     grid-template-columns: 1fr;
   }
 }
+
+/* Final package dropdown color guard */
+.package-header .package-nav .nav-dropdown-toggle {
+  color: var(--color-primary);
+}
+
+.package-header .package-nav .nav-dropdown-menu a {
+  color: var(--color-primary) !important;
+}
+
+.package-header .package-nav .nav-dropdown-menu a:hover {
+  color: #2f4fff !important;
+}
+
+.package-header .package-nav .nav-dropdown-toggle:focus-visible {
+  outline: 2px solid rgba(12, 28, 128, .25);
+  outline-offset: 6px;
+}
+
+@media (max-width: 1120px) {
+  .package-header .package-nav.open .nav-dropdown-toggle {
+    color: var(--color-white);
+  }
+
+  .package-header .package-nav.open .nav-dropdown-menu a {
+    color: rgba(255, 255, 255, .92) !important;
+  }
+}
