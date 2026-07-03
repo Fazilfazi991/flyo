@@ -1480,3 +1480,27 @@ svg {
     padding: 13px;
   }
 }
+
+/* Final page scroll comfort guard */
+html {
+  scroll-behavior: smooth;
+  scrollbar-gutter: stable;
+}
+
+body {
+  overflow-x: hidden !important;
+  overflow-y: visible !important;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .footer-animate {
+    transition-duration: 780ms;
+    transition-timing-function: cubic-bezier(.22, 1, .36, 1);
+  }
+
+  .site-footer .footer-reveal-block,
+  .site-footer .footer-reveal-item {
+    transition-duration: 760ms;
+    transition-timing-function: cubic-bezier(.22, 1, .36, 1);
+  }
+}
