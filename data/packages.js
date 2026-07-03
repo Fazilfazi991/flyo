@@ -96,8 +96,8 @@ const cruisePackages = [
     price: "AED 2590",
     availability: "Feb 2027 - 27",
     route: "Dubai, Khasab, Abu Dhabi, Sir Bani Yas, Doha, Bahrain",
-    heroImage: "https://images.unsplash.com/photo-1601925663568-2d11d2a697f9?auto=format&fit=crop&w=2400&q=90",
-    cardImage: "https://images.unsplash.com/photo-1601925663568-2d11d2a697f9?auto=format&fit=crop&w=1200&q=86",
+    heroImage: "/public/generated/arabian-gulf-cruise-card.png",
+    cardImage: "/public/generated/arabian-gulf-cruise-card.png",
     overview: "A 7-night Arabian Gulf cruise round-trip from Dubai combining culture, modern cities, natural beauty, and relaxation.",
     itinerary: [
       { day: "Day 1", title: "Dubai", text: "Board the ship in Dubai, settle into the cabin, enjoy onboard facilities, and depart late night." },
@@ -193,6 +193,11 @@ export const packages = [
     tags: ["Best Value", "City Break", "Family Friendly"],
     cardImage: "/packages/Kuala_Lumpur_WebP_Images/KL_Day.webp",
     heroImage: "/packages/Kuala_Lumpur_WebP_Images/KL_Night.webp",
+    galleryImages: [
+      { src: "/packages/Kuala_Lumpur_WebP_Images/KL_Night.webp", label: "Kuala Lumpur Night Skyline" },
+      { src: "/packages/Kuala_Lumpur_WebP_Images/KL_Day.webp", label: "Kuala Lumpur City View" },
+      { src: "/packages/Kuala_Lumpur_WebP_Images/KL_Sunset.webp", label: "Kuala Lumpur Sunset" }
+    ],
     imageHighlights: ["Kuala Lumpur skyline", "City lights", "Sunset views"],
     summary: "A compact Malaysia escape with city icons, skyline views, hill-station fun, and easy family-friendly pacing.",
     overview: "Discover Kuala Lumpur with a well-balanced itinerary covering the city's modern skyline, cultural landmarks, Batu Caves, and the cool mountain air of Genting Highlands.",
@@ -250,6 +255,11 @@ export const packages = [
     tags: ["Budget Friendly", "Island Tour", "Entertainment"],
     cardImage: "/packages/Thai_Wonder_WebP_Images/Thai_Wonder_Night.webp",
     heroImage: "/packages/Thai_Wonder_WebP_Images/Thai_Wonder_Temple.webp",
+    galleryImages: [
+      { src: "/packages/Thai_Wonder_WebP_Images/Thai_Wonder_Temple.webp", label: "Bangkok Temple Visit" },
+      { src: "/packages/Thai_Wonder_WebP_Images/Thai_Wonder_Beach.webp", label: "Thailand Beach Escape" },
+      { src: "/packages/Thai_Wonder_WebP_Images/Thai_Wonder_Night.webp", label: "Thailand Night Market" }
+    ],
     imageHighlights: ["Bangkok nightlife", "Temple visits", "Beach escape"],
     summary: "A lively Thailand break combining Bangkok sightseeing, Pattaya entertainment, island time, and smooth transfers.",
     overview: "Ideal for travelers who want a budget-conscious Thailand holiday with beaches, shows, city touring, and private airport and hotel transfers included.",
@@ -297,6 +307,11 @@ export const packages = [
     tags: ["Culture", "Nature", "Family Friendly"],
     cardImage: "/packages/Sri_Lanka_Highlights_WebP/SriLanka_Sigiriya.webp",
     heroImage: "/packages/Sri_Lanka_Highlights_WebP/SriLanka_TeaTrain.webp",
+    galleryImages: [
+      { src: "/packages/Sri_Lanka_Highlights_WebP/SriLanka_TeaTrain.webp", label: "Sri Lanka Tea Country" },
+      { src: "/packages/Sri_Lanka_Highlights_WebP/SriLanka_Sigiriya.webp", label: "Sri Lanka Heritage Landmark" },
+      { src: "/packages/Sri_Lanka_Highlights_WebP/SriLanka_Lighthouse.webp", label: "Sri Lanka Coastal View" }
+    ],
     imageHighlights: ["Tea country", "Cultural landmarks", "Coastal views"],
     summary: "A scenic Sri Lanka journey through culture, tea country, waterfalls, and Colombo's city life.",
     overview: "Travel through Sri Lanka's most loved highlights with comfortable routing from Kandy to Nuwara Eliya and Colombo, blending temples, culture, nature, and city sightseeing.",

@@ -29,7 +29,7 @@ const aroyaCruisePackages = [
   {
     title: "Aroya Dubai Arabian Signature Voyage",
     url: "/packages/aroya-dubai-arabian-signature-voyage.html",
-    image: "https://images.unsplash.com/photo-1601925663568-2d11d2a697f9?auto=format&fit=crop&w=1200&q=86",
+    image: "/public/generated/arabian-gulf-cruise-card.png",
     durationBadge: "7N / 8D",
     price: "from AED 2590"
   },

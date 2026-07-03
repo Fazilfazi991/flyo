@@ -235,9 +235,20 @@ byId("bookingNote").textContent = "Flyo will confirm availability, final rates, 
 document.querySelector("#overviewPanel .section-title span").textContent = "Overview";
 document.querySelector("#overviewPanel .section-title h2").textContent = "Package Overview";
 document.querySelector("#overviewPanel .section-title p").textContent = packageData.overview;
+const packageGalleryImages = (packageData.galleryImages || []).map(item =>
+  typeof item === "string" ? { src: item, label: packageData.title } : item
+).filter(item => item?.src);
+
+const getPackageVisual = index => {
+  if (packageGalleryImages.length) {
+    return packageGalleryImages[index % packageGalleryImages.length].src;
+  }
+  return packageData.cardImage;
+};
+
 byId("highlightGrid").innerHTML = packageData.highlights.slice(0, 3).map((highlight, index) => `
   <article class="highlight-card">
-    <div class="highlight-image" style="background-image:url('${packageData.cardImage}')"></div>
+    <div class="highlight-image" style="background-image:url('${getPackageVisual(index)}')"></div>
     <div class="highlight-body">
       <div class="number-title"><span>${String(index + 1).padStart(2, "0")}</span><h3>${highlight}</h3></div>
       <p>${index === 0 ? "A polished start to the trip with key sights and smooth routing." : "Planned with clear timing, comfortable transfers, and easy pacing."}</p>
@@ -461,15 +472,27 @@ document.querySelectorAll(".itinerary-day-toggle").forEach(button => {
   });
 });
 
-document.querySelector(".gallery-heading h2").textContent = "Related Packages";
-document.querySelector(".gallery-heading p").textContent = "More curated holidays Flyo can plan around your dates and travel style.";
-document.querySelector(".gallery-button").href = "/index.html#packages";
-document.querySelector(".gallery-button").textContent = "View All Packages";
-byId("galleryGrid").innerHTML = relatedPackages.slice(0, 3).map(item => `
-  <a class="gallery-card" href="/packages/${item.slug}/" style="background-image:url('${item.cardImage}')">
-    <strong><span>${item.country}</span>${item.title}</strong>
-  </a>
-`).join("");
+if (packageGalleryImages.length) {
+  document.querySelector(".gallery-heading h2").textContent = "Package Gallery";
+  document.querySelector(".gallery-heading p").textContent = `A closer look at ${packageData.title} using destination-specific visuals.`;
+  document.querySelector(".gallery-button").href = whatsappFor("package gallery");
+  document.querySelector(".gallery-button").textContent = "Enquire Now";
+  byId("galleryGrid").innerHTML = packageGalleryImages.slice(0, 5).map((item, index) => `
+    <article class="gallery-card" style="background-image:url('${item.src}')">
+      <strong><span>${packageData.country}</span>${item.label || packageData.imageHighlights?.[index] || packageData.title}</strong>
+    </article>
+  `).join("");
+} else {
+  document.querySelector(".gallery-heading h2").textContent = "Related Packages";
+  document.querySelector(".gallery-heading p").textContent = "More curated holidays Flyo can plan around your dates and travel style.";
+  document.querySelector(".gallery-button").href = "/index.html#packages";
+  document.querySelector(".gallery-button").textContent = "View All Packages";
+  byId("galleryGrid").innerHTML = relatedPackages.slice(0, 3).map(item => `
+    <a class="gallery-card" href="/packages/${item.slug}/" style="background-image:url('${item.cardImage}')">
+      <strong><span>${item.country}</span>${item.title}</strong>
+    </a>
+  `).join("");
+}
 
 document.querySelector(".options-panel .section-title h2").textContent = "Stay Options & Pricing";
 document.querySelector(".options-panel .section-title").insertAdjacentHTML("beforeend", `
