@@ -2,12 +2,12 @@ const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 const defaultWhatsapp = "https://wa.me/971501234567";
 
 const revealFooter = footer => {
-  footer.classList.add("is-visible", "footer-visible");
+  footer.classList.add("is-visible", "footer-visible", "visible");
   document.body.classList.add("footer-in-view");
 };
 
 const hideFooter = footer => {
-  footer.classList.remove("is-visible", "footer-visible");
+  footer.classList.remove("is-visible", "footer-visible", "visible");
   document.body.classList.remove("footer-in-view");
 };
 
@@ -55,16 +55,16 @@ const initFooterAnimations = () => {
   footers.forEach(footer => {
     footer.classList.add("footer-animate", "reveal-footer");
     footer.querySelectorAll(".footer-brand, .footer-about, .footer-quick-column, .footer-services-column, .footer-reachout, .footer-bottom, .footer-bottom-package").forEach(item => {
-      item.classList.add("footer-reveal-item");
+      item.classList.add("footer-reveal-item", "footer-animate-item");
     });
     footer.querySelectorAll(".footer-contact-item").forEach(item => {
       item.classList.add("footer-reveal-contact");
     });
-    markBlock(footer, ".footer-brand, .footer-about", 0);
-    markBlock(footer, ".footer-quick-column", 80);
-    markBlock(footer, ".footer-services-column", 130);
-    markBlock(footer, ".footer-reachout", 180);
-    markBlock(footer, ".footer-bottom, .footer-bottom-package", 230);
+    markBlock(footer, ".footer-brand, .footer-about", 100);
+    markBlock(footer, ".footer-quick-column", 220);
+    markBlock(footer, ".footer-services-column", 340);
+    markBlock(footer, ".footer-reachout", 460);
+    markBlock(footer, ".footer-bottom, .footer-bottom-package", 580);
   });
 
   ensureFloatingActions();
@@ -82,7 +82,7 @@ const initFooterAnimations = () => {
       }
       hideFooter(entry.target);
     });
-  }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
+  }, { threshold: 0.16, rootMargin: "0px 0px -8% 0px" });
 
   footers.forEach(footer => {
     if (isFooterInView(footer)) {

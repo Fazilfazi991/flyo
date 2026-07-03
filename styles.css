@@ -970,3 +970,57 @@ h1 {
   font-weight: var(--font-weight-regular);
   line-height: 1.7;
 }
+
+/* Final responsive scroll guard */
+html {
+  width: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+body {
+  width: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body,
+main,
+.site-shell,
+.page-shell,
+.container {
+  max-width: 100%;
+}
+
+main,
+.section,
+.packages-hero,
+.packages-trust-strip,
+.package-list-section,
+.flights-page,
+.experiences-page,
+.visa-services {
+  overflow-y: visible;
+}
+
+img,
+video,
+picture,
+canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+svg {
+  max-width: 100%;
+}

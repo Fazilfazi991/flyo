@@ -2836,3 +2836,70 @@ h3,
 .package-footer .footer-contact-list small {
   font-weight: var(--font-weight-regular);
 }
+
+/* Final package page scroll guard */
+html {
+  width: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+body {
+  width: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body,
+main,
+.package-container,
+.package-detail-grid,
+.package-detail-copy,
+.package-detail-side,
+.quick-book,
+.package-footer,
+.site-footer {
+  max-width: 100%;
+}
+
+main,
+.package-detail-hero,
+.package-section,
+.gallery-section,
+.faq-section,
+.package-options,
+.package-footer,
+.site-footer {
+  overflow-y: visible;
+}
+
+.reviews-section,
+.package-section.reviews-section {
+  overflow: clip;
+}
+
+.gallery-grid {
+  overflow-y: hidden;
+}
+
+img,
+video,
+picture,
+canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+svg {
+  max-width: 100%;
+}
