@@ -1,4 +1,5 @@
 import { contact } from "./data/packages.js";
+import { formatPackageAmount, onCurrencyChange } from "./currency.js";
 
 const destinations = [
   { name: "Thailand", region: "Asia", layout: "dubai", image: "https://images.unsplash.com/photo-1508009603885-50cf7c579365?auto=format&fit=crop&w=1200&q=88" },
@@ -24,28 +25,28 @@ const aroyaCruisePackages = [
     url: "/packages/aroya-dubai-arabian-escape.html",
     image: "https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&fit=crop&w=1200&q=86",
     durationBadge: "7N / 8D",
-    price: "from AED 2590"
+    priceAed: 2590
   },
   {
     title: "Aroya Dubai Arabian Signature Voyage",
     url: "/packages/aroya-dubai-arabian-signature-voyage.html",
     image: "/public/generated/arabian-gulf-cruise-card.png",
     durationBadge: "7N / 8D",
-    price: "from AED 2590"
+    priceAed: 2590
   },
   {
     title: "Aroya Dubai Short Escape",
     url: "/packages/aroya-dubai-short-escape.html",
     image: "https://images.unsplash.com/photo-1566552881560-0be862a7c445?auto=format&fit=crop&w=1200&q=86",
     durationBadge: "2N / 3D",
-    price: "from AED 791"
+    priceAed: 791
   },
   {
     title: "Aroya Arabian Gulf Signature Voyage",
     url: "/packages/aroya-arabian-gulf-signature-voyage.html",
     image: "https://images.unsplash.com/photo-1599640842225-85d111c60e6b?auto=format&fit=crop&w=1200&q=86",
     durationBadge: "7N / 8D",
-    price: "from AED 2474"
+    priceAed: 2474
   }
 ].map(item => ({
   ...item,
@@ -93,12 +94,20 @@ if (travelStyleGrid) travelStyleGrid.innerHTML = aroyaCruisePackages.map((item, 
     <div class="cruise-card-body">
       <a class="cruise-card-title" href="${item.url}"><h3>${item.title}</h3></a>
       <div class="cruise-card-bottom">
-        <div class="cruise-price"><small>Starting price</small><strong>${item.price}</strong></div>
+        <div class="cruise-price"><small>Starting price</small><strong data-cruise-price-aed="${item.priceAed}">from ${formatPackageAmount(item.priceAed)}</strong></div>
       </div>
       <a class="cruise-view-button" href="${item.url}">View Package</a>
     </div>
   </article>
 `;}).join("");
+
+const updateCruisePrices = () => {
+  document.querySelectorAll("[data-cruise-price-aed]").forEach(element => {
+    element.textContent = `from ${formatPackageAmount(element.dataset.cruisePriceAed)}`;
+  });
+};
+
+onCurrencyChange(updateCruisePrices);
 
 const featureGrid = document.querySelector("#featureGrid");
 if (featureGrid) featureGrid.innerHTML = features.map((item, index) => `

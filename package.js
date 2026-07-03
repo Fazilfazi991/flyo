@@ -1,4 +1,5 @@
 import { contact, footerColumns, navLinks, packages } from "./data/packages.js";
+import { formatPackageAmount, initFlyoCurrencyNav, onCurrencyChange, parseAedPrice } from "./currency.js";
 
 const pathParts = location.pathname.split("/").filter(Boolean);
 const rawSlug = decodeURIComponent(pathParts.pop() || "kuala-lumpur-getaway");
@@ -21,7 +22,10 @@ const textToLines = text => String(text).split("\n").join("<br>");
 const stars = count => "★★★★★".slice(0, count);
 const relatedPackages = packages.filter(item => item.slug !== packageData.slug).slice(0, 5);
 const startingPrice = packageData.startingPrice || packageData.price || "Price on request";
-const startingPriceText = /request/i.test(startingPrice) ? startingPrice : `${startingPrice} / person`;
+const startingPriceAed = parseAedPrice(startingPrice);
+const startingPriceText = () => !startingPriceAed || /request/i.test(startingPrice)
+  ? "Price on request"
+  : `${formatPackageAmount(startingPriceAed)} / person`;
 const baseWhatsappMessage = packageData.whatsappMessage || `Hi Flyo, I want to enquire about the ${packageData.title} package.`;
 const callHref = `tel:${contact.phone.replace(/\D/g, "")}`;
 const emailHref = `mailto:${contact.email}?subject=${encodeURIComponent(packageData.title)}&body=${encodeURIComponent(baseWhatsappMessage)}`;
@@ -107,13 +111,18 @@ if (!pricingOptions.length) {
   });
 }
 
-const priceDisplayFor = option => option.priceDisplay || option.price || "Price on request";
+const priceDisplayFor = option => {
+  const priceAed = parseAedPrice(option.price || option.priceDisplay);
+  if (priceAed) return formatPackageAmount(priceAed);
+  return option.priceDisplay || option.price || "Price on request";
+};
 const ctaFor = option => option.price ? (option.cta || "Enquire Now") : "Get Best Price";
 const hasSeasonalPricing = pricingOptions.some(option => option.seasonalNote || /seasonal/i.test(option.badge || ""));
 const hasComplexPricing = Boolean(packageData.complexHotelData || packageData.usePricingTable || pricingOptions.some(option => option.complexHotelData || option.seasonalRates));
 
 const renderPricingCard = (option, index, extraClass = "") => {
   const priceDisplay = priceDisplayFor(option);
+  const optionPriceAed = parseAedPrice(option.price || option.priceDisplay);
   const isRequestPrice = !option.price && /request/i.test(priceDisplay);
   return `
     <article class="price-card ${index === 1 && pricingOptions.length > 2 ? "featured" : ""} ${extraClass}">
@@ -128,8 +137,8 @@ const renderPricingCard = (option, index, extraClass = "") => {
       <ul class="price-features">
         ${(option.features || []).map(feature => `<li>${feature}</li>`).join("")}
       </ul>
-      <div class="price ${isRequestPrice ? "price-request" : ""}">
-        ${option.price ? `<span>${option.price.split(" ")[0]}</span> ${option.price.split(" ").slice(1).join(" ")}` : priceDisplay}
+      <div class="price ${isRequestPrice ? "price-request" : ""}" ${optionPriceAed ? `data-detail-price-aed="${optionPriceAed}"` : ""}>
+        ${priceDisplay}
         ${option.priceNote ? `<small>${option.priceNote}</small>` : ""}
       </div>
       ${option.seasonalNote ? `<p class="seasonal-note">${option.seasonalNote}</p>` : ""}
@@ -199,12 +208,14 @@ byId("packageNav").innerHTML = navLinks.map(link => {
   };
   return `<a class="${link === "Holidays" ? "active" : ""}" href="${hrefMap[link] || "#"}">${link}</a>`;
 }).join("") + `<a class="mobile-nav-cta" href="/packages/">Explore Packages</a>`;
+delete byId("packageNav").dataset.currencyEnhanced;
+initFlyoCurrencyNav();
 byId("heroBadge").textContent = packageData.category || packageData.country;
 byId("heroTitle").innerHTML = packageData.title;
 byId("heroSubtitle").textContent = packageData.summary;
 byId("heroFeatures").innerHTML = [
   { icon: "duration", label: "Duration", value: packageData.duration },
-  { icon: "startingPrice", label: "Starting Price", value: startingPriceText },
+  { icon: "startingPrice", label: "Starting Price", value: `<span data-starting-price>${startingPriceText()}</span>` },
   { icon: "route", label: "Availability", value: packageData.availability || "Flexible Dates" },
   { icon: "destination", label: "Package Type", value: packageData.packageType || packageData.category || "Holiday" }
 ].map(item => `
@@ -225,6 +236,31 @@ byId("heroTrust").innerHTML = [
   packageData.category === "Cruise Package" ? "Availability guidance" : "Hotels and transfers",
   "24/7 support"
 ].join(" <span>|</span> ");
+
+byId("heroTrust").insertAdjacentHTML("afterend", `
+  <div class="package-essentials-grid">
+    <article class="package-essentials-card">
+      <h3>Package Highlights</h3>
+      <ul>
+        <li>Flexible travel dates</li>
+        <li>Hotel stay included</li>
+        <li>Airport transfers available</li>
+        <li>Custom planning support</li>
+        <li>Visa support available</li>
+        <li>24/7 travel assistance</li>
+      </ul>
+    </article>
+    <article class="package-essentials-card">
+      <h3>Why book with Flyo?</h3>
+      <ul>
+        <li>UAE and India support</li>
+        <li>Custom package planning</li>
+        <li>Quick WhatsApp assistance</li>
+        <li>Transparent pricing</li>
+      </ul>
+    </article>
+  </div>
+`);
 
 byId("bookingTitle").textContent = "Quick Trip Enquiry";
 byId("bookingDate").placeholder = "Preferred travel date";
@@ -500,10 +536,20 @@ document.querySelector(".options-panel .section-title").insertAdjacentHTML("befo
   ${hasSeasonalPricing ? `<small class="pricing-seasonal-disclaimer">Final price may vary based on travel dates, availability, room type, and number of travelers.</small>` : ""}
 `);
 const pricingGrid = byId("pricingGrid");
-pricingGrid.className = `pricing-grid pricing-count-${pricingOptions.length}${shouldRenderPricingTable ? " pricing-table-mode" : ""}`;
-pricingGrid.innerHTML = shouldRenderPricingTable
-  ? renderPricingTable(pricingOptions)
-  : `${pricingOptions.map((option, index) => renderPricingCard(option, index, pricingOptions.length === 1 ? "single-featured" : "")).join("")}${pricingOptions.length === 1 ? renderCustomOptionCard() : ""}`;
+const renderPricingSection = () => {
+  pricingGrid.className = `pricing-grid pricing-count-${pricingOptions.length}${shouldRenderPricingTable ? " pricing-table-mode" : ""}`;
+  pricingGrid.innerHTML = shouldRenderPricingTable
+    ? renderPricingTable(pricingOptions)
+    : `${pricingOptions.map((option, index) => renderPricingCard(option, index, pricingOptions.length === 1 ? "single-featured" : "")).join("")}${pricingOptions.length === 1 ? renderCustomOptionCard() : ""}`;
+};
+renderPricingSection();
+
+onCurrencyChange(() => {
+  document.querySelectorAll("[data-starting-price]").forEach(element => {
+    element.textContent = startingPriceText();
+  });
+  renderPricingSection();
+});
 
 const optionalToursCard = packageData.optionalTours?.length ? {
   title: "Optional Tours",

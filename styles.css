@@ -1063,3 +1063,128 @@ svg {
 :target {
   scroll-margin-top: 96px;
 }
+/* Shared nav additions */
+.nav-cta,
+.main-nav .mobile-nav-cta {
+  display: none !important;
+}
+
+.nav-currency {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 6px 10px;
+  border: 1px solid rgba(12, 28, 128, .14);
+  border-radius: 12px;
+  color: var(--color-primary);
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.nav-currency span {
+  font-size: 12px;
+  opacity: .68;
+}
+
+.nav-currency select {
+  border: 0;
+  background: transparent;
+  color: var(--color-primary);
+  font: inherit;
+  font-weight: 900;
+  outline: 0;
+}
+
+.partner-login-button {
+  min-height: 42px;
+  border: 1px solid rgba(12, 28, 128, .16);
+  border-radius: 12px;
+  background: rgba(12, 28, 128, .06);
+  color: var(--color-primary);
+  font: inherit;
+  font-weight: 900;
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: transform .22s ease, background .22s ease, border-color .22s ease;
+}
+
+.partner-login-button:hover {
+  transform: translateY(-1px);
+  background: rgba(12, 28, 128, .1);
+  border-color: rgba(12, 28, 128, .25);
+}
+
+.partner-login-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(5, 13, 55, .46);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s ease;
+}
+
+.partner-login-modal.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.partner-login-dialog {
+  position: relative;
+  width: min(420px, 100%);
+  border-radius: 20px;
+  background: #fff;
+  padding: 30px;
+  box-shadow: 0 24px 70px rgba(5, 13, 55, .24);
+  color: var(--color-primary);
+}
+
+.partner-login-dialog span {
+  display: inline-block;
+  margin-bottom: 10px;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: rgba(12, 28, 128, .6);
+}
+
+.partner-login-dialog h2 {
+  margin: 0 0 8px;
+  font-size: 28px;
+}
+
+.partner-login-dialog p {
+  margin: 0;
+  color: #626b7c;
+  line-height: 1.55;
+}
+
+.partner-login-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(12, 28, 128, .08);
+  color: var(--color-primary);
+  cursor: pointer;
+}
+
+@media (max-width: 1120px) {
+  .main-nav.open .nav-currency,
+  .main-nav.open .partner-login-button {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .main-nav.open .partner-login-button {
+    justify-content: center;
+  }
+}

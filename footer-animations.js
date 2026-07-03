@@ -24,6 +24,55 @@ const markBlock = (footer, selector, delay) => {
   block.style.setProperty("--footer-delay", `${delay}ms`);
 };
 
+const footerIcons = {
+  phone: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8c1.6 3.2 3.4 5 6.6 6.6l2.2-2.2c.3-.3.7-.4 1.1-.3 1.2.4 2.4.6 3.7.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.7 21 3 13.3 3 3.8c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.7.1.4 0 .8-.3 1.1l-2.2 2.2Z"/></svg>',
+  whatsapp: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.1 11.7a8.1 8.1 0 0 1-12 7.1L4 20.1l1.4-3.9a8.1 8.1 0 1 1 14.7-4.5Z"/><path d="M8.7 8.2c.2-.4.4-.5.7-.5h.5c.2 0 .4.1.5.4l.7 1.7c.1.2.1.4-.1.6l-.4.5c-.1.2-.2.3 0 .5.4.7 1 1.4 1.8 1.9.2.1.4.1.5-.1l.7-.7c.2-.2.4-.3.7-.1l1.6.8c.2.1.4.3.4.5 0 .6-.5 1.4-1.1 1.7-.7.3-2.2.1-4-1.1-1.9-1.3-3.2-3.1-3.5-4.3-.2-.9.1-1.7.4-2.1Z"/></svg>',
+  email: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>',
+  location: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-5.2 7-12a7 7 0 0 0-14 0c0 6.8 7 12 7 12Z"/><circle cx="12" cy="9" r="2.3"/></svg>'
+};
+
+const footerOffices = [
+  {
+    title: "UAE Office",
+    rows: [
+      { icon: "phone", label: "Cooperative Office", text: "+971 50 594 5077", href: "tel:+971505945077" },
+      { icon: "whatsapp", label: "WhatsApp / Mobile", text: "+971 56 689 6008", href: "https://wa.me/971566896008" },
+      { icon: "location", label: "Location", text: "Deira, Dubai" },
+      { icon: "email", label: "Email", text: "info.india@flyotour.com", href: "mailto:info.india@flyotour.com" }
+    ]
+  },
+  {
+    title: "Indian Office",
+    rows: [
+      { icon: "phone", label: "Phone", text: "+91 6361 25 4400", href: "tel:+916361254400" },
+      { icon: "location", label: "Location", text: "Karnataka, India" },
+      { icon: "email", label: "Email", text: "info.india@flyotour.com", href: "mailto:info.india@flyotour.com" }
+    ]
+  }
+];
+
+const enhanceFooterContact = footer => {
+  const target = footer.querySelector(".footer-reachout");
+  if (!target || target.dataset.officeContactReady === "true") return;
+  target.dataset.officeContactReady = "true";
+  target.innerHTML = `
+    <h3>Reach Out To Us</h3>
+    <div class="footer-office-grid">
+      ${footerOffices.map(office => `
+        <article class="footer-office-card">
+          <h4>${office.title}</h4>
+          <ul>
+            ${office.rows.map(row => {
+              const content = `<span class="footer-office-icon">${footerIcons[row.icon]}</span><span><small>${row.label}</small><strong>${row.text}</strong></span>`;
+              return `<li>${row.href ? `<a href="${row.href}">${content}</a>` : `<span>${content}</span>`}</li>`;
+            }).join("")}
+          </ul>
+        </article>
+      `).join("")}
+    </div>
+  `;
+};
+
 const ensureFloatingActions = () => {
   if (!document.querySelector(".flyo-floating-actions")) {
     const whatsappHref = document.querySelector('a[href*="wa.me"]')?.href || document.querySelector("[data-whatsapp]")?.href || defaultWhatsapp;
@@ -54,11 +103,12 @@ const initFooterAnimations = () => {
   if (!footers.length) return;
 
   footers.forEach(footer => {
+    enhanceFooterContact(footer);
     footer.classList.add("footer-animate", "reveal-footer");
     footer.querySelectorAll(".footer-brand, .footer-about, .footer-quick-column, .footer-services-column, .footer-reachout, .footer-bottom, .footer-bottom-package").forEach(item => {
       item.classList.add("footer-reveal-item", "footer-animate-item");
     });
-    footer.querySelectorAll(".footer-contact-item").forEach(item => {
+    footer.querySelectorAll(".footer-contact-item, .footer-office-card").forEach(item => {
       item.classList.add("footer-reveal-contact");
     });
     markBlock(footer, ".footer-brand, .footer-about", 100);

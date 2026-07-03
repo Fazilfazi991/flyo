@@ -1,4 +1,5 @@
 import { contact, packages } from "../data/packages.js";
+import { formatPackageAmount, onCurrencyChange, parseAedPrice } from "../currency.js";
 
 const packageList = packages.filter(item => item.slug !== "dubai-desert-safari");
 const resultCount = document.querySelector(".package-results-row > span");
@@ -11,7 +12,7 @@ const cardDetails = {
     location: "Kuala Lumpur, Malaysia",
     duration: "3 Nights / 4 Days",
     tag: "City Break",
-    price: "AED 899",
+    priceAed: 899,
     image: "/packages/Kuala_Lumpur_WebP_Images/KL_Day.webp",
     highlights: ["KL Tower", "Genting Highlands", "Batu Caves", "City Break"]
   },
@@ -19,7 +20,7 @@ const cardDetails = {
     location: "Bangkok & Pattaya, Thailand",
     duration: "4 Nights / 5 Days",
     tag: "Beach",
-    price: "AED 999",
+    priceAed: 999,
     image: "/packages/Thai_Wonder_WebP_Images/Thai_Wonder_Night.webp",
     highlights: ["Coral Island", "Tiger Park", "Alcazar Show", "Bangkok Tour"]
   },
@@ -27,7 +28,7 @@ const cardDetails = {
     location: "Kandy, Nuwara Eliya, Colombo",
     duration: "3 Nights / 4 Days",
     tag: "Cultural",
-    price: "AED 1,899",
+    priceAed: 1899,
     highlights: ["Pinnawala", "Kandy Temple", "Colombo Tour", "Nature"],
     image: "/packages/Sri_Lanka_Highlights_WebP/SriLanka_Sigiriya.webp"
   },
@@ -35,21 +36,21 @@ const cardDetails = {
     location: "Singapore",
     duration: "4 Nights / 5 Days",
     tag: "Family",
-    price: "AED 2,999",
+    priceAed: 2999,
     highlights: ["Universal Studios", "Sentosa", "Gardens by the Bay", "Family Trip"]
   },
   "beaches-of-thailand": {
     location: "Krabi, Phi Phi, Phuket",
     duration: "6 Nights / 7 Days",
     tag: "Beach",
-    price: "AED 1,875",
+    priceAed: 1875,
     highlights: ["Island Hopping", "James Bond Island", "Phuket City Tour", "Beach"]
   },
   "kenya-inspiring-safari": {
     location: "Lake Nakuru, Masai Mara",
     duration: "3 Nights / 4 Days",
     tag: "Safari",
-    price: "AED 9,385",
+    priceAed: 9385,
     highlights: ["Private Safari", "Game Drives", "Full Board", "Wildlife"]
   }
 };
@@ -72,9 +73,10 @@ document.querySelector("#packageGrid").innerHTML = packageList.map((item, index)
     location: item.route || item.country,
     duration: item.duration,
     tag: item.category || item.tags[0] || "Holiday",
-    price: item.price,
+    priceAed: parseAedPrice(item.startingPrice || item.price),
     highlights: item.highlights.slice(0, 3)
   };
+  const priceAed = details.priceAed || parseAedPrice(details.price || item.startingPrice || item.price);
 
   return `
   <article class="package-card reveal ${revealDelay(index)}">
@@ -94,7 +96,7 @@ document.querySelector("#packageGrid").innerHTML = packageList.map((item, index)
       <div class="package-card-footer">
         <div class="package-price">
           <small>From</small>
-          <strong>${details.price}</strong>
+          <strong data-price-aed="${priceAed || ""}">${formatPackageAmount(priceAed)}</strong>
           <span>/person</span>
         </div>
       </div>
@@ -105,6 +107,14 @@ document.querySelector("#packageGrid").innerHTML = packageList.map((item, index)
     </div>
   </article>
 `;}).join("");
+
+const updatePackageCardPrices = () => {
+  document.querySelectorAll("[data-price-aed]").forEach(element => {
+    element.textContent = formatPackageAmount(element.dataset.priceAed);
+  });
+};
+
+onCurrencyChange(updatePackageCardPrices);
 
 document.querySelectorAll("[data-whatsapp]").forEach(link => {
   link.setAttribute("href", contact.whatsapp);
