@@ -8,6 +8,7 @@ const entries = [
   "index.html",
   "experiences.html",
   "styles.css",
+  "currency.js",
   "script.js",
   "package.css",
   "package.js",
