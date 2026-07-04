@@ -3371,3 +3371,79 @@ body {
     transition-timing-function: cubic-bezier(.22, 1, .36, 1);
   }
 }
+
+/* Clean package navbar controls */
+.package-header .package-nav .nav-currency,
+.package-header .package-nav .partner-login-button {
+  min-height: auto;
+  padding: 16px 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--color-white);
+  font-size: clamp(14px, .82vw, 18px);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.package-header .package-nav .nav-currency span {
+  color: currentColor;
+  opacity: 1;
+  font-size: inherit;
+  font-weight: 700;
+}
+
+.package-header .package-nav .nav-currency select {
+  color: currentColor;
+  background: transparent;
+  font-size: inherit;
+  font-weight: 800;
+}
+
+.package-header .package-nav .nav-currency select option {
+  color: var(--color-primary);
+}
+
+.package-header .package-nav .partner-login-button:hover,
+.package-header .package-nav .nav-currency:hover {
+  transform: none;
+  background: transparent;
+}
+
+.package-header .package-nav .partner-login-button::after,
+.package-header .package-nav .nav-currency::after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 3px;
+  margin-top: 6px;
+  border-radius: 999px;
+  background: currentColor;
+  transition: width .25s ease;
+}
+
+.package-header .package-nav .partner-login-button:hover::after,
+.package-header .package-nav .nav-currency:hover::after {
+  width: 100%;
+}
+
+@media (max-width: 1120px) {
+  .package-header .package-nav.open .nav-currency,
+  .package-header .package-nav.open .partner-login-button {
+    min-height: 44px;
+    padding: 14px 12px;
+    color: var(--color-white);
+    justify-content: space-between;
+  }
+
+  .package-header .package-nav.open .partner-login-button {
+    justify-content: flex-start;
+    text-align: left;
+  }
+
+  .package-header .package-nav.open .partner-login-button::after,
+  .package-header .package-nav.open .nav-currency::after {
+    display: none;
+  }
+}

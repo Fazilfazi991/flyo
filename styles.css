@@ -1419,3 +1419,97 @@ body {
     transition-timing-function: cubic-bezier(.22, 1, .36, 1);
   }
 }
+
+/* Clean white navbar controls */
+.site-header .main-nav .nav-currency,
+.site-header.header-solid .main-nav .nav-currency,
+.package-list-header .main-nav .nav-currency,
+.site-header .main-nav .partner-login-button,
+.site-header.header-solid .main-nav .partner-login-button,
+.package-list-header .main-nav .partner-login-button {
+  min-height: auto;
+  padding: 16px 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--color-white);
+  font-size: clamp(14px, .82vw, 18px);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.site-header .main-nav .nav-currency {
+  gap: 8px;
+}
+
+.site-header .main-nav .nav-currency span {
+  color: currentColor;
+  opacity: 1;
+  font-size: inherit;
+  font-weight: 700;
+}
+
+.site-header .main-nav .nav-currency select {
+  color: currentColor;
+  background: transparent;
+  font-size: inherit;
+  font-weight: 800;
+  padding-right: 2px;
+}
+
+.site-header .main-nav .nav-currency select option {
+  color: var(--color-primary);
+}
+
+.site-header .main-nav .partner-login-button {
+  cursor: pointer;
+}
+
+.site-header .main-nav .partner-login-button:hover,
+.site-header .main-nav .nav-currency:hover {
+  transform: none;
+  color: var(--color-white);
+  background: transparent;
+}
+
+.site-header .main-nav .partner-login-button::after,
+.site-header .main-nav .nav-currency::after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 3px;
+  margin-top: 6px;
+  border-radius: 999px;
+  background: currentColor;
+  transition: width .25s ease;
+}
+
+.site-header .main-nav .partner-login-button:hover::after,
+.site-header .main-nav .nav-currency:hover::after {
+  width: 100%;
+}
+
+@media (max-width: 1120px) {
+  .site-header .main-nav.open .nav-currency,
+  .site-header.header-solid .main-nav.open .nav-currency,
+  .package-list-header .main-nav.open .nav-currency,
+  .site-header .main-nav.open .partner-login-button,
+  .site-header.header-solid .main-nav.open .partner-login-button,
+  .package-list-header .main-nav.open .partner-login-button {
+    min-height: 44px;
+    padding: 11px 12px;
+    color: var(--color-white);
+    justify-content: space-between;
+  }
+
+  .site-header .main-nav.open .partner-login-button {
+    justify-content: flex-start;
+    text-align: left;
+  }
+
+  .site-header .main-nav.open .partner-login-button::after,
+  .site-header .main-nav.open .nav-currency::after {
+    display: none;
+  }
+}
