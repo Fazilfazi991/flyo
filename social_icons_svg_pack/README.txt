@@ -6,6 +6,7 @@ Files:
 - whatsapp-icon.svg
 - youtube-icon.svg
 - linkedin-icon.svg
+- tiktok-icon.svg
 - floating-whatsapp-icon.svg
 
 Recommended use:

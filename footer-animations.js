@@ -38,24 +38,49 @@ const socialIcons = {
   instagram: `${SOCIAL_ICON_BASE}/instagram-icon.svg`,
   whatsapp: `${SOCIAL_ICON_BASE}/whatsapp-icon.svg`,
   youtube: `${SOCIAL_ICON_BASE}/youtube-icon.svg`,
-  linkedin: `${SOCIAL_ICON_BASE}/linkedin-icon.svg`
+  linkedin: `${SOCIAL_ICON_BASE}/linkedin-icon.svg`,
+  tiktok: `${SOCIAL_ICON_BASE}/tiktok-icon.svg`
 };
 
-const socialIconFor = link => {
+const socialProfiles = {
+  facebook: "https://www.facebook.com/share/1Bc6e2EfjV/?mibextid=wwXIfr",
+  instagram: "https://www.instagram.com/flyo_tours?igsh=MWJmNWJoYm1zZWV5Mg==",
+  linkedin: "https://www.linkedin.com/company/flyo-tours-and-travels/",
+  youtube: "https://www.youtube.com/@Flyotoursandtravels",
+  tiktok: "https://www.tiktok.com/@flyotour?_r=1&_t=ZS-97th2D0gv4f"
+};
+
+const socialKeyFor = link => {
   const label = `${link.getAttribute("aria-label") || ""} ${link.textContent || ""}`.toLowerCase();
-  if (label.includes("facebook") || label.trim() === "f") return socialIcons.facebook;
-  if (label.includes("instagram") || label.includes("ig")) return socialIcons.instagram;
-  if (label.includes("whatsapp") || label.includes("wa")) return socialIcons.whatsapp;
-  if (label.includes("youtube") || label.includes("yt")) return socialIcons.youtube;
-  if (label.includes("linkedin") || label.includes("in")) return socialIcons.linkedin;
+  if (label.includes("facebook") || label.trim() === "f") return "facebook";
+  if (label.includes("instagram") || label.includes("ig")) return "instagram";
+  if (label.includes("whatsapp") || label.includes("wa")) return "whatsapp";
+  if (label.includes("youtube") || label.includes("yt")) return "youtube";
+  if (label.includes("linkedin") || label.includes("in")) return "linkedin";
+  if (label.includes("tiktok") || label.includes("tik tok") || label.includes("tt")) return "tiktok";
   return "";
 };
 
 const enhanceFooterSocials = footer => {
+  const socialWrap = footer.querySelector(".footer-social, .footer-socials, .socials");
+  if (socialWrap && !socialWrap.querySelector('[aria-label="TikTok"]')) {
+    const tikTokLink = document.createElement("a");
+    tikTokLink.className = "footer-social-link";
+    tikTokLink.href = socialProfiles.tiktok;
+    tikTokLink.setAttribute("aria-label", "TikTok");
+    socialWrap.appendChild(tikTokLink);
+  }
+
   footer.querySelectorAll(".footer-social-link, .footer-socials a, .socials a").forEach(link => {
     if (link.dataset.socialIconReady === "true") return;
-    const icon = socialIconFor(link);
+    const socialKey = socialKeyFor(link);
+    const icon = socialIcons[socialKey];
     if (!icon) return;
+    if (socialProfiles[socialKey]) {
+      link.href = socialProfiles[socialKey];
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+    }
     link.dataset.socialIconReady = "true";
     link.innerHTML = `<img src="${icon}" alt="" aria-hidden="true" loading="lazy">`;
   });
