@@ -7,6 +7,7 @@ Files:
 - youtube-icon.svg
 - linkedin-icon.svg
 - tiktok-icon.svg
+- x-icon.svg
 - floating-whatsapp-icon.svg
 
 Recommended use:

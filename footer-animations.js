@@ -39,7 +39,8 @@ const socialIcons = {
   whatsapp: `${SOCIAL_ICON_BASE}/whatsapp-icon.svg`,
   youtube: `${SOCIAL_ICON_BASE}/youtube-icon.svg`,
   linkedin: `${SOCIAL_ICON_BASE}/linkedin-icon.svg`,
-  tiktok: `${SOCIAL_ICON_BASE}/tiktok-icon.svg`
+  tiktok: `${SOCIAL_ICON_BASE}/tiktok-icon.svg`,
+  x: `${SOCIAL_ICON_BASE}/x-icon.svg`
 };
 
 const socialProfiles = {
@@ -47,7 +48,8 @@ const socialProfiles = {
   instagram: "https://www.instagram.com/flyo_tours?igsh=MWJmNWJoYm1zZWV5Mg==",
   linkedin: "https://www.linkedin.com/company/flyo-tours-and-travels/",
   youtube: "https://www.youtube.com/@Flyotoursandtravels",
-  tiktok: "https://www.tiktok.com/@flyotour?_r=1&_t=ZS-97th2D0gv4f"
+  tiktok: "https://www.tiktok.com/@flyotour?_r=1&_t=ZS-97th2D0gv4f",
+  x: "https://x.com/flyotours"
 };
 
 const socialKeyFor = link => {
@@ -58,6 +60,7 @@ const socialKeyFor = link => {
   if (label.includes("youtube") || label.includes("yt")) return "youtube";
   if (label.includes("linkedin") || label.includes("in")) return "linkedin";
   if (label.includes("tiktok") || label.includes("tik tok") || label.includes("tt")) return "tiktok";
+  if (label.includes("twitter") || label.includes("x.com") || label.trim() === "x") return "x";
   return "";
 };
 
@@ -69,6 +72,13 @@ const enhanceFooterSocials = footer => {
     tikTokLink.href = socialProfiles.tiktok;
     tikTokLink.setAttribute("aria-label", "TikTok");
     socialWrap.appendChild(tikTokLink);
+  }
+  if (socialWrap && !socialWrap.querySelector('[aria-label="X"]')) {
+    const xLink = document.createElement("a");
+    xLink.className = "footer-social-link";
+    xLink.href = socialProfiles.x;
+    xLink.setAttribute("aria-label", "X");
+    socialWrap.appendChild(xLink);
   }
 
   footer.querySelectorAll(".footer-social-link, .footer-socials a, .socials a").forEach(link => {
