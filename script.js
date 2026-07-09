@@ -1,6 +1,95 @@
 import { contact } from "./data/packages.js";
 import { formatPackageAmount, onCurrencyChange } from "./currency.js";
+import { openWhatsAppChooser, whatsappMessages } from "./whatsapp-chooser.js";
 import "./navbar.js";
+
+const heroSlideData = [
+  {
+    image: "/public/slider%20lap.png",
+    mobileImage: "/public/slider%20mob.png",
+    alt: "Flyo international holiday planning with skyline and resort travel inspiration",
+    label: "Curated. Personalized. Memorable.",
+    title: "Your Next Holiday, Planned Beautifully",
+    subtitle: "Explore curated international holidays, family trips, honeymoons, beach escapes, and custom travel plans designed with care from start to finish.",
+    align: "left",
+    primaryText: "Explore Packages",
+    primaryLink: "/packages/",
+    secondaryText: "Enquire on WhatsApp",
+    enquiryMessage: "Hello Flyo Tours, I would like to know more about your travel services. Please assist me."
+  },
+  {
+    image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=2000&q=90",
+    alt: "Curated worldwide holiday destination with mountains and blue water",
+    label: "Worldwide Holidays",
+    title: "Travel Ideas for Every Kind of Escape",
+    subtitle: "From mountain views to beach days and city breaks, Flyo helps shape comfortable holidays around your dates and travel style.",
+    align: "right",
+    primaryText: "View Holidays",
+    primaryLink: "/packages/",
+    secondaryText: "Talk to Us",
+    enquiryMessage: "Hello Flyo Tours, I would like to enquire about worldwide holiday packages. Please assist me."
+  },
+  {
+    image: "/public/home_slider_images_webp/home-slider-thailand-beach.webp",
+    alt: "Thailand tropical beach holiday",
+    label: "Thailand Escapes",
+    title: "Tropical Holidays Made Effortless",
+    subtitle: "Explore crystal-clear beaches, island views, and relaxing Thailand getaways curated for every kind of traveler.",
+    align: "left",
+    primaryText: "Explore Packages",
+    primaryLink: "/packages?country=Thailand",
+    secondaryText: "Enquire Now",
+    enquiryMessage: "Hello Flyo Tours, I would like to enquire about Thailand holiday packages. Please assist me."
+  },
+  {
+    image: "/public/home_slider_images_webp/home-slider-malaysia-cityscape.webp",
+    alt: "Malaysia city skyline holiday",
+    label: "Malaysia Getaways",
+    title: "City Lights, Culture & Comfort",
+    subtitle: "Plan your Malaysia holiday with smooth flights, hotel stays, sightseeing, and guided travel support.",
+    align: "right",
+    primaryText: "View Malaysia Packages",
+    primaryLink: "/packages?country=Malaysia",
+    secondaryText: "Talk to Us",
+    enquiryMessage: "Hello Flyo Tours, I would like to enquire about Malaysia holiday packages. Please assist me."
+  },
+  {
+    image: "/public/home_slider_images_webp/home-slider-europe-lakeside-village.webp",
+    alt: "Europe lakeside mountain holiday",
+    label: "Europe Holidays",
+    title: "Scenic Europe, Planned Beautifully",
+    subtitle: "From lakeside villages to alpine views, discover Europe packages designed for memorable family and honeymoon trips.",
+    align: "left",
+    primaryText: "Explore Europe",
+    primaryLink: "/packages?country=Europe",
+    secondaryText: "Custom Trip Enquiry",
+    enquiryMessage: "Hello Flyo Tours, I would like to enquire about Europe holiday packages. Please assist me."
+  },
+  {
+    image: "/public/home_slider_images_webp/home-slider-cappadocia-balloons.webp",
+    alt: "Cappadocia hot air balloon experience",
+    label: "Turkey Experiences",
+    title: "Wake Up to Magical Views",
+    subtitle: "Experience Cappadocia balloons, cultural tours, scenic stays, and unforgettable holiday moments.",
+    align: "right",
+    primaryText: "View Experiences",
+    primaryLink: "/experiences.html",
+    secondaryText: "Plan My Trip",
+    enquiryMessage: "Hello Flyo Tours, I would like to enquire about Turkey and Cappadocia experiences. Please assist me."
+  },
+  {
+    image: "/public/home_slider_images_webp/home-slider-mediterranean-coast.webp",
+    alt: "Mediterranean coastal holiday",
+    label: "Mediterranean Dreams",
+    title: "Coastal Holidays with a Luxury Feel",
+    subtitle: "Discover beautiful coastlines, charming towns, romantic views, and premium travel planning support.",
+    align: "left",
+    primaryText: "Explore Packages",
+    primaryLink: "/packages/",
+    secondaryText: "Get Quote",
+    enquiryMessage: "Hello Flyo Tours, I would like to enquire about Mediterranean coastal holidays. Please assist me."
+  }
+];
 
 const destinations = [
   { name: "Thailand", region: "Asia", layout: "dubai", image: "https://images.unsplash.com/photo-1508009603885-50cf7c579365?auto=format&fit=crop&w=1200&q=88" },
@@ -135,7 +224,12 @@ if (testimonialGrid) testimonialGrid.innerHTML = testimonials.map((item, index) 
 `).join("");
 
 document.querySelectorAll("[data-whatsapp]").forEach(link => {
-  link.setAttribute("href", contact.whatsapp);
+  link.setAttribute("href", "#");
+  if (!link.dataset.whatsappMessage && !link.dataset.whatsappType) {
+    link.dataset.whatsappMessage = location.pathname.toLowerCase().includes("/flights")
+      ? whatsappMessages.flight
+      : whatsappMessages.general;
+  }
 });
 
 let activeSearchType = "holidays";
@@ -179,7 +273,11 @@ document.querySelectorAll("form").forEach(form => form.addEventListener("submit"
     location.href = activeSearchType === "flights" ? "/flights/" : "/packages/";
     return;
   }
-  location.href = form.classList.contains("flight-form") ? contact.whatsapp : "/packages/";
+  if (form.classList.contains("flight-form")) {
+    openWhatsAppChooser(whatsappMessages.flight);
+    return;
+  }
+  location.href = "/packages/";
 }));
 
 function initScrollReveal() {
@@ -220,14 +318,57 @@ function initScrollReveal() {
 initScrollReveal();
 
 const hero = document.querySelector(".hero");
-const heroSlides = [...document.querySelectorAll(".hero-slide")];
-const heroDots = [...document.querySelectorAll(".hero-dots button")];
+const heroSlider = document.querySelector("#heroSlider");
+const heroDotsWrap = document.querySelector("#heroDots");
+const heroContent = document.querySelector("#heroContent");
+const heroSlideLabel = document.querySelector("#heroSlideLabel");
+const heroSlideTitle = document.querySelector("#heroSlideTitle");
+const heroSlideSubtitle = document.querySelector("#heroSlideSubtitle");
+const heroPrimaryAction = document.querySelector("#heroPrimaryAction");
+const heroSecondaryAction = document.querySelector("#heroSecondaryAction");
 const heroPrev = document.querySelector(".hero-prev");
 const heroNext = document.querySelector(".hero-next");
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 let heroIndex = 0;
 let heroTimer;
 let touchStartX = 0;
+
+const renderHeroSlider = () => {
+  if (!heroSlider || !heroDotsWrap) return;
+  heroSlider.innerHTML = heroSlideData.map((slide, index) => `
+    <figure class="hero-slide hero-slide-${slide.align}${index === 0 ? " active" : ""}" aria-hidden="${index === 0 ? "false" : "true"}">
+      ${slide.mobileImage ? `
+        <picture>
+          <source media="(max-width: 560px)" srcset="${slide.mobileImage}">
+          <img src="${slide.image}" alt="${slide.alt}" ${index === 0 ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"'}>
+        </picture>
+      ` : `
+        <img src="${slide.image}" alt="${slide.alt}" ${index === 0 ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"'}>
+      `}
+    </figure>
+  `).join("");
+  heroDotsWrap.innerHTML = heroSlideData.map((slide, index) => `
+    <button class="${index === 0 ? "active" : ""}" type="button" aria-label="Show hero image ${index + 1}" aria-current="${index === 0 ? "true" : "false"}"></button>
+  `).join("");
+};
+
+const updateHeroContent = slide => {
+  if (!heroContent || !slide) return;
+  hero.dataset.align = slide.align;
+  heroContent.dataset.align = slide.align;
+  heroSlideLabel.textContent = slide.label;
+  heroSlideTitle.textContent = slide.title;
+  heroSlideSubtitle.textContent = slide.subtitle;
+  heroPrimaryAction.textContent = slide.primaryText;
+  heroPrimaryAction.href = slide.primaryLink;
+  heroSecondaryAction.textContent = slide.secondaryText;
+  heroSecondaryAction.href = "#";
+  heroSecondaryAction.dataset.whatsappMessage = slide.enquiryMessage;
+};
+
+renderHeroSlider();
+let heroSlides = [...document.querySelectorAll(".hero-slide")];
+let heroDots = [...document.querySelectorAll(".hero-dots button")];
 
 function showHeroSlide(index, restart = true) {
   heroIndex = (index + heroSlides.length) % heroSlides.length;
@@ -241,6 +382,7 @@ function showHeroSlide(index, restart = true) {
     dot.classList.toggle("active", active);
     dot.setAttribute("aria-current", String(active));
   });
+  updateHeroContent(heroSlideData[heroIndex]);
   if (restart) startHeroAutoplay();
 }
 
@@ -252,8 +394,9 @@ function startHeroAutoplay() {
 }
 
 if (hero && heroSlides.length) {
-  heroPrev.addEventListener("click", () => showHeroSlide(heroIndex - 1));
-  heroNext.addEventListener("click", () => showHeroSlide(heroIndex + 1));
+  updateHeroContent(heroSlideData[0]);
+  heroPrev?.addEventListener("click", () => showHeroSlide(heroIndex - 1));
+  heroNext?.addEventListener("click", () => showHeroSlide(heroIndex + 1));
   heroDots.forEach((dot, index) => dot.addEventListener("click", () => showHeroSlide(index)));
   hero.addEventListener("mouseenter", () => clearInterval(heroTimer));
   hero.addEventListener("mouseleave", startHeroAutoplay);

@@ -1,5 +1,5 @@
 const phone = "+971 50 123 4567";
-const whatsapp = "https://wa.me/971501234567";
+const whatsapp = "#";
 const email = "info@flyotravels.com";
 
 const commonInclusions = [
@@ -718,6 +718,399 @@ export const packages = [
       { question: "Are monument entrance fees included?", answer: "Entrance fees are excluded unless they are specifically added to the final confirmed quote." }
     ],
     whatsappMessage: "Hi, I'm interested in Golden Triangle Special. Please share more details."
+  },
+  {
+    slug: "royal-rajasthan-heritage-tour",
+    title: "Royal Rajasthan Heritage Tour",
+    country: "India",
+    destinationState: "Rajasthan",
+    duration: "8 Nights / 9 Days",
+    price: "AED 1845",
+    route: "Jaipur, Bikaner, Jaisalmer & Jodhpur",
+    category: "Heritage Tour",
+    tags: ["India Packages", "Heritage Tour", "Family Holidays", "Cultural Tour"],
+    cardImage: "/packages/rajasthan_package_images_webp/rajasthan-jaipur-amber-fort.webp",
+    heroImage: "/packages/rajasthan_package_images_webp/rajasthan-jodhpur-mehrangarh-fort.webp",
+    galleryImages: [
+      { src: "/packages/rajasthan_package_images_webp/rajasthan-jaipur-amber-fort.webp", label: "Jaipur Amber Fort" },
+      { src: "/packages/rajasthan_package_images_webp/rajasthan-jaipur-hawa-mahal.webp", label: "Jaipur Hawa Mahal" },
+      { src: "/packages/rajasthan_package_images_webp/rajasthan-jaipur-city-palace.webp", label: "Jaipur City Palace" },
+      { src: "/packages/rajasthan_package_images_webp/rajasthan-bikaner-junagarh-fort.webp", label: "Bikaner Junagarh Fort" },
+      { src: "/packages/rajasthan_package_images_webp/rajasthan-jaisalmer-desert-camp-camel-safari.webp", label: "Jaisalmer Desert Camp and Camel Safari" },
+      { src: "/packages/rajasthan_package_images_webp/rajasthan-jaisalmer-golden-fort.webp", label: "Jaisalmer Golden Fort" },
+      { src: "/packages/rajasthan_package_images_webp/rajasthan-jodhpur-mehrangarh-fort.webp", label: "Jodhpur Mehrangarh Fort" },
+      { src: "/packages/rajasthan_package_images_webp/rajasthan-jodhpur-blue-city.webp", label: "Jodhpur Blue City" }
+    ],
+    imageHighlights: ["Jaipur palaces", "Jaisalmer desert camp", "Jodhpur heritage"],
+    summary: "Experience the royal charm of Rajasthan with Jaipur's palaces, Bikaner's forts, Jaisalmer's golden desert, and Jodhpur's majestic heritage.",
+    overview: "This 8-night Rajasthan journey blends royal palaces, desert heritage, historic forts, market time, a Jaisalmer camp stay, camel safari, and cultural highlights across Jaipur, Bikaner, Jaisalmer, and Jodhpur.",
+    highlights: [
+      "Jaipur city tour",
+      "City Palace and Palace Museum",
+      "Jantar Mantar visit",
+      "Hawa Mahal drive past or photo stop",
+      "Amber Fort visit",
+      "Elephant ride or Jeep ride at Amber Fort on own cost",
+      "Birla Temple visit",
+      "Bikaner sightseeing",
+      "Junagarh Fort visit",
+      "Camel Breeding Farm",
+      "Deshnok Karni Mata Temple",
+      "Jaisalmer desert camp stay",
+      "Camel ride or camel safari during camp stay",
+      "Jaisalmer Golden Fort",
+      "Gadhisar Lake",
+      "Patwon Ki Haveli",
+      "Nathmal Ji Ki Haveli",
+      "Local market shopping",
+      "Jodhpur Blue City visit",
+      "Desert Cultural Centre en route",
+      "Umaid Bhawan Palace & Museum",
+      "Mehrangarh Fort",
+      "Jaswant Thada"
+    ],
+    itinerary: [
+      {
+        day: "Day 1",
+        title: "Arrival in Jaipur",
+        text: "Arrive in Jaipur and transfer to the hotel. Later proceed for a city tour of Jaipur. Visit City Palace, Palace Museum, Jantar Mantar, and drive past Hawa Mahal, also known as the Palace of Winds. Overnight stay at the hotel in Jaipur.",
+        images: [
+          "/packages/rajasthan_package_images_webp/rajasthan-jaipur-city-palace.webp",
+          "/packages/rajasthan_package_images_webp/rajasthan-jaipur-hawa-mahal.webp"
+        ]
+      },
+      {
+        day: "Day 2",
+        title: "Jaipur Sightseeing",
+        text: "After breakfast, drive to the outskirts of Jaipur to visit Amber Fort, the ancient capital of Jaipur. Explore the fort's grand palaces and mirrored interiors. Enjoy an Elephant Ride or Jeep Ride at Amber Fort on own cost. Later visit Birla Temple. Rest of the day is free for shopping and personal activities. Overnight stay in Jaipur.",
+        images: [
+          "/packages/rajasthan_package_images_webp/rajasthan-jaipur-amber-fort.webp",
+          "/packages/rajasthan_package_images_webp/rajasthan-jaipur-hawa-mahal.webp"
+        ]
+      },
+      {
+        day: "Day 3",
+        title: "Jaipur to Bikaner",
+        text: "Early morning, drive to the walled city of Bikaner. On arrival, check in at the hotel. Rest of the day is free for leisure. Overnight stay in Bikaner.",
+        images: [
+          "/packages/rajasthan_package_images_webp/rajasthan-bikaner-junagarh-fort.webp"
+        ]
+      },
+      {
+        day: "Day 4",
+        title: "Bikaner Sightseeing",
+        text: "After breakfast, proceed for Bikaner local sightseeing. Visit Junagarh Fort, Camel Breeding Farm, and Deshnok Karni Mata Temple. Rest of the day is free for leisure activities. Overnight stay in Bikaner.",
+        images: [
+          "/packages/rajasthan_package_images_webp/rajasthan-bikaner-junagarh-fort.webp"
+        ]
+      },
+      {
+        day: "Day 5",
+        title: "Bikaner to Jaisalmer",
+        text: "After breakfast, check out from the hotel and proceed to the desert town of Jaisalmer. In the evening, enjoy a camel ride arranged during the hotel or camp stay. Overnight stay at Jaisalmer Camp.",
+        images: [
+          "/packages/rajasthan_package_images_webp/rajasthan-jaisalmer-desert-camp-camel-safari.webp"
+        ]
+      },
+      {
+        day: "Day 6",
+        title: "Jaisalmer Sightseeing",
+        text: "After breakfast, check out from the camp and proceed to Jaisalmer town. Visit Jaisalmer Golden Fort, Gadhisar Lake, Patwon Ki Haveli, and Nathmal Ji Ki Haveli. Later enjoy shopping in the local market. Overnight stay at Jaisalmer Hotel.",
+        images: [
+          "/packages/rajasthan_package_images_webp/rajasthan-jaisalmer-golden-fort.webp",
+          "/packages/rajasthan_package_images_webp/rajasthan-jaisalmer-desert-camp-camel-safari.webp"
+        ]
+      },
+      {
+        day: "Day 7",
+        title: "Jaisalmer to Jodhpur",
+        text: "After breakfast, drive to Jodhpur, known as the Blue City. En route, visit the Desert Cultural Centre. On arrival, check in at the hotel. Rest of the day is free for leisure. Overnight stay in Jodhpur.",
+        images: [
+          "/packages/rajasthan_package_images_webp/rajasthan-jodhpur-blue-city.webp"
+        ]
+      },
+      {
+        day: "Day 8",
+        title: "Jodhpur Sightseeing",
+        text: "After breakfast, proceed for Jodhpur sightseeing. Visit Umaid Bhawan Palace & Museum, the majestic Mehrangarh Fort, and Jaswant Thada, a cluster of royal cenotaphs built in 1899. Overnight stay at Jodhpur Hotel.",
+        images: [
+          "/packages/rajasthan_package_images_webp/rajasthan-jodhpur-mehrangarh-fort.webp",
+          "/packages/rajasthan_package_images_webp/rajasthan-jodhpur-blue-city.webp"
+        ]
+      },
+      {
+        day: "Day 9",
+        title: "Departure from Jodhpur",
+        text: "After breakfast, check out and transfer to Jodhpur Airport or Railway Station for onward journey.",
+        images: [
+          "/packages/rajasthan_package_images_webp/rajasthan-jodhpur-mehrangarh-fort.webp"
+        ]
+      }
+    ],
+    hotels: [
+      { title: "3 Star Package", price: "AED 1845 per person", features: ["Bhanwar Hotel or similar 3*", "Daily breakfast except Day 1", "AC vehicle transfers"] },
+      { title: "3 Star Standard Package", price: "AED 2085 per person", features: ["Garh Jaisal Hotel or similar 3* Standard", "Daily breakfast except Day 1", "Jaisalmer camp dinner"] },
+      { title: "4 Star Package", price: "AED 2320 per person", features: ["Vista Bikaner or similar 4*", "Daily breakfast except Day 1", "AC vehicle transfers"] }
+    ],
+    pricingOptions: [
+      {
+        label: "3 Star Package",
+        badge: "Best Value",
+        hotels: ["Bhanwar Hotel or similar 3*"],
+        mealPlan: "Daily Breakfast except Day 1, dinner during Jaisalmer Camp stay",
+        transferType: "AC vehicle as per itinerary",
+        price: "AED 1845",
+        priceNote: "per person",
+        features: ["Jaipur, Bikaner, Jaisalmer and Jodhpur stays", "Jaisalmer camp stay", "Camel safari during camp stay", "Sightseeing transfers"],
+        cta: "Enquire Now"
+      },
+      {
+        label: "3 Star Standard Package",
+        badge: "Popular Upgrade",
+        hotels: ["Garh Jaisal Hotel or similar 3* Standard"],
+        mealPlan: "Daily Breakfast except Day 1, dinner during Jaisalmer Camp stay",
+        transferType: "AC vehicle as per itinerary",
+        price: "AED 2085",
+        priceNote: "per person",
+        features: ["Standard category stay", "Desert camp experience", "Camel safari included", "Planned sightseeing transfers"],
+        cta: "Enquire Now"
+      },
+      {
+        label: "4 Star Package",
+        badge: "Premium Stay",
+        hotels: ["Vista Bikaner or similar 4*"],
+        mealPlan: "Daily Breakfast except Day 1, dinner during Jaisalmer Camp stay",
+        transferType: "AC vehicle as per itinerary",
+        price: "AED 2320",
+        priceNote: "per person",
+        features: ["Upgraded hotel category", "Jaisalmer camp stay", "Camel safari included", "Airport or station transfer"],
+        cta: "Enquire Now"
+      }
+    ],
+    inclusions: [
+      "Accommodation in listed hotels or similar category hotels as per availability",
+      "Airport transfers in AC vehicle as per itinerary",
+      "Sightseeing transfers in AC vehicle as per itinerary",
+      "Vehicle based on group size: Sedan, SUV, Tempo Traveller or similar",
+      "Daily breakfast at all hotel restaurants except Day 1",
+      "Dinner during Jaisalmer Camp stay",
+      "Camel Safari during Jaisalmer Camp stay",
+      "Hotel and transportation taxes included, except GST"
+    ],
+    exclusions: [
+      "5% GST over and above tour cost",
+      "Flights, trains, buses, or cruise fares unless specified",
+      "Entrance fees for sightseeing places",
+      "Travel insurance",
+      "Personal expenses",
+      "Tips, porterage, laundry, phone charges, shopping, camera fees",
+      "Elephant ride, horse ride, pony ride, jeep safari, boat ride, or similar activities unless mentioned",
+      "Any extra sightseeing or services not mentioned in inclusions",
+      "High season surcharge, festive surcharge, Christmas/New Year surcharge, gala dinner charges if applicable",
+      "Any cost due to unforeseen circumstances, route changes, travel date changes, illness, accident, or personal emergency",
+      "Anything not specifically mentioned in the inclusions"
+    ],
+    notes: [
+      "5% GST is applicable over and above the tour cost.",
+      "Final vehicle type depends on group size and confirmed routing.",
+      "High season, festive dates, gala dinners, and availability changes may affect the final quote."
+    ],
+    optionalTours: [
+      "Elephant ride, Jeep ride, horse ride, pony ride, boat ride, or similar activities can be added on request at additional cost.",
+      "Extra sightseeing, shopping stops, or upgraded experiences can be customized before confirmation."
+    ],
+    visaDetails: "India visa requirements depend on nationality and residency status. Flyo can guide document requirements before booking.",
+    importantInfo: [
+      "5% GST is applicable over and above the tour cost.",
+      "Entrance fees for sightseeing places are not included unless they are specifically added to the final confirmed quote.",
+      "Vehicle and transfer arrangements are based on group size and final itinerary confirmation.",
+      "Camp stay and camel safari arrangements depend on weather, availability, and local operating conditions."
+    ],
+    faqs: [
+      { question: "Is Royal Rajasthan Heritage Tour suitable for families?", answer: "Yes. The route is designed for families and culture-focused travelers who want forts, palaces, desert experiences, markets, and comfortable city-to-city transfers." },
+      { question: "Is the Jaisalmer camel safari included?", answer: "Yes. Camel Safari during the Jaisalmer Camp stay is included in the package." },
+      { question: "Can hotels be upgraded?", answer: "Yes. Flyo can customize hotels, room categories, vehicle type, and sightseeing pace around your dates and budget." },
+      { question: "Are monument entrance fees included?", answer: "Entrance fees are excluded unless they are specifically added to the final confirmed quote." }
+    ],
+    whatsappMessage: "Hi, I'm interested in Royal Rajasthan Heritage Tour. Please share more details."
+  },
+  {
+    slug: "kerala-economy-tour",
+    title: "Kerala Economy Tour",
+    country: "India",
+    destinationState: "Kerala",
+    duration: "5 Nights / 6 Days",
+    price: "AED 1199",
+    route: "Cochin, Munnar, Thekkady & Alleppey",
+    category: "Nature Tour",
+    tags: ["India Packages", "Kerala Packages", "Nature Tour", "Family Holidays", "Honeymoon Packages"],
+    cardImage: "/packages/kerala_package_images_webp/kerala-alleppey-houseboat-backwaters.webp",
+    heroImage: "/packages/kerala_package_images_webp/kerala-munnar-tea-plantations.webp",
+    galleryImages: [
+      { src: "/packages/kerala_package_images_webp/kerala-cochin-chinese-fishing-nets.webp", label: "Cochin Chinese Fishing Nets" },
+      { src: "/packages/kerala_package_images_webp/kerala-fort-kochi-heritage-street.webp", label: "Fort Kochi Heritage Street" },
+      { src: "/packages/kerala_package_images_webp/kerala-munnar-tea-plantations.webp", label: "Munnar Tea Plantations" },
+      { src: "/packages/kerala_package_images_webp/kerala-munnar-waterfalls-hills.webp", label: "Munnar Waterfalls and Hills" },
+      { src: "/packages/kerala_package_images_webp/kerala-thekkady-periyar-lake.webp", label: "Thekkady Periyar Lake" },
+      { src: "/packages/kerala_package_images_webp/kerala-spice-plantation.webp", label: "Kerala Spice Plantation" },
+      { src: "/packages/kerala_package_images_webp/kerala-alleppey-houseboat-backwaters.webp", label: "Alleppey Houseboat Backwaters" }
+    ],
+    imageHighlights: ["Munnar tea gardens", "Periyar nature", "Alleppey houseboat"],
+    summary: "Discover Kerala's natural beauty with Cochin heritage, Munnar tea gardens, Thekkady wildlife and spice plantations, and an overnight Alleppey houseboat cruise.",
+    overview: "This Kerala economy holiday is a relaxed 5-night journey through Cochin, Munnar, Thekkady, and Alleppey with colonial heritage, waterfalls, hill viewpoints, wildlife experiences, spice plantations, and a private houseboat stay in the famous Kerala backwaters.",
+    highlights: [
+      "Cochin city sightseeing",
+      "Jewish Synagogue and Jew Town",
+      "St. Francis Church",
+      "Dutch Palace or Mattancherry Palace",
+      "Santa Cruz Basilica",
+      "Chinese Fishing Nets",
+      "Marine Drive",
+      "Lulu Mall shopping option",
+      "Scenic drive to Munnar",
+      "Munnar waterfalls and natural viewpoints",
+      "Tea Museum",
+      "Rose Garden or Floriculture Centre",
+      "Eravikulam National Park",
+      "Mattupetty Dam or Lake",
+      "Kundala Lake or Dam",
+      "Photo Point and Echo Point",
+      "Thekkady sightseeing",
+      "Periyar Wildlife Sanctuary",
+      "Periyar Lake boating option",
+      "Spice Plantation visit",
+      "Optional Kathakali and Kalaripayattu show",
+      "Optional Elephant Ride and Jeep Safari",
+      "Alleppey overnight houseboat stay",
+      "Backwater cruise with meals onboard",
+      "Airport or railway station transfers"
+    ],
+    itinerary: [
+      {
+        day: "Day 1",
+        title: "Arrival in Cochin & Sightseeing",
+        text: "Arrive at Cochin Airport or Ernakulam Railway Station and transfer to the hotel. Spend the afternoon with local sightseeing in and around Cochin, known as the Queen of the Arabian Sea. Visit Jewish Synagogue, Jew Town, St. Francis Church, Dutch Palace or Mattancherry Palace, Santa Cruz Basilica, Chinese Fishing Nets at Vasco da Gama Square, Marine Drive, and Lulu Mall if time permits. Overnight stay in Cochin. Entrance fees and activity charges are not included unless mentioned in inclusions.",
+        images: [
+          "/packages/kerala_package_images_webp/kerala-cochin-chinese-fishing-nets.webp",
+          "/packages/kerala_package_images_webp/kerala-fort-kochi-heritage-street.webp"
+        ]
+      },
+      {
+        day: "Day 2",
+        title: "Cochin to Munnar",
+        text: "After breakfast, check out and drive to Munnar, approximately 4 hours. Enjoy waterfalls and scenic natural spots on the way. Munnar is a beautiful hill station located around 1600 meters above sea level. On arrival, check in to the hotel. Visit Tea Museum if open and Floriculture Centre or Rose Garden if time permits. Overnight stay in Munnar. Tea Museum is closed on Mondays.",
+        images: [
+          "/packages/kerala_package_images_webp/kerala-munnar-tea-plantations.webp",
+          "/packages/kerala_package_images_webp/kerala-munnar-waterfalls-hills.webp"
+        ]
+      },
+      {
+        day: "Day 3",
+        title: "Munnar Sightseeing",
+        text: "After breakfast, proceed for full-day sightseeing in Munnar. Visit Eravikulam National Park, Mattupetty Dam or Lake, Kundala Lake or Dam, Photo Point, and Echo Point. Optional activities such as boating and horse riding can be done based on availability and direct payment. Overnight stay in Munnar.",
+        images: [
+          "/packages/kerala_package_images_webp/kerala-munnar-tea-plantations.webp",
+          "/packages/kerala_package_images_webp/kerala-munnar-waterfalls-hills.webp"
+        ]
+      },
+      {
+        day: "Day 4",
+        title: "Munnar to Thekkady",
+        text: "After breakfast, check out and drive to Thekkady, approximately 4 hours. On arrival, check in to the hotel and proceed for sightseeing. Visit Periyar Wildlife Sanctuary and enjoy optional boating at Periyar Lake. You may also visit spice plantations and choose optional activities such as jeep safari, Kathakali show, Kalaripayattu show, or elephant ride based on availability. Overnight stay in Thekkady.",
+        images: [
+          "/packages/kerala_package_images_webp/kerala-thekkady-periyar-lake.webp",
+          "/packages/kerala_package_images_webp/kerala-spice-plantation.webp"
+        ]
+      },
+      {
+        day: "Day 5",
+        title: "Thekkady to Alleppey Houseboat",
+        text: "After breakfast, check out and drive to Alleppey, approximately 4 hours. Board the traditionally decorated private houseboat. Check-in time is around 1:00 PM and the cruise starts with lunch. Food will be served onboard. Enjoy the peaceful Kerala backwaters and overnight stay in the houseboat.",
+        images: [
+          "/packages/kerala_package_images_webp/kerala-alleppey-houseboat-backwaters.webp"
+        ]
+      },
+      {
+        day: "Day 6",
+        title: "Alleppey to Cochin Departure",
+        text: "After breakfast, check out from the houseboat and drive to Cochin Airport or railway station for departure, carrying wonderful memories from God's Own Country.",
+        images: [
+          "/packages/kerala_package_images_webp/kerala-alleppey-houseboat-backwaters.webp"
+        ]
+      }
+    ],
+    hotels: [
+      { title: "Kerala Economy Package", price: "AED 1199 per person", features: ["Luxo Cochin - Deluxe", "Leaf Munnar - Green Leaf", "Citadel Boutique Hotel - Knight", "AC Premium Private Houseboat - 01 BR Premium"] }
+    ],
+    pricingOptions: [
+      {
+        label: "Kerala Economy Package",
+        badge: "Best Value",
+        hotels: [
+          "Cochin: Luxo Cochin - Deluxe",
+          "Munnar: Leaf Munnar - Green Leaf",
+          "Thekkady: Citadel Boutique Hotel - Knight",
+          "Alleppey: AC Premium Private Houseboat - 01 BR Premium"
+        ],
+        mealPlan: "Hotels and resorts on breakfast basis, all meals during houseboat stay",
+        transferType: "A/C Sedan at disposal for transfers and sightseeing",
+        price: "AED 1199",
+        priceNote: "per person on double sharing basis",
+        features: ["1 double room accommodation", "Private premium houseboat", "Backwater cruise with meals", "Airport or railway station transfers"],
+        cta: "Enquire Now"
+      }
+    ],
+    inclusions: [
+      "Accommodation in the mentioned hotels",
+      "Hotels and resorts on breakfast basis",
+      "Houseboat stay with all meals",
+      "Accommodation with 1 double room",
+      "Transfers and sightseeing by A/C Sedan at disposal",
+      "Driver bata, toll, parking, driver night halt, fuel charges, and interstate permit if required"
+    ],
+    exclusions: [
+      "GST @ 5% as per government rules",
+      "Airfare",
+      "Entrance fees",
+      "Personal expenses such as drinks, telephone, laundry bills, etc.",
+      "Tips and porter charges",
+      "Any boating charges such as motor boat or pedal boat",
+      "Additional expenses due to flight delay, cancellation, weather conditions, political closures, technical faults, etc.",
+      "Any service not specifically mentioned in inclusions"
+    ],
+    notes: [
+      "Rates are valid only for the mentioned travel dates.",
+      "Package cost can be amended based on hotel and budget preferences.",
+      "Check-in time at hotels is 2:00 PM and checkout is 11:00 AM.",
+      "Overnight houseboat check-in is 1:00 PM and checkout is 9:00 AM next day.",
+      "Price is based on base category rooms unless otherwise specified.",
+      "Higher room categories are available on request.",
+      "This is only an offer and not a booking confirmation.",
+      "Booking will be processed after payment and subject to availability.",
+      "If the original hotels are unavailable, equivalent or alternative hotels will be provided.",
+      "Air conditioning in Deluxe Houseboat works from 9 PM to 6 AM.",
+      "Full-time A/C is available only in Premium and Luxury Houseboat."
+    ],
+    optionalTours: [
+      "Periyar Lake boating, motor boat or pedal boat can be added at direct payment.",
+      "Kathakali show, Kalaripayattu show, Elephant Ride, Jeep Safari, boating, and horse riding can be arranged based on availability."
+    ],
+    visaDetails: "India visa requirements depend on nationality and residency status. Flyo can guide document requirements before booking.",
+    importantInfo: [
+      "Meeting on arrival: our representative will receive guests at the airport.",
+      "For railway station arrival, the chauffeur will receive guests with a placard in the guest name.",
+      "Tea Museum is closed on Mondays.",
+      "Entrance fees and activity charges are not included unless mentioned in inclusions.",
+      "Overnight houseboat check-in is 1:00 PM and checkout is 9:00 AM next day.",
+      "Booking is subject to availability and processed after payment."
+    ],
+    faqs: [
+      { question: "Is Kerala Economy Tour suitable for honeymoon travelers?", answer: "Yes. The route works well for honeymoon travelers, families, and nature-focused guests, with Munnar hills and an Alleppey houseboat stay as key highlights." },
+      { question: "Are meals included on the houseboat?", answer: "Yes. The houseboat stay includes all meals onboard as part of the package." },
+      { question: "Are entrance fees and boating included?", answer: "Entrance fees and boating charges are excluded unless they are specifically added to the final confirmed quote." },
+      { question: "Can the hotels be changed?", answer: "Yes. Package cost can be amended based on hotel and budget preferences, subject to availability." }
+    ],
+    whatsappMessage: "Hi, I'm interested in Kerala Economy Tour. Please share more details."
   },
   {
     slug: "dubai-desert-safari",

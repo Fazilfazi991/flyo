@@ -1,5 +1,6 @@
 import { contact, packages } from "../data/packages.js";
 import { formatPackageAmount, onCurrencyChange, parseAedPrice } from "../currency.js";
+import { whatsappMessages } from "../whatsapp-chooser.js";
 import "../navbar.js";
 
 const packageList = packages;
@@ -62,6 +63,22 @@ const cardDetails = {
     tag: "Safari",
     priceAed: 9385,
     highlights: ["Private Safari", "Game Drives", "Full Board", "Wildlife"]
+  },
+  "royal-rajasthan-heritage-tour": {
+    location: "Jaipur, Bikaner, Jaisalmer & Jodhpur",
+    duration: "8 Nights / 9 Days",
+    tag: "Heritage",
+    priceAed: 1845,
+    image: "/packages/rajasthan_package_images_webp/rajasthan-jaipur-amber-fort.webp",
+    highlights: ["Amber Fort", "Desert Camp", "Mehrangarh Fort", "Blue City"]
+  },
+  "kerala-economy-tour": {
+    location: "Cochin, Munnar, Thekkady & Alleppey",
+    duration: "5 Nights / 6 Days",
+    tag: "Nature",
+    priceAed: 1199,
+    image: "/packages/kerala_package_images_webp/kerala-alleppey-houseboat-backwaters.webp",
+    highlights: ["Munnar Tea", "Periyar Lake", "Spice Plantation", "Houseboat"]
   }
 };
 
@@ -112,7 +129,7 @@ const packageCard = (item, index) => {
       </div>
       <div class="package-action-row">
         <a class="package-view-link" href="/packages/${item.slug}/">${icon("bag")}View Package</a>
-        <a class="package-enquire-link" href="${contact.whatsapp}?text=${encodeURIComponent(`Hi Flyo, I would like to enquire about ${item.title}.`)}">${icon("chat")}Enquire Now</a>
+        <a class="package-enquire-link" href="#" data-whatsapp-package="${item.title}">${icon("chat")}Enquire Now</a>
       </div>
     </div>
   </article>
@@ -168,12 +185,13 @@ renderPackageCards();
 onCurrencyChange(updatePackageCardPrices);
 
 document.querySelectorAll("[data-whatsapp]").forEach(link => {
-  link.setAttribute("href", contact.whatsapp);
+  link.setAttribute("href", "#");
+  if (!link.dataset.whatsappMessage) link.dataset.whatsappMessage = whatsappMessages.general;
 });
 
 document.querySelectorAll("form").forEach(form => form.addEventListener("submit", event => {
   event.preventDefault();
-  location.href = contact.whatsapp;
+  window.openWhatsAppChooser?.(whatsappMessages.general);
 }));
 
 function initScrollReveal() {

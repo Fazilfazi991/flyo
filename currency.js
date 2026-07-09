@@ -1,4 +1,7 @@
-const AED_TO_INR = 22.75;
+const CURRENCY_RATES = {
+  AED: 1,
+  INR: 26
+};
 const STORAGE_KEY = "flyoCurrency";
 const SUPPORTED_CURRENCIES = ["AED", "INR"];
 
@@ -34,7 +37,7 @@ export const formatPackageAmount = (aedPrice, currency = getSelectedCurrency()) 
   const amount = parseAedPrice(aedPrice);
   if (!amount) return "Price on request";
   if (currency === "INR") {
-    return `INR ${new Intl.NumberFormat("en-IN").format(Math.round(amount * AED_TO_INR))}`;
+    return `INR ${new Intl.NumberFormat("en-IN").format(Math.round(amount * CURRENCY_RATES.INR))}`;
   }
   return `AED ${new Intl.NumberFormat("en-AE").format(Math.round(amount))}`;
 };

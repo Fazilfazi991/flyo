@@ -1,5 +1,6 @@
 import { contact, footerColumns, packages } from "./data/packages.js";
 import { formatPackageAmount, onCurrencyChange, parseAedPrice } from "./currency.js";
+import { openWhatsAppChooser, whatsappMessages } from "./whatsapp-chooser.js";
 import "./navbar.js";
 
 const pathParts = location.pathname.split("/").filter(Boolean);
@@ -27,15 +28,11 @@ const startingPriceAed = parseAedPrice(startingPrice);
 const startingPriceText = () => !startingPriceAed || /request/i.test(startingPrice)
   ? "Price on request"
   : `${formatPackageAmount(startingPriceAed)} / person`;
-const baseWhatsappMessage = packageData.whatsappMessage || `Hi Flyo, I want to enquire about the ${packageData.title} package.`;
+const baseWhatsappMessage = whatsappMessages.package(packageData.title);
 const callHref = `tel:${contact.phone.replace(/\D/g, "")}`;
 const emailHref = `mailto:${contact.email}?subject=${encodeURIComponent(packageData.title)}&body=${encodeURIComponent(baseWhatsappMessage)}`;
 
-const whatsappFor = label => {
-  const suffix = label && label !== "hero enquiry" ? `\n\nEnquiry: ${label}` : "";
-  const text = encodeURIComponent(`${baseWhatsappMessage}${suffix}`);
-  return `${contact.whatsapp}?text=${text}`;
-};
+const whatsappAttrsFor = () => `href="#" data-whatsapp-package="${packageData.title}"`;
 
 const iconPaths = {
   destination: "/public/flyo-icons/package-meta/destination.svg",
@@ -143,7 +140,7 @@ const renderPricingCard = (option, index, extraClass = "") => {
         ${option.priceNote ? `<small>${option.priceNote}</small>` : ""}
       </div>
       ${option.seasonalNote ? `<p class="seasonal-note">${option.seasonalNote}</p>` : ""}
-      <a href="${whatsappFor(option.label || "custom pricing")}">${ctaFor(option)}</a>
+      <a ${whatsappAttrsFor()}>${ctaFor(option)}</a>
     </article>
   `;
 };
@@ -153,7 +150,7 @@ const renderCustomOptionCard = () => `
     <span>Custom Stay</span>
     <h3>Want a different stay?</h3>
     <p>Our team can customize hotels, room types, and transfers based on your budget and travel dates.</p>
-    <a href="${whatsappFor("custom stay option")}">Request Custom Option</a>
+    <a ${whatsappAttrsFor()}>Request Custom Option</a>
   </article>
 `;
 
@@ -178,7 +175,7 @@ const renderPricingTable = options => `
             <td data-label="Meal plan">${option.mealPlan || "Based on selected package"}</td>
             <td data-label="Transfers">${option.transferType || "Transfers arranged as per itinerary"}</td>
             <td data-label="Price"><b>${priceDisplayFor(option)}</b>${option.priceNote ? `<small>${option.priceNote}</small>` : ""}</td>
-            <td data-label="Action"><a href="${whatsappFor(option.label || "pricing option")}">${ctaFor(option)}</a></td>
+            <td data-label="Action"><a ${whatsappAttrsFor()}>${ctaFor(option)}</a></td>
           </tr>
         `).join("")}
       </tbody>
@@ -214,10 +211,10 @@ byId("heroFeatures").innerHTML = [
   </div>
 `).join("");
 byId("heroActions").innerHTML = [
-  { className: "primary", label: "WhatsApp Enquiry", href: whatsappFor("hero enquiry") },
+  { className: "primary", label: "WhatsApp Enquiry", href: "#" },
   { className: "secondary", label: "Call Now", href: callHref },
   { className: "secondary", label: "Email Enquiry", href: emailHref }
-].map(action => `<a class="${action.className}" href="${action.href}">${action.label}</a>`).join("");
+].map(action => `<a class="${action.className}" href="${action.href}"${action.label.includes("WhatsApp") ? ` data-whatsapp-package="${packageData.title}"` : ""}>${action.label}</a>`).join("");
 byId("heroTrust").innerHTML = [
   packageData.category === "Cruise Package" ? "Cruise planning" : "Custom planning",
   "Visa support",
@@ -500,7 +497,8 @@ document.querySelectorAll(".itinerary-day-toggle").forEach(button => {
 if (packageGalleryImages.length) {
   document.querySelector(".gallery-heading h2").textContent = "Package Gallery";
   document.querySelector(".gallery-heading p").textContent = `A closer look at ${packageData.title} using destination-specific visuals.`;
-  document.querySelector(".gallery-button").href = whatsappFor("package gallery");
+  document.querySelector(".gallery-button").href = "#";
+  document.querySelector(".gallery-button").dataset.whatsappPackage = packageData.title;
   document.querySelector(".gallery-button").textContent = "Enquire Now";
   byId("galleryGrid").innerHTML = packageGalleryImages.slice(0, 5).map((item, index) => `
     <article class="gallery-card" style="background-image:url('${item.src}')">
@@ -619,7 +617,8 @@ byId("packageTestimonials").innerHTML = [
   </article>
 `).join("");
 byId("reviewButton").textContent = "Plan a Similar Trip";
-byId("reviewButton").href = whatsappFor("custom planning");
+byId("reviewButton").href = "#";
+byId("reviewButton").dataset.whatsappPackage = packageData.title;
 
 byId("statsStrip").innerHTML = [
   { icon: "10K", value: "10K+", label: "Happy Travelers" },
@@ -640,11 +639,11 @@ byId("faqGrid").innerHTML = packageData.faqs.slice(0, 5).map(item => `
 byId("ctaTitle").textContent = `Ready to Book ${packageData.title}?`;
 byId("ctaText").textContent = "Speak with our travel team for availability, pricing, visa guidance, and custom support.";
 byId("ctaActions").innerHTML = [
-  { label: "WhatsApp Enquiry", href: whatsappFor("final CTA") },
+  { label: "WhatsApp Enquiry", href: "#" },
   { label: `Call Now\n${contact.phone}`, href: callHref },
   { label: "Email Enquiry", href: emailHref }
 ].map(item => `
-  <a href="${item.href}">${textToLines(item.label)}</a>
+  <a href="${item.href}"${item.label.includes("WhatsApp") ? ` data-whatsapp-package="${packageData.title}"` : ""}>${textToLines(item.label)}</a>
 `).join("");
 
 const footerColumnTargets = {
@@ -666,7 +665,7 @@ document.querySelector(".footer-bottom-package").innerHTML = `
 
 document.querySelectorAll("form").forEach(form => form.addEventListener("submit", event => {
   event.preventDefault();
-  location.href = whatsappFor("quick enquiry");
+  openWhatsAppChooser(baseWhatsappMessage);
 }));
 document.querySelectorAll(".faq-question").forEach(button => {
   button.addEventListener("click", () => {

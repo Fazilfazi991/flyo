@@ -10,6 +10,7 @@ const entries = [
   "visa-services",
   "styles.css",
   "currency.js",
+  "whatsapp-chooser.js",
   "navbar.js",
   "script.js",
   "package.css",

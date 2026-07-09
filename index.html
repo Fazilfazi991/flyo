@@ -14,25 +14,15 @@
 
   <main>
     <section class="hero" aria-roledescription="carousel" aria-label="Featured Flyo journeys">
-      <div class="hero-slider">
-        <figure class="hero-slide active" aria-hidden="false">
-          <picture>
-            <source media="(max-width: 560px)" srcset="public/slider%20mob.png">
-            <img src="public/slider%20lap.png" alt="Flyo international holiday planning with skyline and resort travel inspiration">
-          </picture>
-        </figure>
-        <figure class="hero-slide" aria-hidden="true">
-          <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=2000&q=90" alt="Curated worldwide holiday destination with mountains and blue water">
-        </figure>
-      </div>
+      <div class="hero-slider" id="heroSlider"></div>
       <div class="hero-shade"></div>
-      <div class="container hero-content">
-        <p class="eyebrow eyebrow-light">Curated. Personalized. Memorable. <span>FLY</span></p>
-        <h1>Your Next Holiday,<br>Planned Beautifully</h1>
-        <p class="hero-copy">Explore curated international holidays, family trips, honeymoons, beach escapes, and custom travel plans designed with care from start to finish.</p>
+      <div class="container hero-content" id="heroContent">
+        <p class="eyebrow eyebrow-light" id="heroSlideLabel">Curated. Personalized. Memorable. <span>FLY</span></p>
+        <h1 id="heroSlideTitle">Your Next Holiday,<br>Planned Beautifully</h1>
+        <p class="hero-copy" id="heroSlideSubtitle">Explore curated international holidays, family trips, honeymoons, beach escapes, and custom travel plans designed with care from start to finish.</p>
         <div class="hero-actions">
-          <a class="button button-white" href="/packages/">Explore Packages</a>
-          <a class="button button-primary" data-whatsapp href="#">Enquire on WhatsApp</a>
+          <a class="button button-white" id="heroPrimaryAction" href="/packages/">Explore Packages</a>
+          <a class="button button-primary" id="heroSecondaryAction" data-whatsapp-message="Hello Flyo Tours, I would like to know more about your travel services." href="#">Enquire on WhatsApp</a>
         </div>
         <div class="hero-badges">
           <span>International Holidays</span>
@@ -42,10 +32,7 @@
       </div>
       <div class="hero-controls">
         <button class="hero-arrow hero-prev" type="button" aria-label="Previous hero image">&lt;</button>
-        <div class="hero-dots" aria-label="Choose hero image">
-          <button class="active" type="button" aria-label="Show hero image 1" aria-current="true"></button>
-          <button type="button" aria-label="Show hero image 2" aria-current="false"></button>
-        </div>
+        <div class="hero-dots" id="heroDots" aria-label="Choose hero image"></div>
         <button class="hero-arrow hero-next" type="button" aria-label="Next hero image">&gt;</button>
       </div>
       <form class="booking-card search-panel container" action="#" data-search-form>

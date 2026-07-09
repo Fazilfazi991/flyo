@@ -1,11 +1,12 @@
 import { aroyaCruises } from "./data/aroya-cruises.js";
 import { contact, footerColumns } from "./data/packages.js";
+import { openWhatsAppChooser, whatsappMessages } from "./whatsapp-chooser.js";
 
 const slug = location.pathname.split("/").pop().replace(/\.html$/, "");
 const cruise = aroyaCruises.find(item => item.slug === slug) || aroyaCruises[0];
-const whatsappHref = `${contact.whatsapp}?text=${encodeURIComponent(cruise.whatsappMessage)}`;
+const whatsappMessage = whatsappMessages.package(cruise.title);
 const callHref = `tel:${contact.phone.replace(/\D/g, "")}`;
-const emailHref = `mailto:${contact.email}?subject=${encodeURIComponent(cruise.title)}&body=${encodeURIComponent(cruise.whatsappMessage)}`;
+const emailHref = `mailto:${contact.email}?subject=${encodeURIComponent(cruise.title)}&body=${encodeURIComponent(whatsappMessage)}`;
 const byId = id => document.getElementById(id);
 
 const icon = name => ({
@@ -42,7 +43,8 @@ byId("heroFeatures").innerHTML = [
     <strong>${item.value}</strong>
   </div>
 `).join("");
-document.querySelector(".hero-cta").href = whatsappHref;
+document.querySelector(".hero-cta").href = "#";
+document.querySelector(".hero-cta").dataset.whatsappPackage = cruise.title;
 document.querySelector(".hero-cta").textContent = "WhatsApp Enquiry";
 byId("heroTrust").innerHTML = "Cruise planning <span>|</span> Visa guidance <span>|</span> Optional shore tours";
 
@@ -94,12 +96,13 @@ byId("visaNote").textContent = cruise.visaNote;
 byId("ctaTitle").textContent = `Ready to Book ${cruise.title}?`;
 byId("ctaText").textContent = "Speak with Flyo for live cabin availability, cruise pricing, visa guidance, and optional tour support.";
 byId("ctaActions").innerHTML = `
-  <a href="${whatsappHref}">WhatsApp Enquiry</a>
+  <a href="#" data-whatsapp-package="${cruise.title}">WhatsApp Enquiry</a>
   <a href="${callHref}">Call Now<br>${contact.phone}</a>
   <a href="${emailHref}">Email Enquiry</a>
 `;
 document.querySelectorAll("[data-whatsapp]").forEach(link => {
-  link.href = whatsappHref;
+  link.href = "#";
+  link.dataset.whatsappPackage = cruise.title;
 });
 
 const siteHrefMap = { Home: "/index.html", Flights: "/flights/", Holidays: "/packages/", "Visa Services": "/visa-services/", Contact: "#contact" };
@@ -111,7 +114,7 @@ footerColumns.forEach(column => {
 
 document.querySelectorAll("form").forEach(form => form.addEventListener("submit", event => {
   event.preventDefault();
-  location.href = whatsappHref;
+  openWhatsAppChooser(whatsappMessage);
 }));
 
 const menuToggle = document.querySelector(".package-menu-toggle");
