@@ -545,6 +545,181 @@ export const packages = [
     ]
   },
   {
+    slug: "golden-triangle-special",
+    title: "Golden Triangle Special",
+    country: "India",
+    duration: "5 Nights / 6 Days",
+    price: "AED 999",
+    route: "Delhi, Agra & Jaipur",
+    category: "Cultural Tour",
+    tags: ["India Packages", "Family Holidays", "Cultural Tour"],
+    cardImage: "/packages/golden_triangle_package_images_webp/golden-triangle-taj-mahal-agra.webp",
+    heroImage: "/packages/golden_triangle_package_images_webp/golden-triangle-delhi-india-gate.webp",
+    galleryImages: [
+      { src: "/packages/golden_triangle_package_images_webp/golden-triangle-delhi-india-gate.webp", label: "Delhi City and India Gate" },
+      { src: "/packages/golden_triangle_package_images_webp/golden-triangle-red-fort-delhi.webp", label: "Red Fort Delhi" },
+      { src: "/packages/golden_triangle_package_images_webp/golden-triangle-chandni-chowk-market.webp", label: "Chandni Chowk Market" },
+      { src: "/packages/golden_triangle_package_images_webp/golden-triangle-taj-mahal-agra.webp", label: "Taj Mahal Agra" },
+      { src: "/packages/golden_triangle_package_images_webp/golden-triangle-fatehpur-sikri.webp", label: "Fatehpur Sikri" },
+      { src: "/packages/golden_triangle_package_images_webp/golden-triangle-jaipur-amer-fort.webp", label: "Jaipur Amer Fort" }
+    ],
+    imageHighlights: ["Delhi heritage", "Taj Mahal", "Jaipur forts"],
+    summary: "Explore India's iconic Golden Triangle covering Delhi, Agra, and Jaipur in a 5-night cultural journey with historic monuments, colorful markets, Mughal architecture, and the world-famous Taj Mahal.",
+    overview: "This Golden Triangle holiday connects India's most loved first-time route: Delhi's historic city sights, Agra's Mughal landmarks, and Jaipur's royal forts and markets. It is designed for families and culture-focused travelers who want a comfortable, guided India experience with breakfast and planned transfers included.",
+    highlights: [
+      "Delhi city sightseeing",
+      "Chandni Chowk local market visit",
+      "Red Fort and Jama Masjid",
+      "India Gate, Rashtrapati Bhawan, Parliament House",
+      "Qutub Minar and Humayun's Tomb",
+      "Agra Fort visit",
+      "Taj Mahal visit",
+      "Fatehpur Sikri en route to Jaipur",
+      "Jaipur local markets",
+      "Amer Fort visit",
+      "Hawa Mahal photo stop",
+      "City Palace and Jantar Mantar",
+      "Daily breakfast included",
+      "Airport transfers included as per itinerary"
+    ],
+    itinerary: [
+      {
+        day: "Day 1",
+        title: "Arrival in Delhi",
+        text: "Arrive at Delhi Airport or Station and meet the representative. Transfer to the hotel and check in. In the evening, visit Chandni Chowk and explore the local markets. Overnight stay in Delhi.",
+        images: [
+          "/packages/golden_triangle_package_images_webp/golden-triangle-delhi-india-gate.webp",
+          "/packages/golden_triangle_package_images_webp/golden-triangle-chandni-chowk-market.webp"
+        ]
+      },
+      {
+        day: "Day 2",
+        title: "Delhi Sightseeing",
+        text: "After breakfast, proceed for Delhi sightseeing. Visit Old Delhi, Red Fort, Jama Masjid, Raj Ghat, India Gate, Rashtrapati Bhawan, Parliament House, Qutub Minar, and Humayun's Tomb. In the evening, explore local markets. Overnight stay in Delhi.",
+        images: [
+          "/packages/golden_triangle_package_images_webp/golden-triangle-red-fort-delhi.webp",
+          "/packages/golden_triangle_package_images_webp/golden-triangle-delhi-india-gate.webp"
+        ]
+      },
+      {
+        day: "Day 3",
+        title: "Delhi to Agra",
+        text: "After breakfast, proceed to Agra by road. Visit Agra Fort and the iconic Taj Mahal. In the evening, explore the local bazaars of Agra known for marble craftsmanship and handicrafts. Overnight stay in Agra. Note: Taj Mahal remains closed on Fridays.",
+        images: [
+          "/packages/golden_triangle_package_images_webp/golden-triangle-taj-mahal-agra.webp",
+          "/packages/golden_triangle_package_images_webp/golden-triangle-fatehpur-sikri.webp"
+        ]
+      },
+      {
+        day: "Day 4",
+        title: "Agra to Jaipur via Fatehpur Sikri",
+        text: "After breakfast, proceed to Jaipur. En route, visit Fatehpur Sikri, the historic Mughal royal city. Later, continue to Jaipur and explore colorful evening markets and handicraft shops. Overnight stay in Jaipur.",
+        images: [
+          "/packages/golden_triangle_package_images_webp/golden-triangle-fatehpur-sikri.webp",
+          "/packages/golden_triangle_package_images_webp/golden-triangle-jaipur-amer-fort.webp"
+        ]
+      },
+      {
+        day: "Day 5",
+        title: "Jaipur Sightseeing",
+        text: "After breakfast, visit Amer Fort and enjoy Elephant Ride or Jeep Ride on own cost. En route, stop at Hawa Mahal. Later visit City Palace and Jantar Mantar. Evening is free for shopping and leisure. Overnight stay in Jaipur.",
+        images: [
+          "/packages/golden_triangle_package_images_webp/golden-triangle-jaipur-amer-fort.webp"
+        ]
+      },
+      {
+        day: "Day 6",
+        title: "Departure from Jaipur",
+        text: "After breakfast, check out and transfer to Jaipur Airport or Station for onward journey.",
+        images: [
+          "/packages/golden_triangle_package_images_webp/golden-triangle-jaipur-amer-fort.webp"
+        ]
+      }
+    ],
+    hotels: [
+      { title: "3 Star Standard Package", price: "AED 999 per person", features: ["Hotel Amr 3* Standard or similar", "Daily breakfast", "AC vehicle transfers"] },
+      { title: "3 Star Deluxe Package", price: "AED 1350 per person", features: ["Hotel Nirman Vihar 3* Deluxe or similar", "Daily breakfast", "AC vehicle transfers"] },
+      { title: "4 Star Package", price: "AED 1695 per person", features: ["Hotel Vesta International 4* or similar", "Daily breakfast", "AC vehicle transfers"] }
+    ],
+    pricingOptions: [
+      {
+        label: "3 Star Standard Package",
+        badge: "Best Value",
+        hotels: ["Hotel Amr 3* Standard or similar"],
+        mealPlan: "Daily Breakfast except Day 1",
+        transferType: "AC vehicle as per itinerary",
+        price: "AED 999",
+        priceNote: "per person",
+        features: ["Delhi, Agra and Jaipur stays", "Daily breakfast", "Planned sightseeing transfers", "Airport or station transfer"],
+        cta: "Enquire Now"
+      },
+      {
+        label: "3 Star Deluxe Package",
+        badge: "Popular Upgrade",
+        hotels: ["Hotel Nirman Vihar 3* Deluxe or similar"],
+        mealPlan: "Daily Breakfast except Day 1",
+        transferType: "AC vehicle as per itinerary",
+        price: "AED 1350",
+        priceNote: "per person",
+        features: ["Deluxe category hotel", "Daily breakfast", "Golden Triangle sightseeing", "AC vehicle transfers"],
+        cta: "Enquire Now"
+      },
+      {
+        label: "4 Star Package",
+        badge: "Premium Stay",
+        hotels: ["Hotel Vesta International 4* or similar"],
+        mealPlan: "Daily Breakfast except Day 1",
+        transferType: "AC vehicle as per itinerary",
+        price: "AED 1695",
+        priceNote: "per person",
+        features: ["4 star category stay", "Daily breakfast", "Cultural city sightseeing", "Airport or station transfer"],
+        cta: "Enquire Now"
+      }
+    ],
+    inclusions: [
+      "Accommodation in listed hotels or similar category hotels",
+      "Airport transfers in AC vehicle as per itinerary",
+      "Sightseeing transfers in AC vehicle as per itinerary",
+      "Vehicle based on group size: Sedan, SUV, Tempo Traveller or similar",
+      "Daily breakfast at hotel restaurants except Day 1",
+      "Hotel and transportation taxes included, except GST"
+    ],
+    exclusions: [
+      "5% GST over and above tour cost",
+      "Flights, trains, buses, or cruise fares unless specified",
+      "Entrance fees for sightseeing places",
+      "Travel insurance",
+      "Personal expenses",
+      "Tips, porterage, laundry, phone charges, shopping, camera fees",
+      "Elephant ride, jeep ride, boat ride, pony ride, safari, or similar activities",
+      "Any extra sightseeing or services not mentioned in inclusions",
+      "High season surcharge, festive surcharge, gala dinner charges if applicable",
+      "Any cost due to unforeseen circumstances, travel changes, illness, or personal emergency"
+    ],
+    notes: [
+      "Taj Mahal remains closed on Fridays.",
+      "Final vehicle type depends on group size and confirmed routing.",
+      "High season, festive dates, gala dinners, and availability changes may affect the final quote."
+    ],
+    optionalTours: [
+      "Elephant ride, Jeep ride, boat ride, and similar activities can be added on request at additional cost.",
+      "Extra sightseeing, shopping stops, or upgraded experiences can be customized before confirmation."
+    ],
+    visaDetails: "India visa requirements depend on nationality and residency status. Flyo can guide document requirements before booking.",
+    importantInfo: [
+      "5% GST is applicable over and above the tour cost.",
+      "Entrance fees for sightseeing places are not included unless mentioned in the final quote.",
+      "Taj Mahal remains closed on Fridays.",
+      "Vehicle and transfer arrangements are based on group size and final itinerary confirmation."
+    ],
+    faqs: [
+      { question: "Is Golden Triangle Special suitable for families?", answer: "Yes. The route is a classic family-friendly India holiday with cultural sightseeing, markets, monuments, and comfortable city-to-city transfers." },
+      { question: "Can hotels be upgraded?", answer: "Yes. Flyo can customize hotels, room categories, vehicle type, and sightseeing pace around your dates and budget." },
+      { question: "Are monument entrance fees included?", answer: "Entrance fees are excluded unless they are specifically added to the final confirmed quote." }
+    ],
+    whatsappMessage: "Hi, I'm interested in Golden Triangle Special. Please share more details."
+  },
+  {
     slug: "dubai-desert-safari",
     title: "Dubai Desert Safari",
     country: "UAE",

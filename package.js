@@ -70,12 +70,12 @@ const siteHrefMap = {
   Flights: "/flights/",
   Holidays: "/packages/",
   Experiences: "/experiences.html",
-  "Visa Services": "/index.html#visa-services",
+  "Visa Services": "/visa-services/",
   Contact: "#contact",
   "Flight Booking Assistance": "/flights/",
   "Holiday Packages": "/packages/",
   "International Packages": "/packages/",
-  "Visa Assistance": "/index.html#visa-services",
+  "Visa Assistance": "/visa-services/",
   "Custom Holidays": "/packages/",
   "Honeymoon Packages": "/packages/",
   "Family Holidays": "/packages/",
@@ -433,15 +433,16 @@ const fallbackChips = item => {
 const itineraryItems = (itineraryDetailsBySlug[packageData.slug] || packageData.itinerary.map(item => ({
   title: item.title,
   summary: item.text,
-  details: fallbackDetailLines(item),
-  chips: fallbackChips(item)
+  details: item.details || fallbackDetailLines(item),
+  chips: item.chips || fallbackChips(item),
+  images: item.images || []
 }))).map((item, index) => ({
   day: `Day ${String(index + 1).padStart(2, "0")}`,
   title: item.title,
   summary: item.summary || item.details?.[0] || packageData.summary,
   details: item.details || fallbackDetailLines(item),
   chips: item.chips || fallbackChips(item),
-  images: item.images || (index < 3 ? defaultItineraryImages : [])
+  images: item.images?.length ? item.images : (index < 3 ? defaultItineraryImages : [])
 }));
 
 byId("itineraryAccordion").innerHTML = itineraryItems.map((item, index) => `
