@@ -96,6 +96,21 @@ const enhanceFooterSocials = footer => {
   });
 };
 
+const setFooterOffice = (footer, officeKey) => {
+  footer.querySelectorAll(".footer-office-tab").forEach(tab => {
+    const isActive = tab.dataset.officeTab === officeKey;
+    tab.classList.toggle("is-active", isActive);
+    tab.setAttribute("aria-selected", String(isActive));
+  });
+
+  const isMobile = window.matchMedia("(max-width: 640px)").matches;
+  footer.querySelectorAll(".footer-office-card").forEach(card => {
+    const isActive = card.dataset.officePanel === officeKey;
+    card.classList.toggle("is-active", isActive);
+    card.hidden = isMobile && !isActive;
+  });
+};
+
 const footerOffices = [
   {
     title: "UAE Office",
@@ -121,10 +136,16 @@ const enhanceFooterContact = footer => {
   if (!target || target.dataset.officeContactReady === "true") return;
   target.dataset.officeContactReady = "true";
   target.innerHTML = `
-    <h3>Reach Out To Us</h3>
+    <h3>Contact</h3>
+    <div class="footer-office-tabs" role="tablist" aria-label="Choose footer office">
+      <button class="footer-office-tab is-active" type="button" role="tab" aria-selected="true" data-office-tab="uae">UAE</button>
+      <button class="footer-office-tab" type="button" role="tab" aria-selected="false" data-office-tab="india">India</button>
+    </div>
     <div class="footer-office-grid">
-      ${footerOffices.map(office => `
-        <article class="footer-office-card">
+      ${footerOffices.map((office, index) => {
+        const officeKey = index === 0 ? "uae" : "india";
+        return `
+        <article class="footer-office-card ${index === 0 ? "is-active" : ""}" data-office-panel="${officeKey}">
           <div class="footer-office-head">
             <h4>${office.title}</h4>
             ${office.subtitle ? `<span>${office.subtitle}</span>` : ""}
@@ -136,9 +157,19 @@ const enhanceFooterContact = footer => {
             }).join("")}
           </ul>
         </article>
-      `).join("")}
+      `;
+      }).join("")}
     </div>
   `;
+
+  target.querySelectorAll(".footer-office-tab").forEach(tab => {
+    tab.addEventListener("click", () => setFooterOffice(footer, tab.dataset.officeTab));
+  });
+  setFooterOffice(footer, "uae");
+  window.matchMedia("(max-width: 640px)").addEventListener("change", () => {
+    const activeTab = target.querySelector(".footer-office-tab.is-active");
+    setFooterOffice(footer, activeTab?.dataset.officeTab || "uae");
+  });
 };
 
 const ensureFloatingActions = () => {
