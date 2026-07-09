@@ -1581,3 +1581,163 @@ body {
     padding-left: 14px !important;
   }
 }
+
+/* Compact office contact cards */
+.site-footer .footer-grid,
+.site-footer .footer-grid-package {
+  grid-template-columns: minmax(210px, 1.08fr) minmax(130px, .66fr) minmax(170px, .82fr) minmax(520px, 1.78fr) !important;
+  gap: clamp(24px, 2.6vw, 42px) !important;
+}
+
+.site-footer .footer-reachout,
+.footer .footer-reachout,
+.package-footer .footer-reachout {
+  max-width: 620px !important;
+}
+
+.footer-office-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 12px !important;
+  margin-top: 12px !important;
+}
+
+.footer-office-card {
+  min-width: 0 !important;
+  padding: 13px !important;
+  border: 1px solid rgba(255, 255, 255, .14) !important;
+  border-radius: 16px !important;
+  background: rgba(255, 255, 255, .055) !important;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, .10) !important;
+}
+
+.footer-office-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px 12px;
+  margin-bottom: 10px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid rgba(255, 255, 255, .12);
+}
+
+.footer-office-card h4 {
+  margin: 0 !important;
+  color: #fff;
+  font-size: clamp(15px, 1.05vw, 17px) !important;
+  line-height: 1.2;
+  font-weight: 900;
+}
+
+.footer-office-head span {
+  color: rgba(255, 255, 255, .64);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.footer-office-card ul {
+  display: grid !important;
+  gap: 8px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  list-style: none !important;
+}
+
+.footer-office-card li > a,
+.footer-office-card li > span {
+  display: grid !important;
+  grid-template-columns: 28px minmax(0, 1fr) !important;
+  gap: 9px !important;
+  align-items: center !important;
+  min-width: 0 !important;
+  color: rgba(255, 255, 255, .88);
+  text-decoration: none;
+}
+
+.footer-office-card li > a::before,
+.footer-office-card li > a::after {
+  display: none !important;
+  content: none !important;
+}
+
+.footer-office-card li > a > span:not(.footer-office-icon),
+.footer-office-card li > span > span:not(.footer-office-icon) {
+  min-width: 0;
+}
+
+.footer-office-icon {
+  display: grid !important;
+  place-items: center !important;
+  width: 28px !important;
+  height: 28px !important;
+  border: 1px solid rgba(255, 255, 255, .20) !important;
+  border-radius: 10px !important;
+  color: rgba(255, 255, 255, .94) !important;
+  background: rgba(255, 255, 255, .08) !important;
+}
+
+.footer-office-icon svg {
+  width: 15px !important;
+  height: 15px !important;
+}
+
+.footer-office-card small {
+  display: block;
+  margin: 0 0 1px !important;
+  color: rgba(255, 255, 255, .58) !important;
+  font-size: 10px !important;
+  line-height: 1.2 !important;
+  font-weight: 800 !important;
+  letter-spacing: .06em !important;
+  text-transform: uppercase !important;
+}
+
+.footer-office-card strong {
+  display: block;
+  min-width: 0;
+  color: rgba(255, 255, 255, .92) !important;
+  font-size: 13px !important;
+  line-height: 1.35 !important;
+  font-weight: 700 !important;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+.footer-office-card a {
+  transition: color .25s ease, transform .25s ease;
+}
+
+.footer-office-card a:hover {
+  color: #fff !important;
+  transform: translateX(2px) !important;
+}
+
+@media (max-width: 1180px) {
+  .site-footer .footer-grid,
+  .site-footer .footer-grid-package {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .footer-office-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .site-footer .footer-office-grid,
+  .footer .footer-office-grid,
+  .package-footer .footer-office-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .footer-office-card {
+    padding: 13px !important;
+  }
+
+  .footer-office-head {
+    margin-bottom: 10px;
+  }
+}
