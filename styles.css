@@ -1927,3 +1927,115 @@ body {
     flex: 0 0 auto;
   }
 }
+
+/* Windows scroll performance guard */
+html {
+  width: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  overflow-x: clip;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+  scroll-behavior: smooth;
+}
+
+body {
+  width: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  overflow-x: clip !important;
+  overflow-y: visible !important;
+  overscroll-behavior-y: auto;
+}
+
+@supports not (overflow: clip) {
+  html,
+  body {
+    overflow-x: hidden;
+  }
+}
+
+body::-webkit-scrollbar {
+  width: initial;
+  height: initial;
+}
+
+main,
+.site-shell,
+.page-shell,
+.app,
+#root,
+.section,
+.packages-hero,
+.packages-trust-strip,
+.package-list-section,
+.package-detail-hero,
+.package-section,
+.gallery-section,
+.reviews-section,
+.faq-section,
+.package-options,
+.flights-page,
+.experiences-page,
+.visa-services {
+  overflow-y: visible !important;
+}
+
+:where(.site-header, .site-header.flyo-global-navbar, .booking-card, .search-tabs, .nav-dropdown-menu, .partner-login-dialog, .package-card, .visa-card, .destination-card, .experience-card, .cruise-package-card, .package-empty-state) {
+  box-shadow: 0 10px 24px rgba(6, 21, 112, .08);
+}
+
+:where(.hero-badges span, .hero-arrow, .booking-card, .search-tabs, .site-header, .site-header.flyo-global-navbar, .whatsapp-office-backdrop) {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+.hero-badges span,
+.hero-arrow {
+  background-color: rgba(6, 21, 112, .58);
+}
+
+.whatsapp-office-backdrop {
+  background: rgba(5, 21, 42, .58);
+}
+
+.hero-slide {
+  transform: none;
+  transition: opacity .65s ease, visibility .65s ease;
+}
+
+.hero-slide.active {
+  transform: none;
+}
+
+.reveal,
+.reveal-image {
+  transform: translate3d(0, 14px, 0);
+  transition: opacity .52s ease, transform .52s ease;
+  will-change: auto;
+}
+
+.reveal-image {
+  transform: translate3d(0, 10px, 0);
+}
+
+.reveal.is-visible,
+.reveal-image.is-visible {
+  transform: translate3d(0, 0, 0);
+  will-change: auto;
+}
+
+:where(.button, .nav-cta, .search-tab, .package-card, .visa-card, .travel-style-card, .destination-card, .experience-card, .cruise-package-card, .country-filter-chip, .partner-login-button) {
+  transition-property: color, background-color, border-color, opacity, transform, box-shadow;
+  transition-duration: .22s;
+  transition-timing-function: ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

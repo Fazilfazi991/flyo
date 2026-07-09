@@ -1911,3 +1911,164 @@ body {
     margin-bottom: 10px;
   }
 }
+
+/* Lightweight scroll performance overrides */
+html {
+  overflow-x: clip;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+}
+
+body {
+  overflow-x: clip !important;
+  overflow-y: visible !important;
+}
+
+@supports not (overflow: clip) {
+  html,
+  body {
+    overflow-x: hidden;
+  }
+}
+
+body::-webkit-scrollbar {
+  width: initial;
+  height: initial;
+}
+
+.footer,
+.package-footer,
+.site-footer.footer,
+.site-footer.package-footer {
+  overflow: hidden;
+  contain: paint;
+}
+
+.footer::before,
+.package-footer::before,
+.site-footer::before,
+.site-footer::after {
+  animation: none !important;
+  filter: none !important;
+  transform: none !important;
+  transition: opacity .55s ease !important;
+  will-change: auto !important;
+}
+
+.site-footer::before {
+  opacity: .09;
+}
+
+.site-footer.footer-visible::before,
+.site-footer.is-visible::before,
+.site-footer.visible::before {
+  opacity: .12;
+}
+
+.site-footer.footer-animate,
+.site-footer.reveal-footer {
+  opacity: 0;
+  transform: translate3d(0, 18px, 0);
+  transition: opacity .55s ease, transform .55s ease;
+  will-change: auto;
+}
+
+.site-footer.footer-visible,
+.site-footer.is-visible,
+.site-footer.visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  will-change: auto;
+}
+
+.footer-animate,
+.footer-reveal-block,
+.site-footer .footer-reveal-block,
+.site-footer .footer-reveal-item,
+.site-footer .footer-animate-item,
+.site-footer .footer-social-link,
+.site-footer .footer-contact-item,
+.site-footer .footer-contact-list li {
+  animation: none !important;
+  transform: translate3d(0, 12px, 0);
+  transition:
+    opacity .48s ease,
+    transform .48s ease,
+    color .2s ease,
+    background-color .2s ease,
+    border-color .2s ease;
+  will-change: auto !important;
+}
+
+.footer-animate.is-visible,
+.footer-animate.is-visible .footer-reveal-block,
+.site-footer.footer-visible .footer-reveal-block,
+.site-footer.footer-visible .footer-reveal-item,
+.site-footer.footer-visible .footer-animate-item,
+.site-footer.footer-visible .footer-social-link,
+.site-footer.footer-visible .footer-contact-item,
+.site-footer.footer-visible .footer-contact-list li,
+.site-footer.is-visible .footer-reveal-block,
+.site-footer.is-visible .footer-reveal-item,
+.site-footer.is-visible .footer-animate-item,
+.site-footer.is-visible .footer-social-link,
+.site-footer.is-visible .footer-contact-item,
+.site-footer.is-visible .footer-contact-list li,
+.site-footer.visible .footer-reveal-block,
+.site-footer.visible .footer-reveal-item,
+.site-footer.visible .footer-animate-item,
+.site-footer.visible .footer-social-link,
+.site-footer.visible .footer-contact-item,
+.site-footer.visible .footer-contact-list li {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  will-change: auto !important;
+}
+
+.flyo-floating-actions {
+  bottom: 22px;
+  transform: translate3d(0, 0, 0);
+  transition: transform .22s ease;
+  will-change: auto;
+}
+
+body.footer-in-view .flyo-floating-actions {
+  bottom: 22px !important;
+  transform: translate3d(0, -70px, 0);
+}
+
+.flyo-whatsapp-float,
+.flyo-back-top {
+  box-shadow: 0 8px 18px rgba(0, 0, 0, .13);
+  transition: transform .2s ease, background-color .2s ease;
+  will-change: auto;
+}
+
+.flyo-whatsapp-icon {
+  animation: none !important;
+  box-shadow: none !important;
+}
+
+.whatsapp-office-backdrop {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+.whatsapp-office-dialog {
+  box-shadow: 0 18px 44px rgba(5, 21, 42, .22);
+}
+
+@media (max-width: 640px) {
+  body.footer-in-view .flyo-floating-actions {
+    transform: translate3d(0, -56px, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
