@@ -1,11 +1,21 @@
 import { contact, packages } from "../data/packages.js";
 import { formatPackageAmount, onCurrencyChange, parseAedPrice } from "../currency.js";
+import "../navbar.js";
 
-const packageList = packages.filter(item => item.slug !== "dubai-desert-safari");
+const packageList = packages;
 const resultCount = document.querySelector(".package-results-row > span");
-if (resultCount) {
-  resultCount.textContent = `Showing ${packageList.length} curated packages`;
-}
+const packageGrid = document.querySelector("#packageGrid");
+const countryFilterBar = document.querySelector("#countryFilterBar");
+const preferredCountries = ["Thailand", "Malaysia", "Singapore", "Sri Lanka", "Kenya", "UAE", "India"];
+let activeCountry = "All";
+
+const countryFor = item => item.destinationCountry || item.country || "Other";
+const packageCountries = [...new Set(packageList.map(countryFor).filter(Boolean))];
+const countryOptions = [
+  "All",
+  ...preferredCountries,
+  ...packageCountries.filter(country => !preferredCountries.includes(country)).sort()
+];
 
 const cardDetails = {
   "kuala-lumpur-getaway": {
@@ -68,7 +78,7 @@ const icon = type => {
 
 const revealDelay = index => `reveal-delay-${(index % 6) + 1}`;
 
-document.querySelector("#packageGrid").innerHTML = packageList.map((item, index) => {
+const packageCard = (item, index) => {
   const details = cardDetails[item.slug] || {
     location: item.route || item.country,
     duration: item.duration,
@@ -106,7 +116,7 @@ document.querySelector("#packageGrid").innerHTML = packageList.map((item, index)
       </div>
     </div>
   </article>
-`;}).join("");
+`;};
 
 const updatePackageCardPrices = () => {
   document.querySelectorAll("[data-price-aed]").forEach(element => {
@@ -114,6 +124,47 @@ const updatePackageCardPrices = () => {
   });
 };
 
+const renderPackageCards = () => {
+  if (!packageGrid) return;
+  const filteredPackages = activeCountry === "All"
+    ? packageList
+    : packageList.filter(item => countryFor(item) === activeCountry);
+
+  if (resultCount) {
+    const packageWord = filteredPackages.length === 1 ? "package" : "packages";
+    resultCount.textContent = `Showing ${filteredPackages.length} curated ${packageWord}`;
+  }
+
+  packageGrid.innerHTML = filteredPackages.length
+    ? filteredPackages.map(packageCard).join("")
+    : `
+      <div class="package-empty-state">
+        <h3>No packages found</h3>
+        <p>Try another destination country or choose All to view every Flyo package.</p>
+      </div>
+    `;
+
+  updatePackageCardPrices();
+};
+
+const renderCountryFilters = () => {
+  if (!countryFilterBar) return;
+  countryFilterBar.innerHTML = countryOptions.map(country => `
+    <button class="country-filter-chip${country === activeCountry ? " active" : ""}" type="button" data-country-filter="${country}">
+      ${country}
+    </button>
+  `).join("");
+  countryFilterBar.querySelectorAll("[data-country-filter]").forEach(button => {
+    button.addEventListener("click", () => {
+      activeCountry = button.dataset.countryFilter;
+      renderCountryFilters();
+      renderPackageCards();
+    });
+  });
+};
+
+renderCountryFilters();
+renderPackageCards();
 onCurrencyChange(updatePackageCardPrices);
 
 document.querySelectorAll("[data-whatsapp]").forEach(link => {
@@ -168,11 +219,3 @@ if (filterToggle && filterControls) {
     filterToggle.textContent = open ? "Hide Filters" : "Show Filters";
   });
 }
-
-const toggle = document.querySelector(".menu-toggle");
-const nav = document.querySelector(".main-nav");
-toggle.addEventListener("click", () => {
-  const open = nav.classList.toggle("open");
-  toggle.setAttribute("aria-expanded", open);
-});
-nav.querySelectorAll("a").forEach(link => link.addEventListener("click", () => nav.classList.remove("open")));

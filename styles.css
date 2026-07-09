@@ -1513,3 +1513,351 @@ body {
     display: none;
   }
 }
+
+/* Global Flyo navbar */
+.site-header.flyo-global-navbar {
+  position: relative;
+  z-index: 80;
+  color: var(--color-white);
+  background:
+    linear-gradient(90deg, rgba(6, 21, 112, .98), rgba(6, 21, 112, .76)),
+    var(--color-primary);
+  box-shadow: 0 10px 28px rgba(6, 21, 112, .14);
+}
+
+.site-header.flyo-global-navbar .container.nav-wrap {
+  width: min(100% - 96px, 1880px);
+  height: 96px;
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  gap: clamp(22px, 3vw, 42px);
+}
+
+.site-header.flyo-global-navbar .brand img {
+  width: clamp(96px, 7.4vw, 124px);
+  height: auto;
+  max-height: 78px;
+  object-fit: contain;
+}
+
+.site-header.flyo-global-navbar .main-nav {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 1.35vw, 28px);
+  color: var(--color-white);
+  font-size: clamp(14px, .88vw, 17px);
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.site-header.flyo-global-navbar .main-nav > a,
+.site-header.flyo-global-navbar .nav-dropdown-toggle,
+.site-header.flyo-global-navbar .nav-currency,
+.site-header.flyo-global-navbar .partner-login-button {
+  position: relative;
+  min-height: auto;
+  padding: 16px 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--color-white);
+  font: inherit;
+  font-weight: 700;
+}
+
+.site-header.flyo-global-navbar .main-nav > a::after,
+.site-header.flyo-global-navbar .nav-dropdown-toggle::after,
+.site-header.flyo-global-navbar .nav-currency::after,
+.site-header.flyo-global-navbar .partner-login-button::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 6px;
+  width: 0;
+  height: 3px;
+  margin: 0;
+  border-radius: 999px;
+  background: currentColor;
+  transition: width .25s ease;
+}
+
+.site-header.flyo-global-navbar .main-nav > a:hover::after,
+.site-header.flyo-global-navbar .main-nav > a.active::after,
+.site-header.flyo-global-navbar .nav-dropdown:hover .nav-dropdown-toggle::after,
+.site-header.flyo-global-navbar .nav-dropdown.active .nav-dropdown-toggle::after,
+.site-header.flyo-global-navbar .nav-currency:hover::after,
+.site-header.flyo-global-navbar .partner-login-button:hover::after {
+  width: 100%;
+}
+
+.site-header.flyo-global-navbar .nav-currency {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.site-header.flyo-global-navbar .nav-currency span,
+.site-header.flyo-global-navbar .nav-currency select {
+  color: currentColor;
+  font-size: inherit;
+  font-weight: 700;
+  opacity: 1;
+}
+
+.site-header.flyo-global-navbar .nav-currency select {
+  border: 0;
+  background: transparent;
+  outline: 0;
+  cursor: pointer;
+}
+
+.site-header.flyo-global-navbar .nav-currency select option {
+  color: var(--color-primary);
+}
+
+.site-header.flyo-global-navbar .partner-login-button {
+  cursor: pointer;
+  text-align: left;
+}
+
+.site-header.flyo-global-navbar .nav-dropdown {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.site-header.flyo-global-navbar .nav-dropdown-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  cursor: pointer;
+}
+
+.site-header.flyo-global-navbar .nav-dropdown-toggle b {
+  font-size: 14px;
+  line-height: 1;
+  transition: transform .25s ease;
+}
+
+.site-header.flyo-global-navbar .nav-dropdown.is-open .nav-dropdown-toggle b,
+.site-header.flyo-global-navbar .nav-dropdown:hover .nav-dropdown-toggle b {
+  transform: rotate(45deg);
+}
+
+.site-header.flyo-global-navbar .nav-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  z-index: 90;
+  width: min(260px, 86vw);
+  padding: 10px;
+  border: 1px solid rgba(12, 28, 128, .1);
+  border-radius: 16px;
+  background: var(--color-white);
+  box-shadow: 0 22px 58px rgba(5, 13, 55, .18);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 10px);
+  transition: opacity .25s ease, transform .25s ease;
+}
+
+.site-header.flyo-global-navbar .nav-dropdown.is-open .nav-dropdown-menu,
+.site-header.flyo-global-navbar .nav-dropdown:hover .nav-dropdown-menu {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, 0);
+}
+
+.site-header.flyo-global-navbar .nav-dropdown-menu a {
+  display: block;
+  padding: 10px 12px;
+  border-radius: 10px;
+  color: var(--color-primary) !important;
+  font-size: 14px;
+  font-weight: 800;
+  white-space: normal;
+}
+
+.site-header.flyo-global-navbar .nav-dropdown-menu a::after {
+  display: none;
+}
+
+.site-header.flyo-global-navbar .nav-dropdown-menu a:hover {
+  background: rgba(47, 107, 255, .08);
+  color: #2f4fff !important;
+  transform: translateX(3px);
+}
+
+.site-header.flyo-global-navbar .menu-toggle {
+  display: none;
+  margin-left: auto;
+  border: 0;
+  background: transparent;
+  padding: 10px;
+}
+
+.site-header.flyo-global-navbar .menu-toggle span {
+  display: block;
+  width: 25px;
+  height: 2px;
+  margin: 5px;
+  background: var(--color-white);
+}
+
+.country-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0 0 26px;
+  padding: 8px 0 2px;
+}
+
+.country-filter-chip {
+  min-height: 40px;
+  padding: 0 16px;
+  border: 1px solid rgba(6, 21, 112, .14);
+  border-radius: 999px;
+  background: var(--color-white);
+  color: var(--color-primary);
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(6, 21, 112, .04);
+  transition: transform .25s ease, box-shadow .25s ease, background .25s ease, color .25s ease, border-color .25s ease;
+}
+
+.country-filter-chip:hover {
+  transform: translateY(-1px);
+  border-color: rgba(6, 21, 112, .28);
+  box-shadow: 0 12px 26px rgba(6, 21, 112, .08);
+}
+
+.country-filter-chip.active {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+
+.package-empty-state {
+  grid-column: 1 / -1;
+  padding: 34px 24px;
+  border: 1px solid rgba(6, 21, 112, .12);
+  border-radius: 18px;
+  background: var(--color-white);
+  color: var(--color-primary);
+  text-align: center;
+  box-shadow: 0 16px 42px rgba(6, 21, 112, .06);
+}
+
+.package-empty-state h3 {
+  margin: 0 0 8px;
+}
+
+.package-empty-state p {
+  margin: 0;
+  color: var(--color-black-60);
+}
+
+@media (max-width: 1120px) {
+  .site-header.flyo-global-navbar .container.nav-wrap {
+    width: min(100% - 32px, 1880px);
+    height: 82px;
+  }
+
+  .site-header.flyo-global-navbar .brand img {
+    width: 96px;
+    max-height: 68px;
+  }
+
+  .site-header.flyo-global-navbar .menu-toggle {
+    display: block;
+  }
+
+  .site-header.flyo-global-navbar .main-nav {
+    position: absolute;
+    top: 82px;
+    left: 16px;
+    right: 16px;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 3px;
+    padding: 18px;
+    border-radius: 14px;
+    background: rgba(6, 21, 112, .98);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, .16);
+    white-space: normal;
+  }
+
+  .site-header.flyo-global-navbar .main-nav.open {
+    display: flex;
+  }
+
+  .site-header.flyo-global-navbar .main-nav > a,
+  .site-header.flyo-global-navbar .nav-dropdown-toggle,
+  .site-header.flyo-global-navbar .nav-currency,
+  .site-header.flyo-global-navbar .partner-login-button {
+    width: 100%;
+    min-height: 44px;
+    padding: 11px 12px;
+    justify-content: space-between;
+  }
+
+  .site-header.flyo-global-navbar .partner-login-button {
+    justify-content: flex-start;
+  }
+
+  .site-header.flyo-global-navbar .main-nav > a::after,
+  .site-header.flyo-global-navbar .nav-dropdown-toggle::after,
+  .site-header.flyo-global-navbar .nav-currency::after,
+  .site-header.flyo-global-navbar .partner-login-button::after {
+    display: none;
+  }
+
+  .site-header.flyo-global-navbar .nav-dropdown {
+    display: grid;
+    width: 100%;
+  }
+
+  .site-header.flyo-global-navbar .nav-dropdown-menu {
+    position: static;
+    width: 100%;
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 0 0 12px;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+    transition: max-height .25s ease, padding .25s ease;
+  }
+
+  .site-header.flyo-global-navbar .nav-dropdown.is-open .nav-dropdown-menu {
+    max-height: 360px;
+    padding: 4px 0 8px 12px;
+  }
+
+  .site-header.flyo-global-navbar .nav-dropdown-menu a {
+    color: rgba(255, 255, 255, .92) !important;
+    padding: 9px 12px;
+  }
+}
+
+@media (max-width: 760px) {
+  .country-filter-bar {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .country-filter-chip {
+    flex: 0 0 auto;
+  }
+}

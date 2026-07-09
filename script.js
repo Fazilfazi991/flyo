@@ -1,5 +1,6 @@
 import { contact } from "./data/packages.js";
 import { formatPackageAmount, onCurrencyChange } from "./currency.js";
+import "./navbar.js";
 
 const destinations = [
   { name: "Thailand", region: "Asia", layout: "dubai", image: "https://images.unsplash.com/photo-1508009603885-50cf7c579365?auto=format&fit=crop&w=1200&q=88" },
@@ -170,14 +171,6 @@ const linkDateMinimum = (startId, endId) => {
 
 linkDateMinimum("holidayCheckin", "holidayCheckout");
 linkDateMinimum("flightDepart", "flightReturn");
-
-const toggle = document.querySelector(".menu-toggle");
-const nav = document.querySelector(".main-nav");
-toggle.addEventListener("click", () => {
-  const open = nav.classList.toggle("open");
-  toggle.setAttribute("aria-expanded", open);
-});
-nav.querySelectorAll("a").forEach(link => link.addEventListener("click", () => nav.classList.remove("open")));
 
 document.querySelectorAll("form").forEach(form => form.addEventListener("submit", event => {
   event.preventDefault();

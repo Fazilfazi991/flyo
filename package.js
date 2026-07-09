@@ -1,5 +1,6 @@
-import { contact, footerColumns, navLinks, packages } from "./data/packages.js";
-import { formatPackageAmount, initFlyoCurrencyNav, onCurrencyChange, parseAedPrice } from "./currency.js";
+import { contact, footerColumns, packages } from "./data/packages.js";
+import { formatPackageAmount, onCurrencyChange, parseAedPrice } from "./currency.js";
+import "./navbar.js";
 
 const pathParts = location.pathname.split("/").filter(Boolean);
 const rawSlug = decodeURIComponent(pathParts.pop() || "kuala-lumpur-getaway");
@@ -197,36 +198,6 @@ const imageHighlights = packageData.imageHighlights || (
 );
 byId("imageHighlightStrip").innerHTML = imageHighlights.slice(0, 3).map(highlight => `<span>${highlight}</span>`).join("");
 
-byId("packageNav").innerHTML = navLinks.map(link => {
-  const hrefMap = {
-    Home: "/index.html",
-    Flights: "/flights/",
-    Holidays: "/packages/",
-    Experiences: "/experiences.html",
-    "Visa Services": "/index.html#visa-services",
-    Contact: "#contact"
-  };
-  if (link === "Experiences") {
-    return `
-      <div class="nav-dropdown">
-        <button class="nav-dropdown-toggle" type="button" aria-expanded="false"><span>Experiences</span><b aria-hidden="true">+</b></button>
-        <div class="nav-dropdown-menu">
-          <a href="/experiences.html#activities">Activities</a>
-          <a href="/experiences.html#mice">MICE</a>
-          <a href="/experiences.html#sightseeing">Sightseeing</a>
-          <a href="/experiences.html#adventure">Adventure</a>
-          <a href="/experiences.html#cruise">Cruise Experiences</a>
-          <a href="/experiences.html#honeymoon">Honeymoon Experiences</a>
-          <a href="/experiences.html#family">Family Experiences</a>
-          <a href="/experiences.html#group-tours">Group Tours</a>
-        </div>
-      </div>
-    `;
-  }
-  return `<a class="${link === "Holidays" ? "active" : ""}" href="${hrefMap[link] || "#"}">${link}</a>`;
-}).join("") + `<a class="mobile-nav-cta" href="/packages/">Explore Packages</a>`;
-delete byId("packageNav").dataset.currencyEnhanced;
-initFlyoCurrencyNav();
 byId("heroBadge").textContent = packageData.category || packageData.country;
 byId("heroTitle").innerHTML = packageData.title;
 byId("heroSubtitle").textContent = packageData.summary;
@@ -702,19 +673,6 @@ document.querySelectorAll(".faq-question").forEach(button => {
     item.classList.toggle("open");
     button.querySelector("b").textContent = item.classList.contains("open") ? "-" : "+";
   });
-});
-
-const menuToggle = document.querySelector(".package-menu-toggle");
-const nav = document.querySelector(".package-nav");
-menuToggle.addEventListener("click", () => {
-  const open = nav.classList.toggle("open");
-  menuToggle.setAttribute("aria-expanded", String(open));
-});
-nav.addEventListener("click", event => {
-  if (event.target.closest("a")) {
-    nav.classList.remove("open");
-    menuToggle.setAttribute("aria-expanded", "false");
-  }
 });
 
 const revealDelay = index => `reveal-delay-${(index % 6) + 1}`;
