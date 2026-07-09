@@ -14,7 +14,7 @@ const navItems = [
   { label: "Flights", href: "/flights/", key: "flights" },
   { label: "Holidays", href: "/packages/", key: "holidays" },
   { label: "Experiences", href: "/experiences.html", key: "experiences", dropdown: experienceItems },
-  { label: "Visa Services", href: "/index.html#visa-services", key: "visa" },
+  { label: "Visa Services", href: "/visa-services/", key: "visa" },
   { label: "Contact", href: "#contact", key: "contact" }
 ];
 
@@ -22,6 +22,7 @@ const activeKeyForPath = () => {
   const path = location.pathname.toLowerCase();
   if (path.includes("/flights")) return "flights";
   if (path.includes("/packages")) return "holidays";
+  if (path.includes("/visa-services")) return "visa";
   if (path.includes("experiences")) return "experiences";
   return "home";
 };

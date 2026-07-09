@@ -173,6 +173,7 @@ linkDateMinimum("holidayCheckin", "holidayCheckout");
 linkDateMinimum("flightDepart", "flightReturn");
 
 document.querySelectorAll("form").forEach(form => form.addEventListener("submit", event => {
+  if (form.matches("[data-visa-enquiry-form]")) return;
   event.preventDefault();
   if (form === searchForm) {
     location.href = activeSearchType === "flights" ? "/flights/" : "/packages/";

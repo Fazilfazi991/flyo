@@ -22,7 +22,7 @@ byId("packageNav").innerHTML = [
   ["Home", "/index.html"],
   ["Flights", "/flights/"],
   ["Holidays", "/packages/"],
-  ["Visa Services", "/index.html#visa-services"],
+  ["Visa Services", "/visa-services/"],
   ["Contact", "#contact"]
 ].map(([label, href]) => `<a href="${href}">${label}</a>`).join("") + `<a class="mobile-nav-cta" href="/index.html#holidays">Cruise Packages</a>`;
 
@@ -102,7 +102,7 @@ document.querySelectorAll("[data-whatsapp]").forEach(link => {
   link.href = whatsappHref;
 });
 
-const siteHrefMap = { Home: "/index.html", Flights: "/flights/", Holidays: "/packages/", "Visa Services": "/index.html#visa-services", Contact: "#contact" };
+const siteHrefMap = { Home: "/index.html", Flights: "/flights/", Holidays: "/packages/", "Visa Services": "/visa-services/", Contact: "#contact" };
 footerColumns.forEach(column => {
   const target = byId(column.title === "Quick Links" ? "footerQuickColumn" : "footerServicesColumn");
   if (!target) return;
