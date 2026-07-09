@@ -31,12 +31,14 @@ const footerIcons = {
   location: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-5.2 7-12a7 7 0 0 0-14 0c0 6.8 7 12 7 12Z"/><circle cx="12" cy="9" r="2.3"/></svg>'
 };
 
+const SOCIAL_ICON_BASE = "/social_icons_svg_pack";
+
 const socialIcons = {
-  facebook: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.2 8.1h2.1V4.7c-.4-.1-1.7-.2-3.1-.2-3.1 0-5.2 1.9-5.2 5.4v3H4.7v3.8H8v7.1h4v-7.1h3.3l.5-3.8H12v-2.6c0-1.1.3-2.2 2.2-2.2Z"/></svg>',
-  instagram: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4.3" y="4.3" width="15.4" height="15.4" rx="4.2"/><circle cx="12" cy="12" r="3.5"/><circle cx="16.5" cy="7.5" r="1"/></svg>',
-  whatsapp: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.1 11.7a8.1 8.1 0 0 1-12 7.1L4 20.1l1.4-3.9a8.1 8.1 0 1 1 14.7-4.5Z"/><path d="M8.7 8.2c.2-.4.4-.5.7-.5h.5c.2 0 .4.1.5.4l.7 1.7c.1.2.1.4-.1.6l-.4.5c-.1.2-.2.3 0 .5.4.7 1 1.4 1.8 1.9.2.1.4.1.5-.1l.7-.7c.2-.2.4-.3.7-.1l1.6.8c.2.1.4.3.4.5 0 .6-.5 1.4-1.1 1.7-.7.3-2.2.1-4-1.1-1.9-1.3-3.2-3.1-3.5-4.3-.2-.9.1-1.7.4-2.1Z"/></svg>',
-  youtube: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 8.2a3 3 0 0 0-2.1-2.1C17 5.6 12 5.6 12 5.6s-5 0-6.9.5A3 3 0 0 0 3 8.2a31.2 31.2 0 0 0 0 7.6 3 3 0 0 0 2.1 2.1c1.9.5 6.9.5 6.9.5s5 0 6.9-.5a3 3 0 0 0 2.1-2.1 31.2 31.2 0 0 0 0-7.6Z"/><path d="m10.2 15.1 5-3.1-5-3.1v6.2Z"/></svg>',
-  linkedin: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.8 9.5H3.4v11.1h3.4V9.5ZM5.1 4.1a2 2 0 1 0 0 4.1 2 2 0 0 0 0-4.1ZM20.6 14.4c0-3.3-1.8-5.2-4.4-5.2-1.9 0-2.8 1.1-3.3 1.9V9.5H9.5v11.1h3.4v-5.9c0-1.5.8-2.6 2.2-2.6 1.3 0 2 1 2 2.6v5.9h3.5v-6.2Z"/></svg>'
+  facebook: `${SOCIAL_ICON_BASE}/facebook-icon.svg`,
+  instagram: `${SOCIAL_ICON_BASE}/instagram-icon.svg`,
+  whatsapp: `${SOCIAL_ICON_BASE}/whatsapp-icon.svg`,
+  youtube: `${SOCIAL_ICON_BASE}/youtube-icon.svg`,
+  linkedin: `${SOCIAL_ICON_BASE}/linkedin-icon.svg`
 };
 
 const socialIconFor = link => {
@@ -55,7 +57,7 @@ const enhanceFooterSocials = footer => {
     const icon = socialIconFor(link);
     if (!icon) return;
     link.dataset.socialIconReady = "true";
-    link.innerHTML = icon;
+    link.innerHTML = `<img src="${icon}" alt="" aria-hidden="true" loading="lazy">`;
   });
 };
 
@@ -111,10 +113,7 @@ const ensureFloatingActions = () => {
     actions.innerHTML = `
       <button class="flyo-whatsapp-float" type="button" aria-label="Chat on WhatsApp" data-whatsapp-message="${whatsappMessages.general}">
         <span class="flyo-whatsapp-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" focusable="false">
-            <path d="M20.1 11.7a8.1 8.1 0 0 1-12 7.1L4 20.1l1.4-3.9a8.1 8.1 0 1 1 14.7-4.5Z"/>
-            <path d="M8.7 8.2c.2-.4.4-.5.7-.5h.5c.2 0 .4.1.5.4l.7 1.7c.1.2.1.4-.1.6l-.4.5c-.1.2-.2.3 0 .5.4.7 1 1.4 1.8 1.9.2.1.4.1.5-.1l.7-.7c.2-.2.4-.3.7-.1l1.6.8c.2.1.4.3.4.5 0 .6-.5 1.4-1.1 1.7-.7.3-2.2.1-4-1.1-1.9-1.3-3.2-3.1-3.5-4.3-.2-.9.1-1.7.4-2.1Z"/>
-          </svg>
+          <img src="${SOCIAL_ICON_BASE}/floating-whatsapp-icon.svg" alt="" loading="lazy">
         </span>
       </button>
       <button class="flyo-back-top" type="button" aria-label="Back to top">↑</button>

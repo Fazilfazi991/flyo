@@ -19,6 +19,7 @@ const entries = [
   "footer-animations.css",
   "footer-animations.js",
   "favicon.svg",
+  "social_icons_svg_pack",
   "data",
   "flights",
   "packages",
