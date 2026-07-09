@@ -268,6 +268,28 @@
     box-shadow .25s ease;
 }
 
+.socials a svg,
+.footer-socials a svg,
+.footer-social-link svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+  fill: currentColor;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.socials a[aria-label*="Instagram" i] svg,
+.footer-socials a[aria-label*="Instagram" i] svg,
+.footer-social-link[aria-label*="Instagram" i] svg,
+.socials a[aria-label*="WhatsApp" i] svg,
+.footer-socials a[aria-label*="WhatsApp" i] svg,
+.footer-social-link[aria-label*="WhatsApp" i] svg {
+  fill: none;
+}
+
 .socials a:hover,
 .footer-socials a:hover,
 .footer-social-link:hover {

@@ -563,6 +563,7 @@ h1 { max-width: 690px; margin: 0; color: white; font-size: var(--text-hero); lin
 .contact-quick-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
 .contact-quick-grid article { min-height: 100%; padding: 22px; }
 .contact-quick-grid span { width: 42px; height: 42px; margin-bottom: 16px; border-radius: 14px; background: var(--color-primary); color: var(--color-white); display: grid; place-items: center; font-size: 12px; font-weight: 900; }
+.contact-quick-grid span svg { width: 22px; height: 22px; display: block; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .contact-quick-grid h3 { margin: 0 0 9px; color: var(--color-primary); font-size: 19px; line-height: 1.2; }
 .contact-quick-grid p { margin: 0; color: rgba(0,0,0,.62); font-size: 14px; line-height: 1.6; }
 .contact-location-section { padding: 20px 0 64px; background: #f8fbff; }
