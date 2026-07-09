@@ -68,7 +68,7 @@ const siteHrefMap = {
   Holidays: "/packages/",
   Experiences: "/experiences.html",
   "Visa Services": "/visa-services/",
-  Contact: "#contact",
+  Contact: "/contact/",
   "Flight Booking Assistance": "/flights/",
   "Holiday Packages": "/packages/",
   "International Packages": "/packages/",

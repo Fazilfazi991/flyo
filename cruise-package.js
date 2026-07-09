@@ -24,7 +24,7 @@ byId("packageNav").innerHTML = [
   ["Flights", "/flights/"],
   ["Holidays", "/packages/"],
   ["Visa Services", "/visa-services/"],
-  ["Contact", "#contact"]
+    ["Contact", "/contact/"]
 ].map(([label, href]) => `<a href="${href}">${label}</a>`).join("") + `<a class="mobile-nav-cta" href="/index.html#holidays">Cruise Packages</a>`;
 
 byId("heroBadge").textContent = "Aroya Cruises";
@@ -105,7 +105,7 @@ document.querySelectorAll("[data-whatsapp]").forEach(link => {
   link.dataset.whatsappPackage = cruise.title;
 });
 
-const siteHrefMap = { Home: "/index.html", Flights: "/flights/", Holidays: "/packages/", "Visa Services": "/visa-services/", Contact: "#contact" };
+const siteHrefMap = { Home: "/index.html", Flights: "/flights/", Holidays: "/packages/", "Visa Services": "/visa-services/", Contact: "/contact/" };
 footerColumns.forEach(column => {
   const target = byId(column.title === "Quick Links" ? "footerQuickColumn" : "footerServicesColumn");
   if (!target) return;

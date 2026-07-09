@@ -15,7 +15,7 @@ const navItems = [
   { label: "Holidays", href: "/packages/", key: "holidays" },
   { label: "Experiences", href: "/experiences.html", key: "experiences", dropdown: experienceItems },
   { label: "Visa Services", href: "/visa-services/", key: "visa" },
-  { label: "Contact", href: "#contact", key: "contact" }
+  { label: "Contact", href: "/contact/", key: "contact" }
 ];
 
 const activeKeyForPath = () => {
@@ -23,6 +23,7 @@ const activeKeyForPath = () => {
   if (path.includes("/flights")) return "flights";
   if (path.includes("/packages")) return "holidays";
   if (path.includes("/visa-services")) return "visa";
+  if (path.includes("/contact")) return "contact";
   if (path.includes("experiences")) return "experiences";
   return "home";
 };
@@ -130,6 +131,7 @@ export const initGlobalNavbar = () => {
             <select data-flyo-currency-select aria-label="Select currency">
               <option value="AED">AED</option>
               <option value="INR">INR</option>
+              <option value="USD">USD</option>
             </select>
           </label>
           <a class="partner-login-button" href="/partner-login">Partner Login</a>

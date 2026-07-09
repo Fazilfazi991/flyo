@@ -1,9 +1,10 @@
 const CURRENCY_RATES = {
   AED: 1,
-  INR: 26
+  INR: 26,
+  USD: 1 / 3.67
 };
 const STORAGE_KEY = "flyoCurrency";
-const SUPPORTED_CURRENCIES = ["AED", "INR"];
+const SUPPORTED_CURRENCIES = ["AED", "INR", "USD"];
 
 const safeStorage = {
   get() {
@@ -33,13 +34,27 @@ export const parseAedPrice = value => {
   return match ? Number(match[1]) : null;
 };
 
-export const formatPackageAmount = (aedPrice, currency = getSelectedCurrency()) => {
+export const convertPrice = (aedPrice, currency = getSelectedCurrency()) => {
   const amount = parseAedPrice(aedPrice);
-  if (!amount) return "Price on request";
+  if (!amount) return null;
+  return amount * (CURRENCY_RATES[currency] || CURRENCY_RATES.AED);
+};
+
+export const formatCurrency = (amount, currency = getSelectedCurrency()) => {
+  if (!Number.isFinite(amount)) return "Price on request";
+  const rounded = Math.round(amount);
   if (currency === "INR") {
-    return `INR ${new Intl.NumberFormat("en-IN").format(Math.round(amount * CURRENCY_RATES.INR))}`;
+    return `₹${new Intl.NumberFormat("en-IN").format(rounded)}`;
   }
-  return `AED ${new Intl.NumberFormat("en-AE").format(Math.round(amount))}`;
+  if (currency === "USD") {
+    return `$${new Intl.NumberFormat("en-US").format(rounded)}`;
+  }
+  return `AED ${new Intl.NumberFormat("en-AE").format(rounded)}`;
+};
+
+export const formatPackageAmount = (aedPrice, currency = getSelectedCurrency()) => {
+  const amount = convertPrice(aedPrice, currency);
+  return amount ? formatCurrency(amount, currency) : "Price on request";
 };
 
 export const formatPackagePrice = (aedPrice, currency = getSelectedCurrency(), note = "/ person") => {

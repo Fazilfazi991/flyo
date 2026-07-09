@@ -1,6 +1,6 @@
-const phone = "+971 50 123 4567";
+const phone = "04 396 4626";
 const whatsapp = "#";
-const email = "info@flyotravels.com";
+const email = "info.dubai@flyotour.com";
 
 const commonInclusions = [
   "Hotel accommodation as selected",
