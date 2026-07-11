@@ -269,7 +269,7 @@ const holidayPackages = [
     price: "AED 999",
     route: "Bangkok & Pattaya",
     category: "Budget Friendly",
-    tags: ["Budget Friendly", "Island Tour", "Entertainment"],
+    tags: ["Budget Friendly", "Island Tour", "Entertainment", "Honeymoon Packages"],
     cardImage: "/packages/Thai_Wonder_WebP_Images/Thai_Wonder_Night.webp",
     heroImage: "/packages/Thai_Wonder_WebP_Images/Thai_Wonder_Temple.webp",
     galleryImages: [

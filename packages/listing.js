@@ -29,6 +29,8 @@ const state = {
   category: "All"
 };
 
+let initialSearchDetails = null;
+
 const durationOptions = [
   { value: "All", label: "Duration", matches: () => true },
   { value: "1-3", label: "1-3 Days", matches: days => days >= 1 && days <= 3 },
@@ -274,6 +276,28 @@ const selectedLabel = key => {
   return dropdownOptions[key]?.find(option => option.value === selected)?.label || selected;
 };
 
+const findOption = (options, value) => {
+  if (!value) return "";
+  const wanted = normalise(value);
+  return options.find(option => normalise(option) === wanted || normalise(option).includes(wanted) || wanted.includes(normalise(option)));
+};
+
+const buildNoResultsMessage = () => {
+  if (!initialSearchDetails) return whatsappMessages.general;
+  const parts = [];
+  if (initialSearchDetails.destination) parts.push(`destination: ${initialSearchDetails.destination}`);
+  if (initialSearchDetails.tripType && initialSearchDetails.tripType !== "All Types") parts.push(`trip type: ${initialSearchDetails.tripType}`);
+  if (initialSearchDetails.travelDate) parts.push(`travel date: ${initialSearchDetails.travelDate}`);
+  if (initialSearchDetails.returnDate) parts.push(`return date: ${initialSearchDetails.returnDate}`);
+  if (initialSearchDetails.days) parts.push(`duration: ${initialSearchDetails.days} days`);
+  const guests = [
+    initialSearchDetails.adults ? `${initialSearchDetails.adults} adult${initialSearchDetails.adults === "1" ? "" : "s"}` : "",
+    initialSearchDetails.children && initialSearchDetails.children !== "0" ? `${initialSearchDetails.children} child${initialSearchDetails.children === "1" ? "" : "ren"}` : ""
+  ].filter(Boolean).join(", ");
+  if (guests) parts.push(`guests: ${guests}`);
+  return `Hello Flyo, I searched for holiday packages with ${parts.join(", ")}. Please suggest suitable options.`;
+};
+
 const closeDropdowns = except => {
   dropdowns.forEach(dropdown => {
     if (dropdown === except) return;
@@ -357,7 +381,10 @@ const renderPackageCards = () => {
       <div class="package-empty-state">
         <h3>No packages found</h3>
         <p>Try changing your destination, dates, or budget.</p>
-        <button class="button button-primary" type="button" data-clear-filters-empty>Clear Filters</button>
+        <div class="package-empty-actions">
+          <button class="button button-primary" type="button" data-clear-filters-empty>Clear Filters</button>
+          ${initialSearchDetails ? '<button class="button button-white" type="button" data-empty-whatsapp>WhatsApp Enquiry</button>' : ""}
+        </div>
       </div>
     `;
   updatePackageCardPrices();
@@ -379,6 +406,7 @@ const clearFilters = () => {
   state.budget = "All";
   state.month = "All";
   state.category = "All";
+  initialSearchDetails = null;
   if (searchInput) searchInput.value = "";
   closeDropdowns();
   renderAll();
@@ -436,6 +464,7 @@ dropdowns.forEach(dropdown => {
 document.addEventListener("click", event => {
   if (!event.target.closest(".filter-dropdown")) closeDropdowns();
   if (event.target.closest("[data-clear-filters-empty]")) clearFilters();
+  if (event.target.closest("[data-empty-whatsapp]")) window.openWhatsAppChooser?.(buildNoResultsMessage());
 });
 
 countryFilterBar?.addEventListener("click", event => {
@@ -458,7 +487,38 @@ document.querySelectorAll("form").forEach(form => form.addEventListener("submit"
 const applyInitialQuery = () => {
   const params = new URLSearchParams(window.location.search);
   const country = params.get("country");
-  if (country && countryOptions.includes(country)) state.destination = country;
+  const destination = params.get("destination") || "";
+  const search = params.get("search") || "";
+  const tripType = params.get("tripType") || "";
+  const category = params.get("category") || "";
+  const duration = params.get("duration") || "";
+  const month = params.get("month") || "";
+  const travelDate = params.get("travelDate") || "";
+  const returnDate = params.get("returnDate") || "";
+  const days = params.get("days") || "";
+  const adults = params.get("adults") || "";
+  const children = params.get("children") || "";
+
+  const matchedCountry = findOption(countryOptions, country || destination);
+  if (matchedCountry && matchedCountry !== "All") state.destination = matchedCountry;
+
+  const matchedTripType = findOption(tripTypeOptions, tripType);
+  if (matchedTripType && matchedTripType !== "All") state.tripType = matchedTripType;
+
+  const matchedCategory = findOption(categoryButtons.map(button => button.dataset.categoryFilter), category || tripType);
+  if (matchedCategory) state.category = matchedCategory;
+
+  if (durationOptions.some(option => option.value === duration)) state.duration = duration;
+  const matchedMonth = findOption(monthNames, month);
+  if (matchedMonth) state.month = matchedMonth;
+
+  const destinationShouldSearch = destination && (!matchedCountry || normalise(destination) !== normalise(matchedCountry));
+  state.search = search || (destinationShouldSearch ? destination : "");
+  if (searchInput) searchInput.value = state.search;
+
+  if (destination || travelDate || returnDate || tripType || days || adults || children) {
+    initialSearchDetails = { destination, travelDate, returnDate, tripType, days, adults, children };
+  }
 };
 
 const filterToggle = document.querySelector(".filter-toggle");

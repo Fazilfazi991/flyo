@@ -47,50 +47,104 @@
           </button>
         </div>
 
-        <div class="search-form-row active" data-search-panel="holidays">
-          <label>
+        <div class="search-form-row active quick-search-row quick-search-holidays" data-search-panel="holidays">
+          <label class="quick-field quick-combobox" data-quick-combobox="holiday-destination">
             <span>Destination</span>
-            <div class="field"><input type="text" placeholder="Where do you want to go?"></div>
+            <div class="field quick-control"><input id="holidayDestination" type="text" placeholder="Search country, city, or package" autocomplete="off" aria-expanded="false" aria-controls="holidayDestinationMenu"></div>
+            <div class="quick-menu" id="holidayDestinationMenu" role="listbox" aria-label="Holiday destination options"></div>
+            <small class="quick-error" data-error-for="holidayDestination"></small>
           </label>
-          <label>
-            <span>Check-in</span>
-            <div class="field date-field"><input id="holidayCheckin" type="date" aria-label="Select check-in date"></div>
+          <label class="quick-field">
+            <span>Travel Date</span>
+            <div class="field date-field"><input id="holidayTravelDate" type="date" aria-label="Select travel start date"></div>
+            <small class="quick-error" data-error-for="holidayTravelDate"></small>
           </label>
-          <label>
-            <span>Check-out</span>
-            <div class="field date-field"><input id="holidayCheckout" type="date" aria-label="Select check-out date"></div>
+          <label class="quick-field">
+            <span>Return Date</span>
+            <div class="field date-field"><input id="holidayReturnDate" type="date" aria-label="Select return date"></div>
+            <small class="quick-error" data-error-for="holidayReturnDate"></small>
           </label>
-          <label>
+          <label class="quick-field quick-guests" data-guest-picker="holiday">
             <span>Guests</span>
-            <div class="field"><input type="text" placeholder="2 Adults, 0 Children"></div>
+            <button class="field quick-guest-trigger" type="button" aria-expanded="false" aria-controls="holidayGuestMenu" data-guest-summary="holiday">2 Adults, 0 Children</button>
+            <div class="quick-popover guest-popover" id="holidayGuestMenu">
+              <div class="guest-counter-row">
+                <div><strong>Adults</strong><small>Minimum 1 adult</small></div>
+                <div class="guest-counter-controls">
+                  <button type="button" data-guest-action="minus" data-guest-type="adults">-</button>
+                  <span data-guest-count="adults">2</span>
+                  <button type="button" data-guest-action="plus" data-guest-type="adults">+</button>
+                </div>
+              </div>
+              <div class="guest-counter-row">
+                <div><strong>Children</strong><small>Ages 2-11</small></div>
+                <div class="guest-counter-controls">
+                  <button type="button" data-guest-action="minus" data-guest-type="children">-</button>
+                  <span data-guest-count="children">0</span>
+                  <button type="button" data-guest-action="plus" data-guest-type="children">+</button>
+                </div>
+              </div>
+            </div>
           </label>
-          <label>
+          <label class="quick-field quick-select" data-quick-select="holiday-trip-type">
             <span>Trip Type</span>
-            <div class="field"><input type="text" placeholder="Family, honeymoon, beach."></div>
+            <button class="field quick-select-trigger" type="button" aria-expanded="false" aria-controls="holidayTripTypeMenu"><span data-selected-label>All Types</span></button>
+            <div class="quick-menu" id="holidayTripTypeMenu" role="listbox" aria-label="Holiday trip type options"></div>
           </label>
           <button class="button button-blue" type="submit">Explore Now</button>
         </div>
 
-        <div class="search-form-row" data-search-panel="flights">
-          <label>
+        <div class="search-form-row quick-search-row quick-search-flights" data-search-panel="flights">
+          <label class="quick-field quick-combobox" data-quick-combobox="flight-from">
             <span>From</span>
-            <div class="field"><input type="text" placeholder="Where from?"></div>
+            <div class="field quick-control"><input id="flightFrom" type="text" placeholder="City, country, or airport" autocomplete="off" aria-expanded="false" aria-controls="flightFromMenu"></div>
+            <div class="quick-menu" id="flightFromMenu" role="listbox" aria-label="Flight origin options"></div>
+            <small class="quick-error" data-error-for="flightFrom"></small>
           </label>
-          <label>
+          <label class="quick-field quick-combobox" data-quick-combobox="flight-to">
             <span>To</span>
-            <div class="field"><input type="text" placeholder="Where to?"></div>
+            <div class="field quick-control"><input id="flightTo" type="text" placeholder="City, country, or airport" autocomplete="off" aria-expanded="false" aria-controls="flightToMenu"></div>
+            <div class="quick-menu" id="flightToMenu" role="listbox" aria-label="Flight destination options"></div>
+            <small class="quick-error" data-error-for="flightTo"></small>
           </label>
-          <label>
-            <span>Depart</span>
+          <label class="quick-field">
+            <span>Departure Date</span>
             <div class="field date-field"><input id="flightDepart" type="date" aria-label="Select depart date"></div>
+            <small class="quick-error" data-error-for="flightDepart"></small>
           </label>
-          <label>
-            <span>Return</span>
+          <label class="quick-field" data-round-trip-only>
+            <span>Return Date</span>
             <div class="field date-field"><input id="flightReturn" type="date" aria-label="Select return date"></div>
+            <small class="quick-error" data-error-for="flightReturn"></small>
           </label>
-          <label>
-            <span>Travellers &amp; Class</span>
-            <div class="field"><input type="text" placeholder="1 Traveller, Economy"></div>
+          <label class="quick-field quick-guests" data-guest-picker="flight">
+            <span>Travellers</span>
+            <button class="field quick-guest-trigger" type="button" aria-expanded="false" aria-controls="flightGuestMenu" data-guest-summary="flight">1 Adult, 0 Children</button>
+            <div class="quick-popover guest-popover" id="flightGuestMenu">
+              <div class="guest-counter-row">
+                <div><strong>Adults</strong><small>Minimum 1 adult</small></div>
+                <div class="guest-counter-controls">
+                  <button type="button" data-guest-action="minus" data-guest-type="adults">-</button>
+                  <span data-guest-count="adults">1</span>
+                  <button type="button" data-guest-action="plus" data-guest-type="adults">+</button>
+                </div>
+              </div>
+              <div class="guest-counter-row">
+                <div><strong>Children</strong><small>Ages 2-11</small></div>
+                <div class="guest-counter-controls">
+                  <button type="button" data-guest-action="minus" data-guest-type="children">-</button>
+                  <span data-guest-count="children">0</span>
+                  <button type="button" data-guest-action="plus" data-guest-type="children">+</button>
+                </div>
+              </div>
+            </div>
+          </label>
+          <label class="quick-field flight-trip-mode">
+            <span>Trip Type</span>
+            <div class="trip-mode-toggle" role="radiogroup" aria-label="Flight trip type">
+              <button class="active" type="button" role="radio" aria-checked="true" data-flight-trip="round-trip">Round-trip</button>
+              <button type="button" role="radio" aria-checked="false" data-flight-trip="one-way">One-way</button>
+            </div>
           </label>
           <button class="button button-blue" type="submit">Search Flights</button>
         </div>

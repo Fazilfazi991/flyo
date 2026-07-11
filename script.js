@@ -1,4 +1,4 @@
-import { contact } from "./data/packages.js";
+import { contact, packages } from "./data/packages.js";
 import { formatPackageAmount, onCurrencyChange } from "./currency.js";
 import { openWhatsAppChooser, whatsappMessages } from "./whatsapp-chooser.js";
 import "./navbar.js";
@@ -236,6 +236,293 @@ let activeSearchType = "holidays";
 const searchForm = document.querySelector("[data-search-form]");
 const searchTabs = document.querySelectorAll("[data-search-tab]");
 const searchPanels = document.querySelectorAll("[data-search-panel]");
+const quickSearchState = {
+  holidays: {
+    destination: "",
+    destinationCountry: "",
+    travelDate: "",
+    returnDate: "",
+    adults: 2,
+    children: 0,
+    tripType: "All Types"
+  },
+  flights: {
+    from: "",
+    to: "",
+    departureDate: "",
+    returnDate: "",
+    adults: 1,
+    children: 0,
+    tripType: "round-trip"
+  }
+};
+
+const holidayTripTypes = ["All Types", "Family", "Honeymoon", "Beach", "City Break", "Safari"];
+const flightLocations = [
+  "Dubai, UAE (DXB)", "Abu Dhabi, UAE (AUH)", "Sharjah, UAE (SHJ)",
+  "Kochi, India (COK)", "Bengaluru, India (BLR)", "Mumbai, India (BOM)",
+  "Delhi, India (DEL)", "Chennai, India (MAA)", "Hyderabad, India (HYD)",
+  "Thiruvananthapuram, India (TRV)", "Kozhikode, India (CCJ)",
+  "Bangkok, Thailand (BKK)", "Phuket, Thailand (HKT)", "Kuala Lumpur, Malaysia (KUL)",
+  "Singapore (SIN)", "Colombo, Sri Lanka (CMB)", "Nairobi, Kenya (NBO)"
+].map(label => ({ label, value: label }));
+
+const normaliseQuick = value => String(value || "").toLowerCase().trim();
+const uniqueByLabel = options => [...new Map(options.filter(option => option.label).map(option => [option.label.toLowerCase(), option])).values()];
+
+const holidayDestinationOptions = uniqueByLabel(packages.flatMap(item => {
+  const routePlaces = String(item.route || "").split(/,|&|\band\b/i).map(part => part.trim()).filter(Boolean);
+  const destinations = [
+    item.country,
+    item.destinationCountry,
+    item.destinationState,
+    item.title,
+    ...routePlaces
+  ].filter(Boolean);
+  return destinations.map(destination => ({
+    label: destination,
+    value: destination,
+    country: item.destinationCountry || item.country || "",
+    keywords: [
+      destination,
+      item.title,
+      item.country,
+      item.destinationCountry,
+      item.destinationState,
+      item.route,
+      item.category,
+      ...(item.tags || []),
+      ...(item.highlights || [])
+    ].filter(Boolean).join(" ")
+  }));
+})).sort((a, b) => a.label.localeCompare(b.label));
+
+const todayIso = () => {
+  const date = new Date();
+  date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+  return date.toISOString().slice(0, 10);
+};
+
+const formatDisplayDate = value => {
+  if (!value) return "";
+  const date = new Date(`${value}T00:00:00`);
+  if (Number.isNaN(date.getTime())) return value;
+  return date.toLocaleDateString("en-GB", { day: "numeric", month: "long" });
+};
+
+const plural = (count, word) => `${count} ${word}${count === 1 ? "" : "s"}`;
+
+const guestStateKey = group => group === "holiday" ? "holidays" : group === "flight" ? "flights" : group;
+
+const guestSummary = group => {
+  const data = quickSearchState[guestStateKey(group)];
+  return `${plural(data.adults, "Adult")}, ${plural(data.children, "Child")}`;
+};
+
+const setQuickError = (id, message = "") => {
+  const error = document.querySelector(`[data-error-for="${id}"]`);
+  const input = document.getElementById(id);
+  if (error) error.textContent = message;
+  input?.closest(".quick-field")?.classList.toggle("has-error", Boolean(message));
+};
+
+const clearQuickErrors = ids => ids.forEach(id => setQuickError(id));
+
+const durationBucket = days => {
+  if (!days) return "";
+  if (days <= 3) return "1-3";
+  if (days <= 6) return "4-6";
+  if (days <= 9) return "7-9";
+  return "10+";
+};
+
+const calculateTripDays = (start, end) => {
+  if (!start || !end) return "";
+  const startDate = new Date(`${start}T00:00:00`);
+  const endDate = new Date(`${end}T00:00:00`);
+  if (Number.isNaN(startDate.getTime()) || Number.isNaN(endDate.getTime()) || endDate < startDate) return "";
+  return Math.max(1, Math.round((endDate - startDate) / 86400000) + 1);
+};
+
+const closeQuickPopups = except => {
+  document.querySelectorAll(".quick-field.is-open").forEach(field => {
+    if (field === except) return;
+    field.classList.remove("is-open");
+    field.querySelector("[aria-expanded]")?.setAttribute("aria-expanded", "false");
+  });
+};
+
+const openQuickField = field => {
+  if (!field) return;
+  closeQuickPopups(field);
+  field.classList.add("is-open");
+  field.querySelector("[aria-expanded]")?.setAttribute("aria-expanded", "true");
+};
+
+const optionButton = option => `
+  <button class="quick-option" type="button" role="option" data-quick-value="${option.value}" data-quick-label="${option.label}" data-quick-country="${option.country || ""}">
+    <strong>${option.label}</strong>
+    ${option.country && option.country !== option.label ? `<small>${option.country}</small>` : ""}
+  </button>
+`;
+
+const renderComboboxOptions = (field, options, query = "") => {
+  const menu = field.querySelector(".quick-menu");
+  if (!menu) return;
+  const terms = normaliseQuick(query).split(/\s+/).filter(Boolean);
+  const matches = options
+    .filter(option => terms.every(term => normaliseQuick(`${option.label} ${option.keywords || ""}`).includes(term)))
+    .slice(0, 9);
+  menu.innerHTML = matches.length
+    ? matches.map(optionButton).join("")
+    : `<div class="quick-option-empty">No matches found</div>`;
+};
+
+const setupCombobox = (selector, options, onSelect) => {
+  const field = document.querySelector(selector);
+  if (!field) return;
+  const input = field.querySelector("input");
+  renderComboboxOptions(field, options);
+  input?.addEventListener("focus", () => {
+    renderComboboxOptions(field, options, input.value);
+    openQuickField(field);
+  });
+  input?.addEventListener("input", () => {
+    onSelect({ label: input.value, value: input.value, country: "" }, true);
+    renderComboboxOptions(field, options, input.value);
+    openQuickField(field);
+  });
+  field.addEventListener("click", event => {
+    const option = event.target.closest("[data-quick-value]");
+    if (!option) return;
+    event.preventDefault();
+    const selected = {
+      label: option.dataset.quickLabel,
+      value: option.dataset.quickValue,
+      country: option.dataset.quickCountry
+    };
+    input.value = selected.label;
+    onSelect(selected, false);
+    closeQuickPopups();
+    input.focus({ preventScroll: true });
+  });
+  field.addEventListener("keydown", event => {
+    if (event.key === "Escape") closeQuickPopups();
+  });
+};
+
+const setupTripTypeSelect = () => {
+  const field = document.querySelector('[data-quick-select="holiday-trip-type"]');
+  if (!field) return;
+  const menu = field.querySelector(".quick-menu");
+  const trigger = field.querySelector(".quick-select-trigger");
+  const label = field.querySelector("[data-selected-label]");
+  menu.innerHTML = holidayTripTypes.map(type => `
+    <button class="quick-option${type === quickSearchState.holidays.tripType ? " is-selected" : ""}" type="button" role="option" data-trip-type="${type}">
+      <strong>${type}</strong>
+    </button>
+  `).join("");
+  trigger.addEventListener("click", event => {
+    event.preventDefault();
+    field.classList.contains("is-open") ? closeQuickPopups() : openQuickField(field);
+  });
+  field.addEventListener("click", event => {
+    const option = event.target.closest("[data-trip-type]");
+    if (!option) return;
+    quickSearchState.holidays.tripType = option.dataset.tripType;
+    label.textContent = option.dataset.tripType;
+    menu.querySelectorAll("[data-trip-type]").forEach(button => {
+      button.classList.toggle("is-selected", button === option);
+    });
+    closeQuickPopups();
+  });
+};
+
+const updateGuestPicker = group => {
+  const field = document.querySelector(`[data-guest-picker="${group}"]`);
+  if (!field) return;
+  field.querySelector("[data-guest-summary]")?.replaceChildren(document.createTextNode(guestSummary(group)));
+  field.querySelectorAll("[data-guest-count]").forEach(element => {
+    element.textContent = quickSearchState[guestStateKey(group)][element.dataset.guestCount];
+  });
+};
+
+const setupGuestPickers = () => {
+  document.querySelectorAll("[data-guest-picker]").forEach(field => {
+    const groupKey = field.dataset.guestPicker === "holiday" ? "holidays" : "flights";
+    const summaryGroup = field.dataset.guestPicker;
+    field.querySelector(".quick-guest-trigger")?.addEventListener("click", event => {
+      event.preventDefault();
+      field.classList.contains("is-open") ? closeQuickPopups() : openQuickField(field);
+    });
+    field.addEventListener("click", event => {
+      const button = event.target.closest("[data-guest-action]");
+      if (!button) return;
+      event.preventDefault();
+      const data = quickSearchState[groupKey];
+      const type = button.dataset.guestType;
+      const direction = button.dataset.guestAction === "plus" ? 1 : -1;
+      const min = type === "adults" ? 1 : 0;
+      data[type] = Math.max(min, Math.min(12, data[type] + direction));
+      updateGuestPicker(summaryGroup);
+    });
+    updateGuestPicker(summaryGroup);
+  });
+};
+
+const setupDates = () => {
+  const min = todayIso();
+  const holidayTravelDate = document.getElementById("holidayTravelDate");
+  const holidayReturnDate = document.getElementById("holidayReturnDate");
+  const flightDepart = document.getElementById("flightDepart");
+  const flightReturn = document.getElementById("flightReturn");
+  [holidayTravelDate, holidayReturnDate, flightDepart, flightReturn].forEach(input => {
+    if (input) input.min = min;
+  });
+  holidayTravelDate?.addEventListener("change", () => {
+    quickSearchState.holidays.travelDate = holidayTravelDate.value;
+    holidayReturnDate.min = holidayTravelDate.value || min;
+    if (holidayReturnDate.value && holidayReturnDate.value < holidayTravelDate.value) holidayReturnDate.value = "";
+  });
+  holidayReturnDate?.addEventListener("change", () => {
+    quickSearchState.holidays.returnDate = holidayReturnDate.value;
+  });
+  flightDepart?.addEventListener("change", () => {
+    quickSearchState.flights.departureDate = flightDepart.value;
+    flightReturn.min = flightDepart.value || min;
+    if (flightReturn.value && flightReturn.value < flightDepart.value) flightReturn.value = "";
+  });
+  flightReturn?.addEventListener("change", () => {
+    quickSearchState.flights.returnDate = flightReturn.value;
+  });
+};
+
+const setupFlightTripMode = () => {
+  const buttons = document.querySelectorAll("[data-flight-trip]");
+  const returnField = document.querySelector("[data-round-trip-only]");
+  const sync = () => {
+    buttons.forEach(button => {
+      const active = button.dataset.flightTrip === quickSearchState.flights.tripType;
+      button.classList.toggle("active", active);
+      button.setAttribute("aria-checked", String(active));
+    });
+    const oneWay = quickSearchState.flights.tripType === "one-way";
+    returnField?.classList.toggle("is-hidden", oneWay);
+    if (oneWay) {
+      quickSearchState.flights.returnDate = "";
+      const flightReturn = document.getElementById("flightReturn");
+      if (flightReturn) flightReturn.value = "";
+      setQuickError("flightReturn");
+    }
+  };
+  buttons.forEach(button => {
+    button.addEventListener("click", () => {
+      quickSearchState.flights.tripType = button.dataset.flightTrip;
+      sync();
+    });
+  });
+  sync();
+};
 
 const setSearchType = type => {
   activeSearchType = type;
@@ -253,24 +540,120 @@ searchTabs.forEach(tab => {
   tab.addEventListener("click", () => setSearchType(tab.dataset.searchTab));
 });
 
-const linkDateMinimum = (startId, endId) => {
-  const start = document.getElementById(startId);
-  const end = document.getElementById(endId);
-  if (!start || !end) return;
-  start.addEventListener("change", () => {
-    end.min = start.value;
-    if (end.value && start.value && end.value < start.value) end.value = start.value;
-  });
+setupCombobox('[data-quick-combobox="holiday-destination"]', holidayDestinationOptions, (selected, typed) => {
+  quickSearchState.holidays.destination = selected.label || "";
+  quickSearchState.holidays.destinationCountry = typed ? "" : selected.country || "";
+  setQuickError("holidayDestination");
+});
+setupCombobox('[data-quick-combobox="flight-from"]', flightLocations, selected => {
+  quickSearchState.flights.from = selected.label || "";
+  setQuickError("flightFrom");
+});
+setupCombobox('[data-quick-combobox="flight-to"]', flightLocations, selected => {
+  quickSearchState.flights.to = selected.label || "";
+  setQuickError("flightTo");
+});
+setupTripTypeSelect();
+setupGuestPickers();
+setupDates();
+setupFlightTripMode();
+
+document.addEventListener("click", event => {
+  if (!event.target.closest(".quick-field")) closeQuickPopups();
+});
+
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") closeQuickPopups();
+});
+
+const submitHolidaySearch = () => {
+  const destinationInput = document.getElementById("holidayDestination");
+  const travelInput = document.getElementById("holidayTravelDate");
+  const returnInput = document.getElementById("holidayReturnDate");
+  quickSearchState.holidays.destination = destinationInput?.value.trim() || quickSearchState.holidays.destination;
+  quickSearchState.holidays.travelDate = travelInput?.value || "";
+  quickSearchState.holidays.returnDate = returnInput?.value || "";
+  clearQuickErrors(["holidayDestination", "holidayTravelDate", "holidayReturnDate"]);
+
+  let valid = true;
+  if (!quickSearchState.holidays.destination) {
+    setQuickError("holidayDestination", "Choose a destination to explore packages.");
+    valid = false;
+  }
+  if (quickSearchState.holidays.returnDate && quickSearchState.holidays.travelDate && quickSearchState.holidays.returnDate < quickSearchState.holidays.travelDate) {
+    setQuickError("holidayReturnDate", "Return date cannot be earlier than travel date.");
+    valid = false;
+  }
+  if (!valid) return;
+
+  const days = calculateTripDays(quickSearchState.holidays.travelDate, quickSearchState.holidays.returnDate);
+  const params = new URLSearchParams();
+  params.set("destination", quickSearchState.holidays.destination);
+  if (quickSearchState.holidays.destinationCountry) params.set("country", quickSearchState.holidays.destinationCountry);
+  if (quickSearchState.holidays.travelDate) params.set("travelDate", quickSearchState.holidays.travelDate);
+  if (quickSearchState.holidays.returnDate) params.set("returnDate", quickSearchState.holidays.returnDate);
+  if (days) {
+    params.set("days", String(days));
+    params.set("duration", durationBucket(days));
+  }
+  params.set("adults", String(quickSearchState.holidays.adults));
+  params.set("children", String(quickSearchState.holidays.children));
+  if (quickSearchState.holidays.tripType !== "All Types") {
+    params.set("tripType", quickSearchState.holidays.tripType);
+    params.set("category", quickSearchState.holidays.tripType);
+  }
+  location.href = `/packages/?${params.toString()}`;
 };
 
-linkDateMinimum("holidayCheckin", "holidayCheckout");
-linkDateMinimum("flightDepart", "flightReturn");
+const submitFlightSearch = () => {
+  const fromInput = document.getElementById("flightFrom");
+  const toInput = document.getElementById("flightTo");
+  const departInput = document.getElementById("flightDepart");
+  const returnInput = document.getElementById("flightReturn");
+  quickSearchState.flights.from = fromInput?.value.trim() || quickSearchState.flights.from;
+  quickSearchState.flights.to = toInput?.value.trim() || quickSearchState.flights.to;
+  quickSearchState.flights.departureDate = departInput?.value || "";
+  quickSearchState.flights.returnDate = returnInput?.value || "";
+  clearQuickErrors(["flightFrom", "flightTo", "flightDepart", "flightReturn"]);
+
+  let valid = true;
+  if (!quickSearchState.flights.from) {
+    setQuickError("flightFrom", "Enter your origin.");
+    valid = false;
+  }
+  if (!quickSearchState.flights.to) {
+    setQuickError("flightTo", "Enter your destination.");
+    valid = false;
+  }
+  if (!quickSearchState.flights.departureDate) {
+    setQuickError("flightDepart", "Choose a departure date.");
+    valid = false;
+  }
+  if (quickSearchState.flights.tripType === "round-trip" && !quickSearchState.flights.returnDate) {
+    setQuickError("flightReturn", "Choose a return date for round-trip flights.");
+    valid = false;
+  }
+  if (quickSearchState.flights.returnDate && quickSearchState.flights.returnDate < quickSearchState.flights.departureDate) {
+    setQuickError("flightReturn", "Return date cannot be earlier than departure.");
+    valid = false;
+  }
+  if (!valid) return;
+
+  const tripText = quickSearchState.flights.tripType === "one-way" ? "one-way" : "round-trip";
+  const returnText = quickSearchState.flights.tripType === "round-trip"
+    ? ` and returning ${formatDisplayDate(quickSearchState.flights.returnDate)}`
+    : "";
+  const childText = quickSearchState.flights.children ? ` and ${plural(quickSearchState.flights.children, "child")}` : "";
+  const message = `Hello Flyo, I need a ${tripText} flight from ${quickSearchState.flights.from} to ${quickSearchState.flights.to}, departing ${formatDisplayDate(quickSearchState.flights.departureDate)}${returnText}, for ${plural(quickSearchState.flights.adults, "adult")}${childText}.`;
+  window.open(`https://wa.me/971505357300?text=${encodeURIComponent(message)}`, "_blank");
+};
 
 document.querySelectorAll("form").forEach(form => form.addEventListener("submit", event => {
   if (form.matches("[data-visa-enquiry-form]")) return;
   event.preventDefault();
   if (form === searchForm) {
-    location.href = activeSearchType === "flights" ? "/flights/" : "/packages/";
+    if (activeSearchType === "flights") submitFlightSearch();
+    else submitHolidaySearch();
     return;
   }
   if (form.classList.contains("flight-form")) {
