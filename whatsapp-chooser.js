@@ -1,15 +1,15 @@
 export const whatsappMessages = {
-  package: packageName => `Hello Flyo Tours, I am interested in this package: ${packageName}. Please share more details.`,
+  package: packageName => `Hello Flyo, I'm interested in the ${packageName} package. Please share more details.`,
   flight: "Hello Flyo Tours, I want to enquire about flight tickets. Please assist me.",
   visa: "Hello Flyo Tours, I want to enquire about visa services. Please assist me.",
-  general: "Hello Flyo Tours, I would like to know more about your travel services."
+  general: "Hello Flyo, I would like to know more about your travel packages."
 };
 
 const whatsappOffices = [
   {
     label: "UAE WhatsApp",
-    number: "+971 56 689 6008",
-    urlNumber: "971566896008"
+    number: "+971 50 535 7300",
+    urlNumber: "971505357300"
   },
   {
     label: "India WhatsApp",

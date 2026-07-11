@@ -25,55 +25,70 @@
       <span class="floating-region-chip chip-sri-lanka" aria-hidden="true">Sri Lanka</span>
       <span class="floating-region-chip chip-kenya" aria-hidden="true">Kenya</span>
       <span class="floating-region-chip chip-uae" aria-hidden="true">UAE</span>
+
       <div class="container">
         <div class="section-heading">
           <p class="eyebrow">Flights &amp; Holidays</p>
           <h2>Holiday Packages</h2>
           <p class="section-subtitle">Explore ready-to-plan holidays customized around your travel dates.</p>
         </div>
+
         <div class="package-filter-panel" aria-label="Package filters">
           <div class="finder-head">
             <div>
               <h3>Find your perfect package</h3>
               <p>Filter by destination, travel style, duration, and budget.</p>
             </div>
-            <label class="package-search">
+            <label class="package-search" for="packageSearchInput">
               <span>Search</span>
-              <input type="search" placeholder="Search destinations, packages, or experiences...">
+              <div class="package-search-field">
+                <input id="packageSearchInput" type="search" placeholder="Search destinations, packages, or experiences..." autocomplete="off">
+                <button class="package-search-clear" type="button" aria-label="Clear search" hidden>&times;</button>
+              </div>
             </label>
           </div>
+
           <button class="filter-toggle" type="button" aria-expanded="false" aria-controls="packageFilterControls">Show Filters</button>
           <div class="filter-controls" id="packageFilterControls">
-          <div class="filter-row">
-            <button class="filter-select" type="button"><span class="filter-icon"><svg viewBox="0 0 24 24"><path d="M12 21s7-5.2 7-12a7 7 0 0 0-14 0c0 6.8 7 12 7 12Z"/><circle cx="12" cy="9" r="2.4"/></svg></span>Destination<span class="filter-chevron">⌄</span></button>
-            <button class="filter-select" type="button"><span class="filter-icon"><svg viewBox="0 0 24 24"><path d="M9 7V5a3 3 0 0 1 6 0v2"/><rect x="4" y="7" width="16" height="13" rx="2"/><path d="M4 12h16"/></svg></span>Trip Type<span class="filter-chevron">⌄</span></button>
-            <button class="filter-select" type="button"><span class="filter-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 7v5l3 2"/></svg></span>Duration<span class="filter-chevron">⌄</span></button>
-            <button class="filter-select" type="button"><span class="filter-icon"><svg viewBox="0 0 24 24"><path d="M4 7h15a2 2 0 0 1 2 2v9H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h13"/><path d="M17 12h4v4h-4a2 2 0 0 1 0-4Z"/></svg></span>Budget<span class="filter-chevron">⌄</span></button>
-            <button class="filter-select" type="button"><span class="filter-icon"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 10h16"/></svg></span>Travel Month<span class="filter-chevron">⌄</span></button>
-            <button class="clear-filters" type="button"><span class="filter-icon"><svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7"/><path d="M20 4v6h-6"/></svg></span>Clear Filters</button>
-          </div>
-          <div class="quick-filter-row">
-            <div class="filter-chips" aria-label="Travel style quick filters">
-              <button class="filter-chip active" type="button"><span>▦</span>All Holidays</button>
-              <button class="filter-chip" type="button"><span>♙</span>Family</button>
-              <button class="filter-chip" type="button"><span>♡</span>Honeymoon</button>
-              <button class="filter-chip" type="button"><span>☂</span>Beach</button>
-              <button class="filter-chip" type="button"><span>▥</span>City Break</button>
-              <button class="filter-chip" type="button"><span>♧</span>Safari</button>
+            <div class="filter-row">
+              <div class="filter-dropdown" data-filter-dropdown="destination">
+                <button class="filter-select" type="button" aria-haspopup="listbox" aria-expanded="false"><span class="filter-icon"><svg viewBox="0 0 24 24"><path d="M12 21s7-5.2 7-12a7 7 0 0 0-14 0c0 6.8 7 12 7 12Z"/><circle cx="12" cy="9" r="2.4"/></svg></span><span class="filter-select-label">Destination</span><span class="filter-chevron">v</span></button>
+                <div class="filter-menu" role="listbox" aria-label="Destination filter"></div>
+              </div>
+              <div class="filter-dropdown" data-filter-dropdown="tripType">
+                <button class="filter-select" type="button" aria-haspopup="listbox" aria-expanded="false"><span class="filter-icon"><svg viewBox="0 0 24 24"><path d="M9 7V5a3 3 0 0 1 6 0v2"/><rect x="4" y="7" width="16" height="13" rx="2"/><path d="M4 12h16"/></svg></span><span class="filter-select-label">Trip Type</span><span class="filter-chevron">v</span></button>
+                <div class="filter-menu" role="listbox" aria-label="Trip type filter"></div>
+              </div>
+              <div class="filter-dropdown" data-filter-dropdown="duration">
+                <button class="filter-select" type="button" aria-haspopup="listbox" aria-expanded="false"><span class="filter-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 7v5l3 2"/></svg></span><span class="filter-select-label">Duration</span><span class="filter-chevron">v</span></button>
+                <div class="filter-menu" role="listbox" aria-label="Duration filter"></div>
+              </div>
+              <div class="filter-dropdown" data-filter-dropdown="budget">
+                <button class="filter-select" type="button" aria-haspopup="listbox" aria-expanded="false"><span class="filter-icon"><svg viewBox="0 0 24 24"><path d="M4 7h15a2 2 0 0 1 2 2v9H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h13"/><path d="M17 12h4v4h-4a2 2 0 0 1 0-4Z"/></svg></span><span class="filter-select-label">Budget</span><span class="filter-chevron">v</span></button>
+                <div class="filter-menu" role="listbox" aria-label="Budget filter"></div>
+              </div>
+              <div class="filter-dropdown" data-filter-dropdown="month">
+                <button class="filter-select" type="button" aria-haspopup="listbox" aria-expanded="false"><span class="filter-icon"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 10h16"/></svg></span><span class="filter-select-label">Travel Month</span><span class="filter-chevron">v</span></button>
+                <div class="filter-menu" role="listbox" aria-label="Travel month filter"></div>
+              </div>
+              <button class="clear-filters" type="button"><span class="filter-icon"><svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7"/><path d="M20 4v6h-6"/></svg></span>Clear Filters</button>
             </div>
-            <div class="sort-control">
-              <span>Sort by</span>
-              <button class="sort-select" type="button">Recommended <span>⌄</span></button>
+
+            <div class="quick-filter-row">
+              <div class="filter-chips" aria-label="Travel style quick filters">
+                <button class="filter-chip active" type="button" data-category-filter="All"><span>*</span>All Holidays</button>
+                <button class="filter-chip" type="button" data-category-filter="Family"><span>F</span>Family</button>
+                <button class="filter-chip" type="button" data-category-filter="Honeymoon"><span>H</span>Honeymoon</button>
+                <button class="filter-chip" type="button" data-category-filter="Beach"><span>B</span>Beach</button>
+                <button class="filter-chip" type="button" data-category-filter="City Break"><span>C</span>City Break</button>
+                <button class="filter-chip" type="button" data-category-filter="Safari"><span>S</span>Safari</button>
+              </div>
             </div>
-          </div>
           </div>
         </div>
+
         <div class="package-results-row">
-          <span>Showing 6 curated packages</span>
-          <div class="sort-control results-sort-control">
-            <span>Sort by</span>
-            <button class="sort-select" type="button">Recommended <span>v</span></button>
-          </div>
+          <span>Showing curated packages</span>
         </div>
         <div class="country-filter-bar" id="countryFilterBar" aria-label="Filter packages by country"></div>
         <div class="package-grid" id="packageGrid"></div>
@@ -97,7 +112,7 @@
     <div class="footer-container container footer-grid">
       <div class="footer-brand footer-column">
         <img class="footer-logo" src="/public/flyo-logo-white.svg" alt="Flyo Tours & Travels">
-        <p class="footer-description">Flyo plans curated holidays across the world, from international packages to family trips, honeymoons, visa support, and custom itineraries.</p>
+        <p class="footer-description">Curated holidays, flights, visa support, and custom travel plans across the world.</p>
         <h3 class="footer-follow-heading">Follow Us On:</h3>
         <div class="footer-social socials"><a class="footer-social-link" aria-label="Facebook" href="#">f</a><a class="footer-social-link" aria-label="Instagram" href="#">ig</a><a class="footer-social-link" aria-label="WhatsApp" data-whatsapp href="#">wa</a><a class="footer-social-link" aria-label="YouTube" href="#">yt</a><a class="footer-social-link" aria-label="LinkedIn" href="#">in</a></div>
       </div>
@@ -109,34 +124,10 @@
         <h3 class="footer-heading">Services</h3>
         <ul class="footer-links"><li>Flight Booking Assistance</li><li>Holiday Packages</li><li>Visa Assistance</li><li>Custom Holidays</li><li>Honeymoon Packages</li><li>Family Holidays</li><li>Group Tours</li></ul>
       </div>
-      <div class="footer-column footer-reachout footer-contact">
-        <h3 class="footer-heading">Reach Out To Us</h3>
-        <div class="footer-office-grid">
-          <article class="footer-office-card">
-            <div class="footer-office-head">
-              <h4>UAE Office</h4>
-              <span>Cooperative Office</span>
-            </div>
-            <ul>
-              <li><a href="tel:043964626"><span class="footer-office-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.6 3.2 3.4 5 6.6 6.6l2.2-2.2c.3-.3.7-.4 1.1-.3 1.2.4 2.4.6 3.7.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.7 21 3 13.3 3 3.8c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.7.1.4 0 .8-.3 1.1l-2.2 2.2Z"></path></svg></span><span><small>Phone</small><strong>04 396 4626</strong></span></a></li>
-              <li><a href="mailto:info.dubai@flyotour.com"><span class="footer-office-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m4 7 8 6 8-6"></path></svg></span><span><small>Email</small><strong>info.dubai@flyotour.com</strong></span></a></li>
-              <li><span><span class="footer-office-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s7-5.2 7-12a7 7 0 0 0-14 0c0 6.8 7 12 7 12Z"></path><circle cx="12" cy="9" r="2.3"></circle></svg></span><span><small>Location</small><strong>Deira, Dubai</strong></span></span></li>
-            </ul>
-          </article>
-          <article class="footer-office-card">
-            <div class="footer-office-head">
-              <h4>India Office</h4>
-            </div>
-            <ul>
-              <li><a href="tel:+916361254400"><span class="footer-office-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.6 3.2 3.4 5 6.6 6.6l2.2-2.2c.3-.3.7-.4 1.1-.3 1.2.4 2.4.6 3.7.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.7 21 3 13.3 3 3.8c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.7.1.4 0 .8-.3 1.1l-2.2 2.2Z"></path></svg></span><span><small>Phone</small><strong>+91 6361 25 4400</strong></span></a></li>
-              <li><a href="mailto:info.india@flyotour.com"><span class="footer-office-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m4 7 8 6 8-6"></path></svg></span><span><small>Email</small><strong>info.india@flyotour.com</strong></span></a></li>
-              <li><span><span class="footer-office-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s7-5.2 7-12a7 7 0 0 0-14 0c0 6.8 7 12 7 12Z"></path><circle cx="12" cy="9" r="2.3"></circle></svg></span><span><small>Location</small><strong>Karnataka, India</strong></span></span></li>
-            </ul>
-          </article>
-        </div>
-      </div>    </div>
+      <div class="footer-column footer-reachout footer-contact"></div>
+    </div>
     <div class="container footer-bottom">
-      <span>Copyright 2026 Flyo Tours &amp; Travels. All rights reserved.</span>
+      <span>&copy; 2026 Flyo Tours &amp; Travels. All rights reserved.</span>
       <span><a href="#">Privacy Policy</a> &nbsp; | &nbsp; <a href="#">Terms &amp; Conditions</a></span>
     </div>
   </footer>

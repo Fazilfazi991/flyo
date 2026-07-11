@@ -181,7 +181,24 @@ const cruisePackages = [
   whatsappMessage: `Hi, I'm interested in ${item.title}. Please share more details.`
 }));
 
-export const packages = [
+const packageRecommendedMonths = {
+  "kuala-lumpur-getaway": ["January", "February", "March", "June", "July", "August", "November", "December"],
+  "thai-wonders": ["January", "February", "March", "November", "December"],
+  "sri-lanka-highlights": ["January", "February", "March", "April", "July", "August", "December"],
+  "singapore-family-escape": ["January", "February", "March", "June", "July", "August", "December"],
+  "beaches-of-thailand": ["January", "February", "March", "November", "December"],
+  "kenya-inspiring-safari": ["January", "February", "June", "July", "August", "September", "October"],
+  "golden-triangle-special": ["January", "February", "March", "October", "November", "December"],
+  "royal-rajasthan-heritage-tour": ["January", "February", "March", "October", "November", "December"],
+  "kerala-economy-tour": ["January", "February", "March", "September", "October", "November", "December"],
+  "dubai-desert-safari": ["January", "February", "March", "April", "October", "November", "December"],
+  "aroya-dubai-arabian-escape": ["January", "February", "March", "April", "November", "December"],
+  "aroya-dubai-arabian-signature-voyage": ["January", "February", "March", "April", "November", "December"],
+  "aroya-dubai-short-escape": ["January", "February", "March", "April", "November", "December"],
+  "aroya-arabian-gulf-signature-voyage": ["January", "February", "March", "April", "November", "December"]
+};
+
+const holidayPackages = [
   {
     slug: "kuala-lumpur-getaway",
     title: "Kuala Lumpur Getaway",
@@ -1146,7 +1163,12 @@ export const packages = [
       { question: "Can I book a private safari?", answer: "Yes. Private transfers and private safari experiences can be arranged on request." }
     ]
   }
-].concat(cruisePackages);
+];
+
+export const packages = holidayPackages.concat(cruisePackages).map(item => ({
+  ...item,
+  recommendedMonths: item.recommendedMonths || packageRecommendedMonths[item.slug] || []
+}));
 
 export const navLinks = ["Home", "Flights", "Holidays", "Experiences", "Visa Services", "Contact"];
 

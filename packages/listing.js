@@ -1,4 +1,4 @@
-import { contact, packages } from "../data/packages.js";
+import { packages } from "../data/packages.js";
 import { formatPackageAmount, onCurrencyChange, parseAedPrice } from "../currency.js";
 import { whatsappMessages } from "../whatsapp-chooser.js";
 import "../navbar.js";
@@ -7,15 +7,42 @@ const packageList = packages;
 const resultCount = document.querySelector(".package-results-row > span");
 const packageGrid = document.querySelector("#packageGrid");
 const countryFilterBar = document.querySelector("#countryFilterBar");
+const searchInput = document.querySelector("#packageSearchInput");
+const searchClear = document.querySelector(".package-search-clear");
+const clearFiltersButton = document.querySelector(".clear-filters");
+const categoryButtons = [...document.querySelectorAll("[data-category-filter]")];
+const dropdowns = [...document.querySelectorAll("[data-filter-dropdown]")];
 const preferredCountries = ["Thailand", "Malaysia", "Singapore", "Sri Lanka", "Kenya", "UAE", "India"];
-let activeCountry = "All";
 
-const countryFor = item => item.destinationCountry || item.country || "Other";
-const packageCountries = [...new Set(packageList.map(countryFor).filter(Boolean))];
-const countryOptions = [
-  "All",
-  ...preferredCountries,
-  ...packageCountries.filter(country => !preferredCountries.includes(country)).sort()
+const monthNames = [
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+];
+
+const state = {
+  search: "",
+  destination: "All",
+  tripType: "All",
+  duration: "All",
+  budget: "All",
+  month: "All",
+  category: "All"
+};
+
+const durationOptions = [
+  { value: "All", label: "Duration", matches: () => true },
+  { value: "1-3", label: "1-3 Days", matches: days => days >= 1 && days <= 3 },
+  { value: "4-6", label: "4-6 Days", matches: days => days >= 4 && days <= 6 },
+  { value: "7-9", label: "7-9 Days", matches: days => days >= 7 && days <= 9 },
+  { value: "10+", label: "10+ Days", matches: days => days >= 10 }
+];
+
+const budgetOptions = [
+  { value: "All", label: "Budget", min: 0, max: Infinity },
+  { value: "budget", label: "Budget", min: 0, max: 999 },
+  { value: "standard", label: "Standard", min: 1000, max: 2499 },
+  { value: "premium", label: "Premium", min: 2500, max: 4999 },
+  { value: "luxury", label: "Luxury", min: 5000, max: Infinity }
 ];
 
 const cardDetails = {
@@ -25,7 +52,8 @@ const cardDetails = {
     tag: "City Break",
     priceAed: 899,
     image: "/packages/Kuala_Lumpur_WebP_Images/KL_Day.webp",
-    highlights: ["KL Tower", "Genting Highlands", "Batu Caves", "City Break"]
+    highlights: ["KL Tower", "Genting Highlands", "Batu Caves", "City Break"],
+    recommendedMonths: ["January", "February", "March", "June", "July", "August", "November", "December"]
   },
   "thai-wonders": {
     location: "Bangkok & Pattaya, Thailand",
@@ -33,7 +61,8 @@ const cardDetails = {
     tag: "Beach",
     priceAed: 999,
     image: "/packages/Thai_Wonder_WebP_Images/Thai_Wonder_Night.webp",
-    highlights: ["Coral Island", "Tiger Park", "Alcazar Show", "Bangkok Tour"]
+    highlights: ["Coral Island", "Tiger Park", "Alcazar Show", "Bangkok Tour"],
+    recommendedMonths: ["January", "February", "March", "November", "December"]
   },
   "sri-lanka-highlights": {
     location: "Kandy, Nuwara Eliya, Colombo",
@@ -41,28 +70,32 @@ const cardDetails = {
     tag: "Cultural",
     priceAed: 1899,
     highlights: ["Pinnawala", "Kandy Temple", "Colombo Tour", "Nature"],
-    image: "/packages/Sri_Lanka_Highlights_WebP/SriLanka_Sigiriya.webp"
+    image: "/packages/Sri_Lanka_Highlights_WebP/SriLanka_Sigiriya.webp",
+    recommendedMonths: ["January", "February", "March", "April", "July", "August", "December"]
   },
   "singapore-family-escape": {
     location: "Singapore",
     duration: "4 Nights / 5 Days",
     tag: "Family",
     priceAed: 2999,
-    highlights: ["Universal Studios", "Sentosa", "Gardens by the Bay", "Family Trip"]
+    highlights: ["Universal Studios", "Sentosa", "Gardens by the Bay", "Family Trip"],
+    recommendedMonths: ["January", "February", "March", "June", "July", "August", "December"]
   },
   "beaches-of-thailand": {
     location: "Krabi, Phi Phi, Phuket",
     duration: "6 Nights / 7 Days",
     tag: "Beach",
     priceAed: 1875,
-    highlights: ["Island Hopping", "James Bond Island", "Phuket City Tour", "Beach"]
+    highlights: ["Island Hopping", "James Bond Island", "Phuket City Tour", "Beach"],
+    recommendedMonths: ["January", "February", "March", "November", "December"]
   },
   "kenya-inspiring-safari": {
     location: "Lake Nakuru, Masai Mara",
     duration: "3 Nights / 4 Days",
     tag: "Safari",
     priceAed: 9385,
-    highlights: ["Private Safari", "Game Drives", "Full Board", "Wildlife"]
+    highlights: ["Private Safari", "Game Drives", "Full Board", "Wildlife"],
+    recommendedMonths: ["January", "February", "June", "July", "August", "September", "October"]
   },
   "royal-rajasthan-heritage-tour": {
     location: "Jaipur, Bikaner, Jaisalmer & Jodhpur",
@@ -70,7 +103,8 @@ const cardDetails = {
     tag: "Heritage",
     priceAed: 1845,
     image: "/packages/rajasthan_package_images_webp/rajasthan-jaipur-amber-fort.webp",
-    highlights: ["Amber Fort", "Desert Camp", "Mehrangarh Fort", "Blue City"]
+    highlights: ["Amber Fort", "Desert Camp", "Mehrangarh Fort", "Blue City"],
+    recommendedMonths: ["January", "February", "March", "October", "November", "December"]
   },
   "kerala-economy-tour": {
     location: "Cochin, Munnar, Thekkady & Alleppey",
@@ -78,9 +112,119 @@ const cardDetails = {
     tag: "Nature",
     priceAed: 1199,
     image: "/packages/kerala_package_images_webp/kerala-alleppey-houseboat-backwaters.webp",
-    highlights: ["Munnar Tea", "Periyar Lake", "Spice Plantation", "Houseboat"]
+    highlights: ["Munnar Tea", "Periyar Lake", "Spice Plantation", "Houseboat"],
+    recommendedMonths: ["January", "February", "March", "September", "October", "November", "December"]
+  },
+  "dubai-desert-safari": {
+    location: "Dubai, UAE",
+    duration: "1 Day",
+    tag: "Safari",
+    priceAed: 149,
+    highlights: ["Dune Bashing", "BBQ Dinner", "Live Shows", "Adventure"],
+    recommendedMonths: ["January", "February", "March", "April", "October", "November", "December"]
   }
 };
+
+const countryFor = item => item.destinationCountry || item.country || "Other";
+
+const getDetails = item => cardDetails[item.slug] || {
+  location: item.route || item.destinationState || item.country,
+  duration: item.duration,
+  tag: item.category || item.tags?.[0] || "Holiday",
+  priceAed: parseAedPrice(item.startingPrice || item.price),
+  highlights: item.highlights?.slice(0, 4) || [],
+  recommendedMonths: monthsForPackage(item)
+};
+
+function monthsForPackage(item) {
+  if (item.recommendedMonths?.length) return item.recommendedMonths;
+  if (/cruise|aroya/i.test(`${item.category} ${item.tags?.join(" ") || ""}`)) return ["January", "February", "March", "April", "November", "December"];
+  if (/uae|dubai|desert/i.test(`${item.country} ${item.route} ${item.title}`)) return ["January", "February", "March", "April", "October", "November", "December"];
+  if (/thailand|beach/i.test(`${item.country} ${item.route} ${item.category}`)) return ["January", "February", "March", "November", "December"];
+  if (/kenya|safari/i.test(`${item.country} ${item.route} ${item.category}`)) return ["January", "February", "June", "July", "August", "September", "October"];
+  return monthNames;
+}
+
+const normalise = value => String(value || "").toLowerCase().trim();
+
+const parseDurationDays = value => {
+  const text = String(value || "");
+  const dayMatch = text.match(/(\d+)\s*days?/i);
+  if (dayMatch) return Number(dayMatch[1]);
+  const nightMatch = text.match(/(\d+)\s*nights?/i);
+  if (nightMatch) return Number(nightMatch[1]) + 1;
+  if (/evening|half day|experience/i.test(text)) return 1;
+  const firstNumber = text.match(/\d+/);
+  return firstNumber ? Number(firstNumber[0]) : 1;
+};
+
+const itemKeywords = item => {
+  const details = getDetails(item);
+  return [
+    item.title,
+    item.country,
+    item.destinationCountry,
+    item.destinationState,
+    item.route,
+    item.category,
+    ...(item.tags || []),
+    ...(item.highlights || []),
+    ...(item.imageHighlights || []),
+    ...(details.highlights || []),
+    details.location,
+    details.tag,
+    item.summary,
+    item.overview,
+    ...(item.itinerary || []).flatMap(day => [day.title, day.text])
+  ].filter(Boolean).join(" ").toLowerCase();
+};
+
+const packageMeta = packageList.map(item => {
+  const details = getDetails(item);
+  const priceAed = details.priceAed || parseAedPrice(item.startingPrice || item.price);
+  return {
+    item,
+    details,
+    country: countryFor(item),
+    days: parseDurationDays(details.duration || item.duration),
+    priceAed,
+    months: details.recommendedMonths || monthsForPackage(item),
+    keywords: itemKeywords(item)
+  };
+});
+
+const allCountries = [...new Set(packageMeta.map(meta => meta.country).filter(Boolean))];
+const countryOptions = [
+  "All",
+  ...preferredCountries.filter(country => allCountries.includes(country)),
+  ...allCountries.filter(country => !preferredCountries.includes(country)).sort()
+];
+
+const tripTypeOptions = [
+  "All",
+  ...new Set(packageMeta.flatMap(({ item, details }) => [
+    details.tag,
+    item.category,
+    ...(item.tags || [])
+  ]).filter(Boolean))
+].sort((a, b) => a === "All" ? -1 : b === "All" ? 1 : a.localeCompare(b));
+
+const dropdownOptions = {
+  destination: countryOptions.map(value => ({ value, label: value === "All" ? "Destination" : value })),
+  tripType: tripTypeOptions.map(value => ({ value, label: value === "All" ? "Trip Type" : value })),
+  duration: durationOptions.map(({ value, label }) => ({ value, label })),
+  budget: budgetOptions.map(option => ({ value: option.value, label: budgetLabel(option) })),
+  month: ["All", ...monthNames].map(value => ({ value, label: value === "All" ? "Travel Month" : value }))
+};
+
+function budgetLabel(option) {
+  if (option.value === "All") return option.label;
+  const min = option.min ? formatPackageAmount(option.min) : "Up to";
+  const max = Number.isFinite(option.max) ? formatPackageAmount(option.max) : "+";
+  if (!option.min) return `${option.label} (${min} ${max})`;
+  if (!Number.isFinite(option.max)) return `${option.label} (${min}+)`;
+  return `${option.label} (${min} - ${max})`;
+}
 
 const icon = type => {
   const icons = {
@@ -95,20 +239,10 @@ const icon = type => {
 
 const revealDelay = index => `reveal-delay-${(index % 6) + 1}`;
 
-const packageCard = (item, index) => {
-  const details = cardDetails[item.slug] || {
-    location: item.route || item.country,
-    duration: item.duration,
-    tag: item.category || item.tags[0] || "Holiday",
-    priceAed: parseAedPrice(item.startingPrice || item.price),
-    highlights: item.highlights.slice(0, 3)
-  };
-  const priceAed = details.priceAed || parseAedPrice(details.price || item.startingPrice || item.price);
-
-  return `
-  <article class="package-card reveal ${revealDelay(index)}">
-    <a class="package-card-image reveal-image" href="/packages/${item.slug}/" aria-label="View ${item.title}">
-      <img src="${details.image || item.cardImage}" alt="${item.title}">
+const packageCard = ({ item, details, priceAed }, index) => `
+  <article class="package-card reveal is-visible ${revealDelay(index)}">
+    <a class="package-card-image reveal-image is-visible" href="/packages/${item.slug}/" aria-label="View ${item.title}">
+      <img src="${details.image || item.cardImage}" alt="${item.title}" loading="${index < 3 ? "eager" : "lazy"}">
       <span class="package-badge">${icon("star")}Best Seller</span>
     </a>
     <div class="package-card-body">
@@ -118,7 +252,7 @@ const packageCard = (item, index) => {
         <span>${icon("duration")}<b>Duration:</b> ${details.duration}</span>
       </div>
       <div class="package-highlight-row">
-        ${details.highlights.slice(0, 3).map(highlight => `<span>${highlight}</span>`).join("")}
+        ${(details.highlights || item.highlights || []).slice(0, 3).map(highlight => `<span>${highlight}</span>`).join("")}
       </div>
       <div class="package-card-footer">
         <div class="package-price">
@@ -133,7 +267,58 @@ const packageCard = (item, index) => {
       </div>
     </div>
   </article>
-`;};
+`;
+
+const selectedLabel = key => {
+  const selected = state[key];
+  return dropdownOptions[key]?.find(option => option.value === selected)?.label || selected;
+};
+
+const closeDropdowns = except => {
+  dropdowns.forEach(dropdown => {
+    if (dropdown === except) return;
+    dropdown.classList.remove("is-open");
+    dropdown.querySelector(".filter-select")?.setAttribute("aria-expanded", "false");
+  });
+};
+
+const renderDropdowns = () => {
+  dropdownOptions.budget = budgetOptions.map(option => ({ value: option.value, label: budgetLabel(option) }));
+  dropdowns.forEach(dropdown => {
+    const key = dropdown.dataset.filterDropdown;
+    const menu = dropdown.querySelector(".filter-menu");
+    const label = dropdown.querySelector(".filter-select-label");
+    if (!menu || !label) return;
+    label.textContent = selectedLabel(key);
+    menu.innerHTML = dropdownOptions[key].map(option => `
+      <button class="filter-option${state[key] === option.value ? " is-selected" : ""}" type="button" role="option" aria-selected="${state[key] === option.value}" data-filter-value="${option.value}">
+        ${option.label}
+      </button>
+    `).join("");
+  });
+};
+
+const matchesCategory = meta => {
+  if (state.category === "All") return true;
+  return meta.keywords.includes(normalise(state.category));
+};
+
+const matchesFilters = meta => {
+  const budget = budgetOptions.find(option => option.value === state.budget) || budgetOptions[0];
+  const duration = durationOptions.find(option => option.value === state.duration) || durationOptions[0];
+  const searchTerms = normalise(state.search).split(/\s+/).filter(Boolean);
+  return (
+    (state.destination === "All" || meta.country === state.destination) &&
+    (state.tripType === "All" || meta.keywords.includes(normalise(state.tripType))) &&
+    duration.matches(meta.days) &&
+    (state.budget === "All" || (meta.priceAed >= budget.min && meta.priceAed <= budget.max)) &&
+    (state.month === "All" || meta.months.includes(state.month)) &&
+    matchesCategory(meta) &&
+    searchTerms.every(term => meta.keywords.includes(term))
+  );
+};
+
+const filteredPackageMeta = () => packageMeta.filter(matchesFilters);
 
 const updatePackageCardPrices = () => {
   document.querySelectorAll("[data-price-aed]").forEach(element => {
@@ -141,48 +326,124 @@ const updatePackageCardPrices = () => {
   });
 };
 
-const renderPackageCards = () => {
-  if (!packageGrid) return;
-  const filteredPackages = activeCountry === "All"
-    ? packageList
-    : packageList.filter(item => countryFor(item) === activeCountry);
-
-  if (resultCount) {
-    const packageWord = filteredPackages.length === 1 ? "package" : "packages";
-    resultCount.textContent = `Showing ${filteredPackages.length} curated ${packageWord}`;
-  }
-
-  packageGrid.innerHTML = filteredPackages.length
-    ? filteredPackages.map(packageCard).join("")
-    : `
-      <div class="package-empty-state">
-        <h3>No packages found</h3>
-        <p>Try another destination country or choose All to view every Flyo package.</p>
-      </div>
-    `;
-
-  updatePackageCardPrices();
+const renderCategoryButtons = () => {
+  categoryButtons.forEach(button => {
+    const active = button.dataset.categoryFilter === state.category;
+    button.classList.toggle("active", active);
+    button.setAttribute("aria-pressed", String(active));
+  });
 };
 
 const renderCountryFilters = () => {
   if (!countryFilterBar) return;
   countryFilterBar.innerHTML = countryOptions.map(country => `
-    <button class="country-filter-chip${country === activeCountry ? " active" : ""}" type="button" data-country-filter="${country}">
+    <button class="country-filter-chip${country === state.destination ? " active" : ""}" type="button" data-country-filter="${country}">
       ${country}
     </button>
   `).join("");
-  countryFilterBar.querySelectorAll("[data-country-filter]").forEach(button => {
-    button.addEventListener("click", () => {
-      activeCountry = button.dataset.countryFilter;
-      renderCountryFilters();
-      renderPackageCards();
-    });
-  });
 };
 
-renderCountryFilters();
-renderPackageCards();
-onCurrencyChange(updatePackageCardPrices);
+const renderPackageCards = () => {
+  if (!packageGrid) return;
+  const filtered = filteredPackageMeta();
+  if (resultCount) {
+    const packageWord = filtered.length === 1 ? "package" : "packages";
+    resultCount.textContent = `Showing ${filtered.length} curated ${packageWord}`;
+  }
+
+  packageGrid.innerHTML = filtered.length
+    ? filtered.map(packageCard).join("")
+    : `
+      <div class="package-empty-state">
+        <h3>No packages found</h3>
+        <p>Try changing your destination, dates, or budget.</p>
+        <button class="button button-primary" type="button" data-clear-filters-empty>Clear Filters</button>
+      </div>
+    `;
+  updatePackageCardPrices();
+};
+
+const renderAll = () => {
+  renderDropdowns();
+  renderCategoryButtons();
+  renderCountryFilters();
+  renderPackageCards();
+  if (searchClear) searchClear.hidden = !state.search;
+};
+
+const clearFilters = () => {
+  state.search = "";
+  state.destination = "All";
+  state.tripType = "All";
+  state.duration = "All";
+  state.budget = "All";
+  state.month = "All";
+  state.category = "All";
+  if (searchInput) searchInput.value = "";
+  closeDropdowns();
+  renderAll();
+};
+
+searchInput?.addEventListener("input", event => {
+  state.search = event.target.value;
+  renderAll();
+});
+
+searchClear?.addEventListener("click", () => {
+  state.search = "";
+  searchInput.value = "";
+  searchInput.focus();
+  renderAll();
+});
+
+clearFiltersButton?.addEventListener("click", clearFilters);
+
+categoryButtons.forEach(button => {
+  button.addEventListener("click", () => {
+    state.category = button.dataset.categoryFilter || "All";
+    renderAll();
+  });
+});
+
+dropdowns.forEach(dropdown => {
+  const key = dropdown.dataset.filterDropdown;
+  const trigger = dropdown.querySelector(".filter-select");
+  trigger?.addEventListener("click", event => {
+    event.stopPropagation();
+    const open = !dropdown.classList.contains("is-open");
+    closeDropdowns(dropdown);
+    dropdown.classList.toggle("is-open", open);
+    trigger.setAttribute("aria-expanded", String(open));
+  });
+
+  dropdown.addEventListener("click", event => {
+    const option = event.target.closest("[data-filter-value]");
+    if (!option) return;
+    state[key] = option.dataset.filterValue;
+    closeDropdowns();
+    renderAll();
+    trigger?.focus({ preventScroll: true });
+  });
+
+  dropdown.addEventListener("keydown", event => {
+    if (event.key === "Escape") {
+      closeDropdowns();
+      trigger?.focus({ preventScroll: true });
+    }
+  });
+});
+
+document.addEventListener("click", event => {
+  if (!event.target.closest(".filter-dropdown")) closeDropdowns();
+  if (event.target.closest("[data-clear-filters-empty]")) clearFilters();
+});
+
+countryFilterBar?.addEventListener("click", event => {
+  const button = event.target.closest("[data-country-filter]");
+  if (!button) return;
+  state.destination = button.dataset.countryFilter;
+  renderAll();
+});
 
 document.querySelectorAll("[data-whatsapp]").forEach(link => {
   link.setAttribute("href", "#");
@@ -194,39 +455,11 @@ document.querySelectorAll("form").forEach(form => form.addEventListener("submit"
   window.openWhatsAppChooser?.(whatsappMessages.general);
 }));
 
-function initScrollReveal() {
-  const revealSelectors = [
-    ".section-heading",
-    ".package-filter-panel",
-    ".package-results-row",
-    ".packages-custom-cta",
-    ".cta-visual",
-    ".footer-grid"
-  ];
-  revealSelectors.forEach(selector => {
-    document.querySelectorAll(selector).forEach((element, index) => {
-      element.classList.add("reveal");
-      if (!element.className.match(/reveal-delay-/)) element.classList.add(revealDelay(index));
-    });
-  });
-  const revealElements = document.querySelectorAll(".reveal, .reveal-image");
-  if (!revealElements.length) return;
-  if (!("IntersectionObserver" in window) || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    revealElements.forEach(element => element.classList.add("is-visible"));
-    return;
-  }
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("is-visible");
-        revealObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
-  revealElements.forEach(element => revealObserver.observe(element));
-}
-
-initScrollReveal();
+const applyInitialQuery = () => {
+  const params = new URLSearchParams(window.location.search);
+  const country = params.get("country");
+  if (country && countryOptions.includes(country)) state.destination = country;
+};
 
 const filterToggle = document.querySelector(".filter-toggle");
 const filterControls = document.querySelector(".filter-controls");
@@ -237,3 +470,10 @@ if (filterToggle && filterControls) {
     filterToggle.textContent = open ? "Hide Filters" : "Show Filters";
   });
 }
+
+applyInitialQuery();
+renderAll();
+onCurrencyChange(() => {
+  renderDropdowns();
+  updatePackageCardPrices();
+});

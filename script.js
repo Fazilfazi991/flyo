@@ -15,7 +15,7 @@ const heroSlideData = [
     primaryText: "Explore Packages",
     primaryLink: "/packages/",
     secondaryText: "Enquire on WhatsApp",
-    enquiryMessage: "Hello Flyo Tours, I would like to know more about your travel services. Please assist me."
+    enquiryMessage: "Hello Flyo, I would like to know more about your travel packages."
   },
   {
     image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=2000&q=90",
