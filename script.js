@@ -1,4 +1,5 @@
-import { contact, packages } from "./data/packages.js";
+import { contact } from "./data/packages.js";
+import { getPublicPackages } from "./data/package-store.js";
 import { formatPackageAmount, onCurrencyChange } from "./currency.js";
 import { openWhatsAppChooser, whatsappMessages } from "./whatsapp-chooser.js";
 import "./navbar.js";
@@ -236,6 +237,7 @@ let activeSearchType = "holidays";
 const searchForm = document.querySelector("[data-search-form]");
 const searchTabs = document.querySelectorAll("[data-search-tab]");
 const searchPanels = document.querySelectorAll("[data-search-panel]");
+const packages = getPublicPackages();
 const quickSearchState = {
   holidays: {
     destination: "",

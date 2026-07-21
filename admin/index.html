@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Flyo Admin Dashboard</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/admin/admin.css">
+</head>
+<body>
+  <main class="admin-shell" data-auth-shell hidden>
+    <aside class="admin-sidebar">
+      <a class="admin-brand" href="/admin/">
+        <img src="/public/flyo-logo-white.svg" alt="Flyo Tours & Travels">
+        <span>Admin</span>
+      </a>
+      <button class="admin-mobile-toggle" type="button" data-sidebar-toggle>Menu</button>
+      <nav class="admin-nav" aria-label="Admin sections">
+        <button class="active" type="button" data-admin-section="dashboard">Dashboard</button>
+        <button type="button" data-admin-section="packages">Packages</button>
+        <button type="button" data-admin-section="countries">Countries</button>
+        <button type="button" data-admin-section="experiences">Experiences</button>
+        <button type="button" data-admin-section="enquiries">Enquiries</button>
+        <button type="button" data-admin-section="media">Media Library</button>
+        <button type="button" data-admin-section="settings">Website Settings</button>
+        <button type="button" data-admin-section="users">Admin Users</button>
+        <button type="button" data-logout>Logout</button>
+      </nav>
+    </aside>
+
+    <section class="admin-main">
+      <header class="admin-topbar">
+        <div>
+          <p class="admin-eyebrow">Flyo CMS</p>
+          <h1 id="adminPageTitle">Dashboard</h1>
+        </div>
+        <div class="admin-top-actions">
+          <a class="admin-link-button" href="/packages/" target="_blank" rel="noreferrer">View Website</a>
+          <button class="admin-primary" type="button" data-add-package>+ Add New Package</button>
+        </div>
+      </header>
+
+      <div class="admin-alert" data-store-notice>
+        <strong>Static-site mode:</strong> this dashboard imports the current live package data and saves admin edits in this browser. A backend such as Supabase is needed for multi-user secure publishing and real uploads.
+      </div>
+
+      <section class="admin-section active" data-section-panel="dashboard">
+        <div class="summary-grid" id="summaryGrid"></div>
+        <div class="dashboard-grid">
+          <article class="admin-card">
+            <div class="card-head">
+              <h2>Recently Edited Packages</h2>
+              <button type="button" data-admin-section-shortcut="packages">Manage</button>
+            </div>
+            <div class="mini-list" id="recentEditedList"></div>
+          </article>
+          <article class="admin-card">
+            <div class="card-head">
+              <h2>Recently Added Packages</h2>
+              <button type="button" data-add-package>Quick Add</button>
+            </div>
+            <div class="mini-list" id="recentAddedList"></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="admin-section" data-section-panel="packages">
+        <div class="admin-card">
+          <div class="package-toolbar">
+            <label><span>Search</span><input id="adminPackageSearch" type="search" placeholder="Search packages, countries, destinations..."></label>
+            <label><span>Country</span><select id="adminCountryFilter"></select></label>
+            <label><span>Status</span><select id="adminStatusFilter"><option value="All">All Statuses</option><option value="published">Published</option><option value="draft">Draft</option><option value="hidden">Hidden</option></select></label>
+            <label><span>Category</span><select id="adminCategoryFilter"></select></label>
+          </div>
+          <div class="table-wrap">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Order</th>
+                  <th>Package</th>
+                  <th>Country</th>
+                  <th>Duration</th>
+                  <th>Price</th>
+                  <th>Status</th>
+                  <th>Featured</th>
+                  <th>Updated</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="packageTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="admin-section" data-section-panel="countries">
+        <div class="admin-card">
+          <div class="card-head">
+            <h2>Countries</h2>
+            <button type="button" data-add-country>Add Country</button>
+          </div>
+          <div class="country-admin-grid" id="countryAdminGrid"></div>
+        </div>
+      </section>
+
+      <section class="admin-section" data-section-panel="experiences">
+        <div class="admin-card">
+          <div class="card-head">
+            <h2>Experience Categories</h2>
+            <button type="button" data-add-experience>Add Category</button>
+          </div>
+          <div class="experience-admin-grid" id="experienceAdminGrid"></div>
+        </div>
+      </section>
+
+      <section class="admin-section" data-section-panel="enquiries">
+        <div class="admin-card">
+          <div class="card-head">
+            <h2>Enquiries</h2>
+            <button type="button" data-add-enquiry>Add Test Enquiry</button>
+          </div>
+          <div class="table-wrap">
+            <table class="admin-table">
+              <thead><tr><th>Customer</th><th>Phone</th><th>Email</th><th>Package</th><th>Travel Date</th><th>Status</th><th>Notes</th></tr></thead>
+              <tbody id="enquiryTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="admin-section" data-section-panel="media">
+        <div class="admin-card">
+          <div class="card-head">
+            <h2>Media Library</h2>
+            <label class="upload-button">Upload Images<input id="mediaUpload" type="file" accept="image/*" multiple></label>
+          </div>
+          <div class="media-toolbar"><input id="mediaSearch" type="search" placeholder="Search images by URL or usage..."></div>
+          <div class="media-grid" id="mediaGrid"></div>
+        </div>
+      </section>
+
+      <section class="admin-section" data-section-panel="settings">
+        <form class="admin-card settings-form" id="settingsForm">
+          <div class="card-head"><h2>Website Settings</h2><button type="submit">Save Settings</button></div>
+          <div class="admin-form-grid" id="settingsFields"></div>
+        </form>
+      </section>
+
+      <section class="admin-section" data-section-panel="users">
+        <div class="admin-card">
+          <div class="card-head"><h2>Admin Users</h2><button type="button" data-add-user>Add User</button></div>
+          <div class="user-grid" id="userGrid"></div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <section class="login-screen" data-login-screen>
+    <form class="login-card" id="loginForm">
+      <img src="/public/flyo-logo-navy.svg" alt="Flyo Tours & Travels">
+      <h1>Admin Login</h1>
+      <p>Use the temporary local admin login for this static dashboard.</p>
+      <label><span>Email</span><input id="adminEmail" type="email" value="admin@flyotour.com" required></label>
+      <label><span>Password</span><input id="adminPassword" type="password" placeholder="Enter password" required></label>
+      <button type="submit">Login</button>
+      <small>Temporary password: <strong>flyo-admin</strong></small>
+    </form>
+  </section>
+
+  <dialog class="package-editor" id="packageEditor">
+    <form method="dialog" class="editor-shell" id="packageForm">
+      <header class="editor-head">
+        <div><p class="admin-eyebrow">Package Editor</p><h2 id="editorTitle">Add Package</h2></div>
+        <button class="icon-close" value="cancel" type="button" data-close-editor aria-label="Close editor">&times;</button>
+      </header>
+      <div class="editor-tabs">
+        <button class="active" type="button" data-editor-tab="basic">Basic</button>
+        <button type="button" data-editor-tab="images">Images</button>
+        <button type="button" data-editor-tab="pricing">Pricing</button>
+        <button type="button" data-editor-tab="overview">Overview</button>
+        <button type="button" data-editor-tab="itinerary">Itinerary</button>
+        <button type="button" data-editor-tab="extra">Extra Info</button>
+      </div>
+      <div class="editor-body">
+        <section class="editor-panel active" data-editor-panel="basic">
+          <div class="admin-form-grid" id="basicFields"></div>
+        </section>
+        <section class="editor-panel" data-editor-panel="images">
+          <div class="admin-form-grid" id="imageFields"></div>
+          <div class="image-preview-grid" id="imagePreviewGrid"></div>
+        </section>
+        <section class="editor-panel" data-editor-panel="pricing">
+          <div class="pricing-mode-row">
+            <label><input type="radio" name="pricingMode" value="auto" checked> Automatic conversion</label>
+            <label><input type="radio" name="pricingMode" value="manual"> Manual override</label>
+          </div>
+          <div id="pricingOptionsEditor"></div>
+          <button type="button" data-add-pricing>Add Pricing Option</button>
+        </section>
+        <section class="editor-panel" data-editor-panel="overview">
+          <div class="admin-form-grid single" id="overviewFields"></div>
+        </section>
+        <section class="editor-panel" data-editor-panel="itinerary">
+          <div id="itineraryBuilder"></div>
+          <button type="button" data-add-day>Add Itinerary Day</button>
+        </section>
+        <section class="editor-panel" data-editor-panel="extra">
+          <div class="admin-form-grid" id="extraFields"></div>
+        </section>
+      </div>
+      <footer class="editor-actions">
+        <button type="button" data-delete-current class="danger">Delete</button>
+        <span class="editor-spacer"></span>
+        <button type="button" data-save-draft>Save Draft</button>
+        <button type="button" data-preview-current>Preview</button>
+        <button type="submit" class="admin-primary">Publish</button>
+      </footer>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="/admin/admin.js"></script>
+</body>
+</html>

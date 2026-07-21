@@ -8,6 +8,7 @@ const entries = [
   "index.html",
   "experiences.html",
   "contact",
+  "admin",
   "visa-services",
   "styles.css",
   "currency.js",
