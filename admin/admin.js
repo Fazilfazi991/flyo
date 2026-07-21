@@ -1,11 +1,19 @@
 import {
   ADMIN_PACKAGE_STORAGE_KEY,
+  deleteAdminPackageAsync,
   getAdminPackages,
+  getAdminPackagesAsync,
   getAdminSettings,
+  getAdminSettingsAsync,
   getSourcePackages,
+  getSupabaseSession,
   resetAdminPackages,
-  saveAdminPackages,
-  saveAdminSettings
+  saveAdminPackageAsync,
+  saveAdminPackagesAsync,
+  saveAdminSettingsAsync,
+  seedSupabasePackagesIfEmpty,
+  signInAdmin,
+  signOutAdmin
 } from "../data/package-store.js";
 import { formatPackageAmount, parseAedPrice } from "../currency.js";
 
@@ -37,7 +45,9 @@ const state = {
       { name: "Super Admin", email: "admin@flyotour.com", role: "Super Admin", status: "Active" }
     ]
   }),
-  media: readJson(MEDIA_STORAGE_KEY, [])
+  media: readJson(MEDIA_STORAGE_KEY, []),
+  settings: getAdminSettings(),
+  backendMode: "Local fallback"
 };
 
 const $ = selector => document.querySelector(selector);
@@ -85,8 +95,31 @@ const getStatus = item => item.adminStatus || "published";
 const getPrice = item => item.startingPrice || item.price || item.pricingOptions?.[0]?.price || "Price on request";
 const packageUrl = item => `/packages/${item.slug}/`;
 
-const persistPackages = () => {
-  saveAdminPackages(state.packages);
+const setBackendNotice = message => {
+  const notice = $("[data-store-notice]");
+  if (notice) notice.innerHTML = message;
+};
+
+const hydrateFromSupabase = async () => {
+  try {
+    await seedSupabasePackagesIfEmpty();
+    state.packages = await getAdminPackagesAsync();
+    state.settings = await getAdminSettingsAsync();
+    state.backendMode = "Supabase connected";
+    setBackendNotice("<strong>Supabase connected:</strong> packages and settings are syncing with the Flyo Supabase database.");
+  } catch (error) {
+    state.backendMode = "Local fallback";
+    setBackendNotice(`<strong>Local fallback:</strong> Supabase is configured, but the dashboard could not sync yet. Create the schema in <code>supabase/flyo-admin-schema.sql</code> and login with a Supabase admin user. ${escapeHtml(error.message || "")}`);
+  }
+};
+
+const persistPackages = async () => {
+  try {
+    await saveAdminPackagesAsync(state.packages);
+    state.backendMode = "Supabase connected";
+  } catch (error) {
+    setBackendNotice(`<strong>Local fallback:</strong> package changes were saved in this browser because Supabase sync failed. ${escapeHtml(error.message || "")}`);
+  }
   renderAll();
 };
 
@@ -101,10 +134,16 @@ const setSection = name => {
   $(".admin-nav").classList.remove("open");
 };
 
-const authenticate = () => {
-  const loggedIn = localStorage.getItem(AUTH_KEY) === "true";
+const authenticate = async () => {
+  const session = await getSupabaseSession().catch(() => null);
+  const loggedIn = localStorage.getItem(AUTH_KEY) === "true" || Boolean(session);
   $("[data-auth-shell]").hidden = !loggedIn;
   $("[data-login-screen]").hidden = loggedIn;
+  if (session) {
+    localStorage.setItem(AUTH_KEY, "true");
+    state.backendMode = "Supabase connected";
+  }
+  return loggedIn;
 };
 
 const summaryData = () => {
@@ -116,7 +155,8 @@ const summaryData = () => {
     ["Hidden", state.packages.filter(item => getStatus(item) === "hidden").length],
     ["Featured", state.packages.filter(item => item.featured).length],
     ["Countries", countries.size],
-    ["Recent enquiries", state.extras.enquiries.length]
+    ["Recent enquiries", state.extras.enquiries.length],
+    ["Backend", state.backendMode]
   ];
 };
 
@@ -285,7 +325,7 @@ const settingsSchema = [
 ];
 
 const renderSettings = () => {
-  const settings = getAdminSettings();
+  const settings = state.settings || getAdminSettings();
   $("#settingsFields").innerHTML = settingsSchema.map(([key, label, type]) => `
     <label class="${type === "textarea" ? "field-full" : ""}">
       <span>${label}</span>
@@ -542,7 +582,7 @@ const collectEditor = statusOverride => {
   return p;
 };
 
-const saveCurrentPackage = status => {
+const saveCurrentPackage = async status => {
   const pkg = collectEditor(status);
   if (!pkg) return;
   const duplicate = state.packages.find((item, index) => item.slug === pkg.slug && index !== state.selectedIndex);
@@ -554,11 +594,17 @@ const saveCurrentPackage = status => {
   else state.packages.push(pkg);
   state.selectedPackage = pkg;
   state.selectedIndex = state.packages.findIndex(item => item.slug === pkg.slug);
-  persistPackages();
-  notify(status === "published" ? "Package published." : "Package saved.");
+  try {
+    await saveAdminPackageAsync(pkg);
+    notify(status === "published" ? "Package published to Supabase." : "Package saved to Supabase.");
+  } catch (error) {
+    setBackendNotice(`<strong>Local fallback:</strong> package saved in this browser because Supabase sync failed. ${escapeHtml(error.message || "")}`);
+    notify(status === "published" ? "Package published locally." : "Package saved locally.");
+  }
+  renderAll();
 };
 
-const duplicatePackage = slug => {
+const duplicatePackage = async slug => {
   const source = state.packages.find(item => item.slug === slug);
   if (!source) return;
   const copy = clone(source);
@@ -568,16 +614,22 @@ const duplicatePackage = slug => {
   copy.displayOrder = state.packages.length + 1;
   copy.lastUpdated = new Date().toLocaleString();
   state.packages.push(copy);
-  persistPackages();
+  await persistPackages();
   notify("Package duplicated as draft.");
 };
 
-const deletePackage = slug => {
+const deletePackage = async slug => {
   const item = state.packages.find(pkg => pkg.slug === slug);
   if (!item || !confirm(`Delete ${item.title}? This removes it from this admin store.`)) return;
   state.packages = state.packages.filter(pkg => pkg.slug !== slug);
-  persistPackages();
-  notify("Package deleted.");
+  try {
+    await deleteAdminPackageAsync(slug);
+    notify("Package deleted from Supabase.");
+  } catch (error) {
+    setBackendNotice(`<strong>Local fallback:</strong> package deleted locally because Supabase sync failed. ${escapeHtml(error.message || "")}`);
+    notify("Package deleted locally.");
+  }
+  renderAll();
 };
 
 const addCountry = () => {
@@ -610,7 +662,7 @@ const addUser = () => {
   renderUsers();
 };
 
-document.addEventListener("click", event => {
+document.addEventListener("click", async event => {
   const button = event.target.closest("button, a");
   if (!button) return;
   const section = button.dataset.adminSection || button.dataset.adminSectionShortcut;
@@ -618,30 +670,31 @@ document.addEventListener("click", event => {
   if (button.matches("[data-sidebar-toggle]")) $(".admin-nav").classList.toggle("open");
   if (button.matches("[data-add-package]")) openEditor();
   if (button.dataset.editPackage) openEditor(button.dataset.editPackage);
-  if (button.dataset.duplicatePackage) duplicatePackage(button.dataset.duplicatePackage);
-  if (button.dataset.deletePackage) deletePackage(button.dataset.deletePackage);
+  if (button.dataset.duplicatePackage) await duplicatePackage(button.dataset.duplicatePackage);
+  if (button.dataset.deletePackage) await deletePackage(button.dataset.deletePackage);
   if (button.dataset.toggleStatus) {
     const item = state.packages.find(pkg => pkg.slug === button.dataset.toggleStatus);
     item.adminStatus = getStatus(item) === "published" ? "hidden" : "published";
     item.lastUpdated = new Date().toLocaleString();
-    persistPackages();
+    await persistPackages();
   }
   if (button.matches("[data-logout]")) {
     localStorage.removeItem(AUTH_KEY);
-    authenticate();
+    await signOutAdmin().catch(() => {});
+    await authenticate();
   }
   if (button.matches("[data-close-editor]")) $("#packageEditor").close();
   if (button.dataset.editorTab) {
     $$(".editor-tabs button").forEach(tab => tab.classList.toggle("active", tab === button));
     $$("[data-editor-panel]").forEach(panel => panel.classList.toggle("active", panel.dataset.editorPanel === button.dataset.editorTab));
   }
-  if (button.matches("[data-save-draft]")) saveCurrentPackage("draft");
+  if (button.matches("[data-save-draft]")) await saveCurrentPackage("draft");
   if (button.matches("[data-preview-current]")) {
-    saveCurrentPackage(state.selectedPackage.adminStatus || "draft");
+    await saveCurrentPackage(state.selectedPackage.adminStatus || "draft");
     window.open(`/packages/detail.html?adminPreview=${encodeURIComponent(state.selectedPackage.slug)}`, "_blank");
   }
   if (button.matches("[data-delete-current]") && state.selectedPackage?.slug) {
-    deletePackage(state.selectedPackage.slug);
+    await deletePackage(state.selectedPackage.slug);
     $("#packageEditor").close();
   }
   if (button.matches("[data-add-pricing]")) {
@@ -695,7 +748,9 @@ document.addEventListener("input", event => {
     if (item) {
       item.displayOrder = Number(target.value) || item.displayOrder;
       item.lastUpdated = new Date().toLocaleString();
-      saveAdminPackages(state.packages);
+      saveAdminPackagesAsync(state.packages).catch(error => {
+        setBackendNotice(`<strong>Local fallback:</strong> order was saved locally because Supabase sync failed. ${escapeHtml(error.message || "")}`);
+      });
     }
   }
   if (target.dataset.enquiryNotes) {
@@ -717,27 +772,48 @@ document.addEventListener("change", event => {
   }
 });
 
-$("#packageForm").addEventListener("submit", event => {
+$("#packageForm").addEventListener("submit", async event => {
   event.preventDefault();
-  saveCurrentPackage("published");
+  await saveCurrentPackage("published");
   $("#packageEditor").close();
 });
 
-$("#loginForm").addEventListener("submit", event => {
+$("#loginForm").addEventListener("submit", async event => {
   event.preventDefault();
-  if ($("#adminPassword").value !== PASSWORD) {
-    notify("Incorrect admin password.");
+  const email = $("#adminEmail").value.trim();
+  const password = $("#adminPassword").value;
+  try {
+    await signInAdmin(email, password);
+    localStorage.setItem(AUTH_KEY, "true");
+    await authenticate();
+    await hydrateFromSupabase();
+    renderAll();
+    notify("Logged in with Supabase.");
     return;
+  } catch (error) {
+    if (password !== PASSWORD) {
+      notify(`Supabase login failed: ${error.message || "check credentials"}`);
+      return;
+    }
+    localStorage.setItem(AUTH_KEY, "true");
+    await authenticate();
+    await hydrateFromSupabase();
+    renderAll();
+    notify("Logged in with local fallback.");
   }
-  localStorage.setItem(AUTH_KEY, "true");
-  authenticate();
 });
 
-$("#settingsForm").addEventListener("submit", event => {
+$("#settingsForm").addEventListener("submit", async event => {
   event.preventDefault();
   const values = Object.fromEntries(new FormData(event.target));
-  saveAdminSettings(values);
-  notify("Website settings saved.");
+  try {
+    state.settings = await saveAdminSettingsAsync(values);
+    notify("Website settings saved to Supabase.");
+  } catch (error) {
+    setBackendNotice(`<strong>Local fallback:</strong> settings were saved in this browser because Supabase sync failed. ${escapeHtml(error.message || "")}`);
+    notify("Website settings saved locally.");
+  }
+  renderSettings();
 });
 
 $("#mediaUpload").addEventListener("change", event => {
@@ -777,5 +853,10 @@ window.flyoAdmin = {
   storageKey: ADMIN_PACKAGE_STORAGE_KEY
 };
 
-authenticate();
-renderAll();
+const initAdmin = async () => {
+  const loggedIn = await authenticate();
+  if (loggedIn) await hydrateFromSupabase();
+  renderAll();
+};
+
+initAdmin();

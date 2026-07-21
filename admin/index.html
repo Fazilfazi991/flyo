@@ -42,7 +42,7 @@
       </header>
 
       <div class="admin-alert" data-store-notice>
-        <strong>Static-site mode:</strong> this dashboard imports the current live package data and saves admin edits in this browser. A backend such as Supabase is needed for multi-user secure publishing and real uploads.
+        <strong>Supabase mode:</strong> this dashboard syncs packages and settings with Flyo Supabase when the database schema and admin login are ready. Local fallback remains available during setup.
       </div>
 
       <section class="admin-section active" data-section-panel="dashboard">
@@ -160,11 +160,11 @@
     <form class="login-card" id="loginForm">
       <img src="/public/flyo-logo-navy.svg" alt="Flyo Tours & Travels">
       <h1>Admin Login</h1>
-      <p>Use the temporary local admin login for this static dashboard.</p>
+      <p>Login with a Supabase admin user. Temporary local fallback remains available during setup.</p>
       <label><span>Email</span><input id="adminEmail" type="email" value="admin@flyotour.com" required></label>
       <label><span>Password</span><input id="adminPassword" type="password" placeholder="Enter password" required></label>
       <button type="submit">Login</button>
-      <small>Temporary password: <strong>flyo-admin</strong></small>
+      <small>Local fallback password: <strong>flyo-admin</strong></small>
     </form>
   </section>
 

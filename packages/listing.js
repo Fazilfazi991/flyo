@@ -1,9 +1,9 @@
-import { getPublicPackages } from "../data/package-store.js";
+import { getPublicPackagesAsync } from "../data/package-store.js";
 import { formatPackageAmount, onCurrencyChange, parseAedPrice } from "../currency.js";
 import { whatsappMessages } from "../whatsapp-chooser.js";
 import "../navbar.js";
 
-const packageList = getPublicPackages();
+const packageList = await getPublicPackagesAsync();
 const resultCount = document.querySelector(".package-results-row > span");
 const packageGrid = document.querySelector("#packageGrid");
 const countryFilterBar = document.querySelector("#countryFilterBar");

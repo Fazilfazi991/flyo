@@ -1,5 +1,5 @@
 import { contact, footerColumns } from "./data/packages.js";
-import { getAdminPackages, getPublicPackages } from "./data/package-store.js";
+import { getAdminPackages, getAdminPackagesAsync, getPublicPackagesAsync } from "./data/package-store.js";
 import { formatPackageAmount, onCurrencyChange, parseAedPrice } from "./currency.js";
 import { openWhatsAppChooser, whatsappMessages } from "./whatsapp-chooser.js";
 import "./navbar.js";
@@ -7,7 +7,12 @@ import "./navbar.js";
 const pathParts = location.pathname.split("/").filter(Boolean);
 const rawSlug = decodeURIComponent(pathParts.pop() || "kuala-lumpur-getaway");
 const previewSlug = new URLSearchParams(location.search).get("adminPreview");
-const packages = previewSlug ? getAdminPackages() : getPublicPackages();
+let packages = [];
+try {
+  packages = previewSlug ? await getAdminPackagesAsync() : await getPublicPackagesAsync();
+} catch {
+  packages = getAdminPackages();
+}
 const slug = previewSlug || (rawSlug.replace(/\.html$/i, "") === "detail" ? "kuala-lumpur-getaway" : rawSlug.replace(/\.html$/i, ""));
 const packageData = packages.find(item => item.slug === slug);
 
