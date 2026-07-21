@@ -637,7 +637,13 @@ byId("statsStrip").innerHTML = [
   <article class="stat-item"><span>${item.icon}</span><div><strong>${item.value}</strong><small>${item.label}</small></div></article>
 `).join("");
 
-byId("faqGrid").innerHTML = packageData.faqs.slice(0, 5).map(item => `
+const packageFaqs = (packageData.faqs?.length ? packageData.faqs : [
+  { question: "Can this package be customized?", answer: "Yes. Flyo can adjust hotels, transfers, sightseeing, and pacing based on your dates, budget, and travel style." },
+  { question: "Are flights included in the package price?", answer: "Flights are included only when specifically mentioned. Our team can quote suitable flight options separately on request." },
+  { question: "Is visa assistance available?", answer: "Yes. Flyo can guide visa requirements based on nationality, residency status, and current destination rules." }
+]);
+
+byId("faqGrid").innerHTML = packageFaqs.slice(0, 5).map(item => `
   <article class="faq-item">
     <button class="faq-question" type="button"><span>${item.question}</span><b>+</b></button>
     <div class="faq-answer">${item.answer}</div>

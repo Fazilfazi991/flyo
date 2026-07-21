@@ -191,6 +191,11 @@ const packageRecommendedMonths = {
   "golden-triangle-special": ["January", "February", "March", "October", "November", "December"],
   "royal-rajasthan-heritage-tour": ["January", "February", "March", "October", "November", "December"],
   "kerala-economy-tour": ["January", "February", "March", "September", "October", "November", "December"],
+  "cairo-classic-escape": ["January", "February", "March", "April", "October", "November", "December"],
+  "cairo-sharm-el-sheikh-escape": ["January", "February", "March", "April", "October", "November", "December"],
+  "cairo-alexandria-discovery": ["January", "February", "March", "April", "October", "November", "December"],
+  "discover-egypt-i-cairo-nile-cruise": ["January", "February", "March", "April", "October", "November", "December"],
+  "discover-egypt-ii-cairo-nile-cruise": ["January", "February", "March", "April", "October", "November", "December"],
   "dubai-desert-safari": ["January", "February", "March", "April", "October", "November", "December"],
   "aroya-dubai-arabian-escape": ["January", "February", "March", "April", "November", "December"],
   "aroya-dubai-arabian-signature-voyage": ["January", "February", "March", "April", "November", "December"],
@@ -1128,6 +1133,285 @@ const holidayPackages = [
       { question: "Can the hotels be changed?", answer: "Yes. Package cost can be amended based on hotel and budget preferences, subject to availability." }
     ],
     whatsappMessage: "Hi, I'm interested in Kerala Economy Tour. Please share more details."
+  },
+  {
+    slug: "cairo-classic-escape",
+    title: "Cairo Classic Escape",
+    country: "Egypt",
+    duration: "5 Nights / 6 Days",
+    price: "AED 3530",
+    route: "Cairo, Egypt",
+    category: "City Break",
+    tags: ["Egypt Packages", "City Break", "Culture", "Heritage Tour", "Family Holidays"],
+    cardImage: "/packages/egypt-package-images-webp/image-1.webp",
+    heroImage: "/packages/egypt-package-images-webp/image-2.webp",
+    galleryImages: [
+      { src: "/packages/egypt-package-images-webp/image-1.webp", label: "Pyramids of Giza and Sphinx" },
+      { src: "/packages/egypt-package-images-webp/image-2.webp", label: "Cairo and Nile views" },
+      { src: "/packages/egypt-package-images-webp/image-3.webp", label: "Egyptian heritage landmarks" }
+    ],
+    imageHighlights: ["Pyramids of Giza", "Egyptian Museum", "Nile dinner cruise", "Alexandria excursion"],
+    summary: "Discover Cairo's ancient landmarks, museums, Nile experiences, and a full-day Alexandria excursion.",
+    overview: "Experience the highlights of Cairo through a carefully arranged five-night holiday. Explore the Egyptian Museum, the Pyramids of Giza, and the Great Sphinx, enjoy a dinner cruise with live entertainment, and take a full-day trip to Alexandria.",
+    highlights: ["Egyptian Museum visit", "Pyramids of Giza and Sphinx", "Nile dinner cruise", "Alexandria day tour", "English-speaking guide"],
+    itinerary: [
+      { day: "Day 1", title: "Arrival in Cairo", text: "Arrive at Cairo International Airport. Meet the local representative and transfer to the selected hotel. Check in and relax.", images: ["/packages/egypt-package-images-webp/image-2.webp"] },
+      { day: "Day 2", title: "Egyptian Museum, Pyramids and Sphinx", text: "After breakfast, enjoy a full-day guided tour of the Egyptian Museum, the Pyramids of Giza, and the Great Sphinx. Lunch is included.", images: ["/packages/egypt-package-images-webp/image-1.webp", "/packages/egypt-package-images-webp/image-3.webp"] },
+      { day: "Day 3", title: "Cairo Leisure and Dinner Cruise", text: "Enjoy breakfast and free time during the day. In the evening, board a Nile dinner cruise with dinner and live entertainment.", images: ["/packages/egypt-package-images-webp/image-2.webp"] },
+      { day: "Day 4", title: "Alexandria Day Tour", text: "Travel to Alexandria for a full-day guided excursion. Visit the Catacombs, Pompey's Pillar, and Qaitbay Fortress. Lunch is included.", images: ["/packages/egypt-package-images-webp/image-4.webp"] },
+      { day: "Day 5", title: "Free Day in Cairo", text: "Breakfast at the hotel followed by a free day for shopping, optional tours, or relaxation." },
+      { day: "Day 6", title: "Departure", text: "Breakfast, hotel checkout, and transfer to Cairo International Airport." }
+    ],
+    hotels: [
+      { title: "5-Star Deluxe", price: "AED 4965 per person", features: ["Grand Nile Tower or similar", "Daily breakfast", "Guided tours"] },
+      { title: "5-Star Standard", price: "AED 4340 per person", features: ["Radisson Blu or similar", "Daily breakfast", "Guided tours"] },
+      { title: "4-Star", price: "AED 3530 per person", features: ["Triumph Plaza or similar", "Daily breakfast", "Guided tours"] }
+    ],
+    pricingOptions: [
+      { label: "5-Star Deluxe", badge: "Premium Stay", hotels: ["Grand Nile Tower or similar"], mealPlan: "Daily Breakfast", transferType: "Airport and tour transfers included", price: "AED 4965", priceNote: "per person on double sharing basis", features: ["Deluxe Cairo hotel", "Full-day Cairo tour", "Nile dinner cruise", "Alexandria excursion"], cta: "Enquire Now" },
+      { label: "5-Star Standard", badge: "Popular Upgrade", hotels: ["Radisson Blu or similar"], mealPlan: "Daily Breakfast", transferType: "Airport and tour transfers included", price: "AED 4340", priceNote: "per person on double sharing basis", features: ["5-star standard hotel", "Museum and pyramids tour", "Dinner cruise", "Alexandria excursion"], cta: "Enquire Now" },
+      { label: "4-Star", badge: "Starting Price", hotels: ["Triumph Plaza or similar"], mealPlan: "Daily Breakfast", transferType: "Airport and tour transfers included", price: "AED 3530", priceNote: "per person on double sharing basis", features: ["4-star Cairo hotel", "Guided sightseeing", "Lunch during tours", "Entrance fees"], cta: "Enquire Now" }
+    ],
+    inclusions: [
+      "Five nights in the selected Cairo hotel",
+      "Daily breakfast",
+      "Round-trip airport and hotel transfers",
+      "Full-day Cairo tour",
+      "Egyptian Museum visit",
+      "Pyramids of Giza and Sphinx visit",
+      "Lunch during the Cairo tour",
+      "Nile dinner cruise with entertainment",
+      "Alexandria day tour",
+      "Catacombs visit",
+      "Pompey's Pillar visit",
+      "Qaitbay Fortress visit",
+      "Lunch during the Alexandria tour",
+      "Entrance fees",
+      "English-speaking guide during tours"
+    ],
+    exclusions: ["International flights", "Egypt visa", "Personal expenses", "Tips", "Beverages unless specifically included", "Any service not mentioned under inclusions"],
+    notes: commonNotes,
+    visaDetails: "Egypt visa requirements depend on nationality and residency status. Flyo can guide document requirements before booking.",
+    whatsappMessage: "Hi, I'm interested in Cairo Classic Escape. Please share more details."
+  },
+  {
+    slug: "cairo-sharm-el-sheikh-escape",
+    title: "Cairo & Sharm El Sheikh Escape",
+    country: "Egypt",
+    duration: "7 Nights / 8 Days",
+    price: "AED 5030",
+    route: "Cairo and Sharm El Sheikh, Egypt",
+    category: "Beach Holiday",
+    tags: ["Egypt Packages", "Culture", "Beach", "Adventure", "Honeymoon Packages", "Family Holidays"],
+    cardImage: "/packages/egypt-package-images-webp/image-3.webp",
+    heroImage: "/packages/egypt-package-images-webp/image-5.webp",
+    galleryImages: [
+      { src: "/packages/egypt-package-images-webp/image-3.webp", label: "Red Sea beach escape" },
+      { src: "/packages/egypt-package-images-webp/image-1.webp", label: "Cairo pyramids tour" },
+      { src: "/packages/egypt-package-images-webp/image-5.webp", label: "Sharm El Sheikh adventure" }
+    ],
+    imageHighlights: ["Cairo sightseeing", "Red Sea resort stay", "Boat trip", "Desert safari", "Romantic boat dinner"],
+    summary: "Combine Cairo's historic landmarks with an all-inclusive Red Sea holiday in Sharm El Sheikh.",
+    overview: "A complete Egypt holiday combining the historical attractions of Cairo with the beaches and adventure activities of Sharm El Sheikh. The package includes a Cairo sightseeing tour, an all-inclusive stay in Sharm, a boat trip, desert safari, quad biking, and a romantic boat dinner.",
+    highlights: ["Cairo city tour", "All-inclusive Sharm stay", "Full-day boat trip", "Desert safari and quad bike", "Romantic dinner aboard a boat"],
+    itinerary: [
+      { day: "Day 1", title: "Arrival in Cairo", text: "Arrive at Cairo International Airport and transfer to the selected hotel.", images: ["/packages/egypt-package-images-webp/image-1.webp"] },
+      { day: "Day 2", title: "Cairo City Tour", text: "Visit the Egyptian Museum, the Pyramids of Giza, and the Great Sphinx. Lunch is included.", images: ["/packages/egypt-package-images-webp/image-1.webp"] },
+      { day: "Day 3", title: "Transfer to Sharm El Sheikh", text: "Transfer to Sharm El Sheikh and check into the selected all-inclusive resort.", images: ["/packages/egypt-package-images-webp/image-3.webp"] },
+      { day: "Day 4", title: "Sharm Boat Trip", text: "Enjoy a full-day boat trip from approximately 9:00 AM to 4:30 PM. Lunch is included. Snorkelling and diving equipment are not included.", images: ["/packages/egypt-package-images-webp/image-5.webp"] },
+      { day: "Day 5", title: "Desert Safari and Quad Bike", text: "Experience a desert safari and quad bike adventure.", images: ["/packages/egypt-package-images-webp/image-6.webp"] },
+      { day: "Day 6", title: "Free Day", text: "Enjoy the beach, resort facilities, and all-inclusive meals." },
+      { day: "Day 7", title: "Romantic Boat Dinner", text: "Relax during the day and enjoy a romantic dinner aboard a boat.", images: ["/packages/egypt-package-images-webp/image-5.webp"] },
+      { day: "Day 8", title: "Departure", text: "Transfer to the airport for final departure." }
+    ],
+    hotels: [
+      { title: "5-Star Deluxe", price: "AED 8550 per person", features: ["Cairo: Grand Nile Tower or similar", "Sharm El Sheikh: Savoy or similar"] },
+      { title: "5-Star Standard", price: "AED 6110 per person", features: ["Cairo: Radisson Blu or similar", "Sharm El Sheikh: Amarina Sun Resort or similar"] },
+      { title: "4-Star", price: "AED 5030 per person", features: ["Cairo: Triumph Plaza or similar", "Sharm El Sheikh: Queen Sharm or similar"] }
+    ],
+    pricingOptions: [
+      { label: "5-Star Deluxe", badge: "Premium Stay", hotels: ["Cairo: Grand Nile Tower or similar", "Sharm El Sheikh: Savoy or similar"], mealPlan: "Cairo breakfast, Sharm all-inclusive", transferType: "Airport and hotel transfers in both cities", price: "AED 8550", priceNote: "per person on double sharing basis", features: ["Premium Cairo and Sharm hotels", "Cairo sightseeing", "Boat trip", "Desert safari and quad bike"], cta: "Enquire Now" },
+      { label: "5-Star Standard", badge: "Popular Upgrade", hotels: ["Cairo: Radisson Blu or similar", "Sharm El Sheikh: Amarina Sun Resort or similar"], mealPlan: "Cairo breakfast, Sharm all-inclusive", transferType: "Airport and hotel transfers in both cities", price: "AED 6110", priceNote: "per person on double sharing basis", features: ["5-star standard hotels", "Pyramids and museum", "Boat trip", "Romantic boat dinner"], cta: "Enquire Now" },
+      { label: "4-Star", badge: "Starting Price", hotels: ["Cairo: Triumph Plaza or similar", "Sharm El Sheikh: Queen Sharm or similar"], mealPlan: "Cairo breakfast, Sharm all-inclusive", transferType: "Airport and hotel transfers in both cities", price: "AED 5030", priceNote: "per person on double sharing basis", features: ["4-star hotels", "All-inclusive Red Sea stay", "Lunch during tours", "Entrance fees"], cta: "Enquire Now" }
+    ],
+    inclusions: [
+      "Two nights in Cairo with breakfast",
+      "Five nights in Sharm El Sheikh on an all-inclusive basis",
+      "Airport and hotel transfers in both cities",
+      "Full-day Cairo sightseeing tour",
+      "Egyptian Museum",
+      "Pyramids of Giza",
+      "Great Sphinx",
+      "Lunch during Cairo tour",
+      "Full-day Sharm boat trip",
+      "Lunch during boat trip",
+      "Desert safari",
+      "Quad bike experience",
+      "Romantic dinner aboard a boat",
+      "Entrance fees",
+      "English-speaking guide during tours"
+    ],
+    exclusions: ["International flights", "Domestic flights when required", "Egypt visa", "Snorkelling equipment", "Diving equipment", "Personal expenses", "Tips", "Any service not mentioned under inclusions"],
+    notes: commonNotes,
+    visaDetails: "Egypt visa requirements depend on nationality and residency status. Flyo can guide document requirements before booking.",
+    whatsappMessage: "Hi, I'm interested in Cairo & Sharm El Sheikh Escape. Please share more details."
+  },
+  {
+    slug: "cairo-alexandria-discovery",
+    title: "Cairo & Alexandria Discovery",
+    country: "Egypt",
+    duration: "7 Nights / 8 Days",
+    price: "AED 4260",
+    route: "Cairo and Alexandria, Egypt",
+    category: "Heritage Tour",
+    tags: ["Egypt Packages", "Culture", "Heritage Tour", "City Break", "Family Holidays"],
+    cardImage: "/packages/egypt-package-images-webp/image-4.webp",
+    heroImage: "/packages/egypt-package-images-webp/image-1.webp",
+    galleryImages: [
+      { src: "/packages/egypt-package-images-webp/image-4.webp", label: "Alexandria Mediterranean coast" },
+      { src: "/packages/egypt-package-images-webp/image-1.webp", label: "Pyramids and Sphinx" },
+      { src: "/packages/egypt-package-images-webp/image-2.webp", label: "Cairo Nile experience" }
+    ],
+    imageHighlights: ["Cairo monuments", "Alexandria coastal stay", "Catacombs", "Qaitbay Fortress", "Nile dinner cruise"],
+    summary: "Explore Cairo's world-famous monuments and spend two nights discovering historic Alexandria.",
+    overview: "This seven-night package combines Cairo's most famous attractions with an extended stay in Alexandria. Guests will visit the Egyptian Museum, the Pyramids, the Sphinx, the Catacombs, Pompey's Pillar, Qaitbay Fortress, and enjoy a Nile dinner cruise.",
+    highlights: ["Cairo highlights tour", "Two nights in Alexandria", "Alexandria city tour", "Nile dinner cruise", "Private Cairo-Alexandria transfers"],
+    itinerary: [
+      { day: "Day 1", title: "Arrival in Cairo", text: "Arrive at Cairo International Airport and transfer to the selected hotel.", images: ["/packages/egypt-package-images-webp/image-1.webp"] },
+      { day: "Day 2", title: "Cairo Highlights", text: "Enjoy a full-day guided tour of the Egyptian Museum, Pyramids of Giza, and Great Sphinx. Lunch is included.", images: ["/packages/egypt-package-images-webp/image-1.webp"] },
+      { day: "Day 3", title: "Cairo Leisure and Dinner Cruise", text: "Free time during the day followed by a dinner cruise with live entertainment.", images: ["/packages/egypt-package-images-webp/image-2.webp"] },
+      { day: "Day 4", title: "Transfer to Alexandria", text: "Travel from Cairo to Alexandria by private vehicle. Check in at the selected hotel.", images: ["/packages/egypt-package-images-webp/image-4.webp"] },
+      { day: "Day 5", title: "Alexandria City Tour", text: "Visit the Catacombs, Pompey's Pillar, and Qaitbay Fortress. Lunch is included.", images: ["/packages/egypt-package-images-webp/image-4.webp"] },
+      { day: "Day 6", title: "Alexandria Leisure", text: "Enjoy a free day to explore Alexandria or relax by the Mediterranean coast." },
+      { day: "Day 7", title: "Return to Cairo", text: "Return to Cairo by private vehicle and check into the hotel." },
+      { day: "Day 8", title: "Departure", text: "Transfer to Cairo International Airport." }
+    ],
+    hotels: [
+      { title: "5-Star Deluxe", price: "AED 7130 per person", features: ["Cairo: Grand Nile Tower or similar", "Alexandria: Helnan Palestine or similar"] },
+      { title: "5-Star Standard", price: "AED 5490 per person", features: ["Cairo: Radisson Blu or similar", "Alexandria: Royal Tulip or similar"] },
+      { title: "4-Star", price: "AED 4260 per person", features: ["Cairo: Triumph Plaza or similar", "Alexandria: Romance Hotel or similar"] }
+    ],
+    pricingOptions: [
+      { label: "5-Star Deluxe", badge: "Premium Stay", hotels: ["Cairo: Grand Nile Tower or similar", "Alexandria: Helnan Palestine or similar"], mealPlan: "Daily Breakfast", transferType: "Airport and private Cairo-Alexandria transfers", price: "AED 7130", priceNote: "per person on double sharing basis", features: ["Premium Cairo and Alexandria stays", "Cairo sightseeing", "Alexandria tour", "Nile dinner cruise"], cta: "Enquire Now" },
+      { label: "5-Star Standard", badge: "Popular Upgrade", hotels: ["Cairo: Radisson Blu or similar", "Alexandria: Royal Tulip or similar"], mealPlan: "Daily Breakfast", transferType: "Airport and private Cairo-Alexandria transfers", price: "AED 5490", priceNote: "per person on double sharing basis", features: ["5-star standard hotels", "Pyramids and museum", "Alexandria coast", "Dinner cruise"], cta: "Enquire Now" },
+      { label: "4-Star", badge: "Starting Price", hotels: ["Cairo: Triumph Plaza or similar", "Alexandria: Romance Hotel or similar"], mealPlan: "Daily Breakfast", transferType: "Airport and private Cairo-Alexandria transfers", price: "AED 4260", priceNote: "per person on double sharing basis", features: ["4-star hotels", "Guided tours", "Lunch during sightseeing", "Entrance fees"], cta: "Enquire Now" }
+    ],
+    inclusions: [
+      "Five nights in Cairo with breakfast",
+      "Two nights in Alexandria with breakfast",
+      "Cairo airport transfers",
+      "Cairo sightseeing tour",
+      "Egyptian Museum",
+      "Pyramids and Sphinx",
+      "Lunch during Cairo tour",
+      "Cairo-Alexandria-Cairo transfers by private vehicle",
+      "Alexandria sightseeing tour",
+      "Catacombs",
+      "Pompey's Pillar",
+      "Qaitbay Fortress",
+      "Lunch during Alexandria tour",
+      "Nile dinner cruise with entertainment",
+      "Entrance fees",
+      "English-speaking guide"
+    ],
+    exclusions: ["International flights", "Egypt visa", "Personal expenses", "Tips", "Beverages unless included", "Services not listed under inclusions"],
+    notes: commonNotes,
+    visaDetails: "Egypt visa requirements depend on nationality and residency status. Flyo can guide document requirements before booking.",
+    whatsappMessage: "Hi, I'm interested in Cairo & Alexandria Discovery. Please share more details."
+  },
+  {
+    slug: "discover-egypt-i-cairo-nile-cruise",
+    title: "Discover Egypt I",
+    country: "Egypt",
+    duration: "7 Nights / 8 Days",
+    price: "AED 5295",
+    route: "Cairo, Luxor, Edfu, Kom Ombo and Aswan, Egypt",
+    category: "Cruise Package",
+    tags: ["Egypt Packages", "Culture", "Cruise Package", "Heritage Tour", "Luxury Experiences"],
+    cardImage: "/packages/egypt-package-images-webp/image-5.webp",
+    heroImage: "/packages/egypt-package-images-webp/image-6.webp",
+    galleryImages: [
+      { src: "/packages/egypt-package-images-webp/image-5.webp", label: "Luxury Nile cruise" },
+      { src: "/packages/egypt-package-images-webp/image-6.webp", label: "Luxor and Aswan temples" },
+      { src: "/packages/egypt-package-images-webp/image-1.webp", label: "Cairo ancient wonders" }
+    ],
+    imageHighlights: ["Cairo highlights", "Four-night Nile cruise", "Luxor temples", "Valley of the Kings", "Aswan sightseeing"],
+    summary: "Explore Cairo before sailing through Luxor, Edfu, Kom Ombo, and Aswan on a four-night Nile cruise.",
+    overview: "Discover Egypt's ancient wonders through a combination of Cairo sightseeing and a four-night Nile cruise. Visit the Egyptian Museum, Pyramids, Sphinx, Karnak Temple, Luxor Temple, Valley of the Kings, Queen Hatshepsut's Temple, Edfu Temple, Kom Ombo Temple, Philae Temple, and the Aswan High Dam.",
+    highlights: ["Three nights in Cairo", "Four nights aboard a Nile cruise", "Full-board cruise meals", "Cruise sightseeing programme", "Airport and hotel transfers"],
+    itinerary: [
+      { day: "Day 1", title: "Arrival in Cairo", text: "Arrive at Cairo International Airport. Meet the representative and transfer to the hotel. Overnight in Cairo.", images: ["/packages/egypt-package-images-webp/image-1.webp"] },
+      { day: "Day 2", title: "Egyptian Museum, Pyramids and Sphinx", text: "Breakfast at the hotel. At approximately 9:00 AM, proceed on a full-day guided tour of the Egyptian Museum, Pyramids of Giza, and Great Sphinx. Overnight in Cairo.", images: ["/packages/egypt-package-images-webp/image-1.webp"] },
+      { day: "Day 3", title: "Cairo to Luxor", text: "After breakfast, transfer to the domestic airport for the flight to Luxor. On arrival, transfer to the Nile cruise and embark before lunch. In the afternoon, visit Karnak Temple and Luxor Temple. Overnight onboard in Luxor.", images: ["/packages/egypt-package-images-webp/image-6.webp"] },
+      { day: "Day 4", title: "Luxor West Bank and Edfu", text: "Visit the West Bank, Necropolis of Thebes, Valley of the Kings, Temple of Queen Hatshepsut, and Colossi of Memnon. Sail to Esna, cross the lock, and continue to Edfu. Overnight onboard.", images: ["/packages/egypt-package-images-webp/image-6.webp"] },
+      { day: "Day 5", title: "Edfu and Kom Ombo", text: "Visit the Temple of Horus in Edfu. Sail to Kom Ombo and visit the temple dedicated to Sobek and Haroeris. Continue sailing to Aswan. Overnight onboard.", images: ["/packages/egypt-package-images-webp/image-5.webp"] },
+      { day: "Day 6", title: "Aswan", text: "Visit the Aswan High Dam and Philae Temple. Later, enjoy a felucca ride with views of Elephantine Island and the Aga Khan Mausoleum. Overnight onboard in Aswan.", images: ["/packages/egypt-package-images-webp/image-5.webp"] },
+      { day: "Day 7", title: "Aswan to Cairo", text: "Disembark after breakfast and transfer to Aswan Airport for the flight to Cairo. Transfer to the hotel on arrival. Overnight in Cairo." },
+      { day: "Day 8", title: "Departure", text: "Breakfast and transfer to Cairo International Airport." }
+    ],
+    hotels: [
+      { title: "5-Star Deluxe", price: "AED 8875 per person", features: ["Cairo: Grand Nile Tower or similar", "Nile cruise: Presidential Nile Cruises or similar"] },
+      { title: "5-Star Standard", price: "AED 6720 per person", features: ["Cairo: Radisson Blu or similar", "Nile cruise: Presidential Nile Cruises or similar"] },
+      { title: "4-Star", price: "AED 5295 per person", features: ["Cairo: Triumph Plaza or similar", "Nile cruise: Presidential Nile Cruises or similar"] }
+    ],
+    pricingOptions: [
+      { label: "5-Star Deluxe", badge: "Premium Stay", hotels: ["Cairo: Grand Nile Tower or similar", "Nile cruise: Presidential Nile Cruises or similar"], mealPlan: "Cairo breakfast, cruise full board", transferType: "Transfers in all cities", price: "AED 8875", priceNote: "per person on double sharing basis", features: ["Deluxe Cairo hotel", "Four-night Nile cruise", "Full-board cruise meals", "Cruise sightseeing"], cta: "Enquire Now" },
+      { label: "5-Star Standard", badge: "Popular Upgrade", hotels: ["Cairo: Radisson Blu or similar", "Nile cruise: Presidential Nile Cruises or similar"], mealPlan: "Cairo breakfast, cruise full board", transferType: "Transfers in all cities", price: "AED 6720", priceNote: "per person on double sharing basis", features: ["5-star standard Cairo hotel", "Four-night Nile cruise", "Pyramids tour", "Temple sightseeing"], cta: "Enquire Now" },
+      { label: "4-Star", badge: "Starting Price", hotels: ["Cairo: Triumph Plaza or similar", "Nile cruise: Presidential Nile Cruises or similar"], mealPlan: "Cairo breakfast, cruise full board", transferType: "Transfers in all cities", price: "AED 5295", priceNote: "per person on double sharing basis", features: ["4-star Cairo hotel", "Four-night Nile cruise", "Entrance fees", "Airport and hotel transfers"], cta: "Enquire Now" }
+    ],
+    inclusions: ["Three nights in Cairo with breakfast", "Four nights aboard the Nile cruise", "Full-board meals during the cruise", "Cruise sightseeing programme", "Cairo full-day sightseeing tour", "Egyptian Museum", "Pyramids and Sphinx", "Lunch during Cairo tour", "Entrance fees", "Airport and hotel transfers in all cities"],
+    exclusions: ["International flight tickets", "Cairo-Luxor domestic flight", "Aswan-Cairo domestic flight", "Egypt visa", "Tips", "Personal expenses", "Services not mentioned under inclusions"],
+    notes: commonNotes,
+    optionalTours: ["Domestic flights can be quoted separately based on travel dates and availability.", "Abu Simbel and additional Cairo experiences can be added on request."],
+    visaDetails: "Egypt visa requirements depend on nationality and residency status. Flyo can guide document requirements before booking.",
+    whatsappMessage: "Hi, I'm interested in Discover Egypt I - Cairo & Nile Cruise. Please share more details."
+  },
+  {
+    slug: "discover-egypt-ii-cairo-nile-cruise",
+    title: "Discover Egypt II",
+    country: "Egypt",
+    duration: "7 Nights / 8 Days",
+    price: "AED 4950",
+    route: "Cairo, Aswan, Kom Ombo, Edfu and Luxor, Egypt",
+    category: "Cruise Package",
+    tags: ["Egypt Packages", "Culture", "Cruise Package", "Heritage Tour", "Luxury Experiences"],
+    cardImage: "/packages/egypt-package-images-webp/image-6.webp",
+    heroImage: "/packages/egypt-package-images-webp/image-5.webp",
+    galleryImages: [
+      { src: "/packages/egypt-package-images-webp/image-6.webp", label: "Luxor heritage sites" },
+      { src: "/packages/egypt-package-images-webp/image-5.webp", label: "Nile cruise sailing" },
+      { src: "/packages/egypt-package-images-webp/image-2.webp", label: "Cairo and Nile" }
+    ],
+    imageHighlights: ["Four nights in Cairo", "Three-night Nile cruise", "Aswan and Philae Temple", "Kom Ombo and Edfu", "Luxor West Bank"],
+    summary: "Enjoy four nights in Cairo and a three-night Nile cruise sailing from Aswan toward Luxor.",
+    overview: "A seven-night Egypt experience featuring Cairo's iconic landmarks and a three-night Nile cruise. The itinerary covers Aswan, Philae Temple, Kom Ombo, Edfu, Luxor's West Bank, Valley of the Kings, Queen Hatshepsut's Temple, and the Colossi of Memnon.",
+    highlights: ["Four nights in Cairo", "Three nights aboard a Nile cruise", "Full-board cruise meals", "Aswan to Luxor sailing route", "Cairo full-day sightseeing"],
+    itinerary: [
+      { day: "Day 1", title: "Arrival in Cairo", text: "Arrive at Cairo International Airport, meet the representative, and transfer to the hotel. Overnight in Cairo.", images: ["/packages/egypt-package-images-webp/image-2.webp"] },
+      { day: "Day 2", title: "Egyptian Museum, Pyramids and Sphinx", text: "After breakfast, depart at approximately 9:00 AM for a full-day guided tour of the Egyptian Museum, Pyramids of Giza, and Great Sphinx. Overnight in Cairo.", images: ["/packages/egypt-package-images-webp/image-1.webp"] },
+      { day: "Day 3", title: "Cairo to Aswan", text: "After breakfast, transfer to the domestic airport for the flight to Aswan. Meet the representative on arrival and transfer to the Nile cruise. Embark before lunch. The afternoon is free at leisure. Overnight onboard in Aswan.", images: ["/packages/egypt-package-images-webp/image-5.webp"] },
+      { day: "Day 4", title: "Aswan and Kom Ombo", text: "Visit the Aswan High Dam and Philae Temple. Sail to Kom Ombo and visit the temple dedicated to Sobek and Haroeris. Continue to Edfu. Overnight onboard.", images: ["/packages/egypt-package-images-webp/image-5.webp"] },
+      { day: "Day 5", title: "Edfu and Luxor", text: "Visit the Temple of Horus in Edfu. Sail to Esna, cross the lock, and continue to Luxor. Overnight onboard.", images: ["/packages/egypt-package-images-webp/image-6.webp"] },
+      { day: "Day 6", title: "Luxor West Bank and Cairo", text: "Disembark after breakfast. Visit the West Bank, Necropolis of Thebes, Valley of the Kings, Temple of Queen Hatshepsut, and Colossi of Memnon. After the tour, transfer to Luxor Airport for the flight to Cairo. Transfer to the hotel on arrival. Overnight in Cairo.", images: ["/packages/egypt-package-images-webp/image-6.webp"] },
+      { day: "Day 7", title: "Cairo Leisure Day", text: "Breakfast at the hotel and a free day at leisure." },
+      { day: "Day 8", title: "Departure", text: "Breakfast and transfer to Cairo International Airport." }
+    ],
+    hotels: [
+      { title: "5-Star Deluxe", price: "AED 8595 per person", features: ["Cairo: Grand Nile Tower or similar", "Nile cruise: Presidential Nile Cruises or similar"] },
+      { title: "5-Star Standard", price: "AED 6110 per person", features: ["Cairo: Radisson Blu or similar", "Nile cruise: Presidential Nile Cruises or similar"] },
+      { title: "4-Star", price: "AED 4950 per person", features: ["Cairo: Triumph Plaza or similar", "Nile cruise: Presidential Nile Cruises or similar"] }
+    ],
+    pricingOptions: [
+      { label: "5-Star Deluxe", badge: "Premium Stay", hotels: ["Cairo: Grand Nile Tower or similar", "Nile cruise: Presidential Nile Cruises or similar"], mealPlan: "Cairo breakfast, cruise full board", transferType: "Transfers in all cities", price: "AED 8595", priceNote: "per person on double sharing basis", features: ["Deluxe Cairo hotel", "Three-night Nile cruise", "Full-board cruise meals", "Luxor West Bank tour"], cta: "Enquire Now" },
+      { label: "5-Star Standard", badge: "Popular Upgrade", hotels: ["Cairo: Radisson Blu or similar", "Nile cruise: Presidential Nile Cruises or similar"], mealPlan: "Cairo breakfast, cruise full board", transferType: "Transfers in all cities", price: "AED 6110", priceNote: "per person on double sharing basis", features: ["5-star standard Cairo hotel", "Three-night Nile cruise", "Cairo sights", "Aswan and Luxor tour"], cta: "Enquire Now" },
+      { label: "4-Star", badge: "Starting Price", hotels: ["Cairo: Triumph Plaza or similar", "Nile cruise: Presidential Nile Cruises or similar"], mealPlan: "Cairo breakfast, cruise full board", transferType: "Transfers in all cities", price: "AED 4950", priceNote: "per person on double sharing basis", features: ["4-star Cairo hotel", "Three-night Nile cruise", "Entrance fees", "Transfers in all cities"], cta: "Enquire Now" }
+    ],
+    inclusions: ["Four nights in Cairo with breakfast", "Three nights aboard the Nile cruise", "Full-board meals during the cruise", "Cruise sightseeing programme", "Cairo full-day sightseeing tour", "Egyptian Museum", "Pyramids and Sphinx", "Lunch during Cairo sightseeing", "Entrance fees", "Transfers in all cities"],
+    exclusions: ["International flight tickets", "Domestic flight tickets", "Egypt visa", "Tips", "Beverages during meals unless included", "Personal expenses", "Any service not mentioned under inclusions"],
+    notes: commonNotes,
+    optionalTours: ["Domestic flights can be quoted separately based on travel dates and availability.", "Abu Simbel and additional Cairo experiences can be added on request."],
+    visaDetails: "Egypt visa requirements depend on nationality and residency status. Flyo can guide document requirements before booking.",
+    whatsappMessage: "Hi, I'm interested in Discover Egypt II - Cairo & Nile Cruise. Please share more details."
   },
   {
     slug: "dubai-desert-safari",
