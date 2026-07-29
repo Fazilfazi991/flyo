@@ -274,8 +274,8 @@
 .socials a img,
 .footer-socials a img,
 .footer-social-link img {
-  width: 100%;
-  height: 100%;
+  width: 24px;
+  height: 24px;
   display: block;
   object-fit: contain;
 }
@@ -443,8 +443,8 @@
 }
 
 .flyo-whatsapp-icon img {
-  width: 100%;
-  height: 100%;
+  width: 46px;
+  height: 46px;
   display: block;
   object-fit: contain;
 }
@@ -635,6 +635,21 @@
   .whatsapp-office-option {
     min-height: 82px;
   }
+}
+
+/* Prevent the footer brand-logo sizing rule from expanding social SVG files. */
+.site-footer .footer-social-link img,
+.site-footer .footer-socials a img,
+.site-footer .socials a img {
+  width: 24px !important;
+  height: 24px !important;
+  max-height: none !important;
+  margin: 0 !important;
+}
+
+.flyo-whatsapp-icon img {
+  width: 46px !important;
+  height: 46px !important;
 }
 
 @keyframes footerMapDrift {

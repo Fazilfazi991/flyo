@@ -12,6 +12,7 @@ const heroSlideData = [
     label: "Curated. Personalized. Memorable.",
     title: "Your Next Holiday, Planned Beautifully",
     subtitle: "Explore curated international holidays, family trips, honeymoons, beach escapes, and custom travel plans designed with care from start to finish.",
+    // The travel scene is on the right; keep the copy in the clear sky and sea on the left.
     align: "left",
     primaryText: "Explore Packages",
     primaryLink: "/packages/",
@@ -24,6 +25,7 @@ const heroSlideData = [
     label: "Worldwide Holidays",
     title: "Travel Ideas for Every Kind of Escape",
     subtitle: "From mountain views to beach days and city breaks, Flyo helps shape comfortable holidays around your dates and travel style.",
+    // Keep this copy clear of the central landscape subject.
     align: "right",
     primaryText: "View Holidays",
     primaryLink: "/packages/",
@@ -36,6 +38,7 @@ const heroSlideData = [
     label: "Thailand Escapes",
     title: "Tropical Holidays Made Effortless",
     subtitle: "Explore crystal-clear beaches, island views, and relaxing Thailand getaways curated for every kind of traveler.",
+    // The boat, cliffs and palms are on the right of this image.
     align: "left",
     primaryText: "Explore Packages",
     primaryLink: "/packages?country=Thailand",
@@ -48,6 +51,7 @@ const heroSlideData = [
     label: "Malaysia Getaways",
     title: "City Lights, Culture & Comfort",
     subtitle: "Plan your Malaysia holiday with smooth flights, hotel stays, sightseeing, and guided travel support.",
+    // The skyline and traveller fill the left side; the sunset is intentionally open on the right.
     align: "right",
     primaryText: "View Malaysia Packages",
     primaryLink: "/packages?country=Malaysia",
@@ -60,6 +64,7 @@ const heroSlideData = [
     label: "Europe Holidays",
     title: "Scenic Europe, Planned Beautifully",
     subtitle: "From lakeside villages to alpine views, discover Europe packages designed for memorable family and honeymoon trips.",
+    // The village occupies the right side of the frame.
     align: "left",
     primaryText: "Explore Europe",
     primaryLink: "/packages?country=Europe",
@@ -72,6 +77,7 @@ const heroSlideData = [
     label: "Turkey Experiences",
     title: "Wake Up to Magical Views",
     subtitle: "Experience Cappadocia balloons, cultural tours, scenic stays, and unforgettable holiday moments.",
+    // The balloons are on the left; the warm sky is open on the right.
     align: "right",
     primaryText: "View Experiences",
     primaryLink: "/experiences.html",
@@ -84,6 +90,7 @@ const heroSlideData = [
     label: "Mediterranean Dreams",
     title: "Coastal Holidays with a Luxury Feel",
     subtitle: "Discover beautiful coastlines, charming towns, romantic views, and premium travel planning support.",
+    // The coast and houses are on the right; keep copy over the open water.
     align: "left",
     primaryText: "Explore Packages",
     primaryLink: "/packages/",
@@ -741,6 +748,7 @@ const updateHeroContent = slide => {
   if (!heroContent || !slide) return;
   hero.dataset.align = slide.align;
   heroContent.dataset.align = slide.align;
+  heroContent.classList.toggle("hero-content--right", slide.align === "right");
   heroSlideLabel.textContent = slide.label;
   heroSlideTitle.textContent = slide.title;
   heroSlideSubtitle.textContent = slide.subtitle;
