@@ -2,6 +2,8 @@ import { validateLead, pageContext, chronological } from './core.mjs';
 import { mountFaq } from '/faq/browser.js';
 
 const host=document.createElement('div');host.id='flyo-live-chat';document.body.append(host);
+const dock=document.querySelector('.flyo-floating-actions');
+if(dock){dock.prepend(host);host.dataset.docked='true';}
 const root=host.attachShadow({mode:'open'});
 root.innerHTML=`<link rel="stylesheet" href="/chat/widget.css"><link rel="stylesheet" href="/faq/faq.css">
 <button class="launcher" aria-label="Open Flyo Travel Support" aria-expanded="false" aria-controls="support"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5H4l-1 2V11.5a9 9 0 1 1 18 0Z"/><path d="M7 10h10M7 14h6"/></svg><span>Chat with Flyo</span><b class="badge" hidden>0</b></button>

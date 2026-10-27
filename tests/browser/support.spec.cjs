@@ -1,5 +1,21 @@
 const {test,expect}=require('@playwright/test');
 
+test('floating chat and WhatsApp controls stay separated above the footer',async({page})=>{
+  await page.goto('/');
+  const launcher=page.getByRole('button',{name:'Open Flyo Travel Support',exact:true});
+  const whatsapp=page.getByRole('button',{name:'Chat on WhatsApp',exact:true});
+  await expect(page.locator('#flyo-live-chat')).toHaveAttribute('data-docked','true');
+  for(const footerVisible of [false,true]){
+    if(footerVisible)await page.locator('.site-footer').scrollIntoViewIfNeeded();
+    await expect.poll(async()=>{
+      const chat=await launcher.boundingBox(),wa=await whatsapp.boundingBox();
+      return wa.y-(chat.y+chat.height);
+    }).toBeGreaterThanOrEqual(8);
+  }
+  await launcher.click();await expect(page.getByRole('dialog')).toBeVisible();
+  await page.keyboard.press('Escape');await expect(launcher).toBeFocused();
+});
+
 test('welcome, Option 2 FAQ search and keyboard close work without a chat backend',async({page})=>{
   await page.goto('/');await page.getByRole('button',{name:'Open Flyo Travel Support',exact:true}).click();
   await expect(page.getByText('Welcome to Flyo Travel & Tourism! How can we help you?',{exact:true})).toBeVisible();

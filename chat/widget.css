@@ -11,3 +11,5 @@ header{display:flex;align-items:flex-start;gap:12px;background:var(--navy);color
 
 @media(max-width:600px){.support-nav{padding-inline:20px}.faq-pane{padding:20px}.messages{padding:20px}.composer{padding:12px 20px}.typing{margin-inline:20px}}
 @media(max-width:380px){.pair{grid-template-columns:minmax(0,1fr)}}
+:host([data-docked]){display:block;pointer-events:auto;line-height:normal}
+:host([data-docked]) .launcher{position:static;margin:0}

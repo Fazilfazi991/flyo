@@ -187,6 +187,13 @@ const ensureFloatingActions = () => {
     document.body.appendChild(actions);
   }
 
+  // Keep support controls in one layout, including when scripts load in either order.
+  const support = document.querySelector('#flyo-live-chat');
+  const actions = document.querySelector('.flyo-floating-actions');
+  if (support && actions) {
+    actions.prepend(support);
+    support.dataset.docked = 'true';
+  }
   const topButton = document.querySelector(".flyo-back-top");
   topButton?.addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: motionQuery.matches ? "auto" : "smooth" });
