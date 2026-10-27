@@ -37,7 +37,8 @@ Anonymous sign-ins are enabled, the four chat tables are published to Realtime,
 all eleven Flyo tables have RLS enabled, and the previous unrestricted staff
 policies have been replaced. Exactly **one** auto-confirmed, enabled administrator
 has been authorized. Do not rerun the schema against this activated project.
-No website deployment was performed.
+The frontend was subsequently deployed on **27 October 2026** to
+https://flyo-liart.vercel.app through the existing GitHub-to-Vercel connection.
 
 For a fresh environment, complete the following setup:
 
@@ -197,7 +198,8 @@ and saved history after refreshing both pages. The clearly labelled test was
 marked resolved and retained for review. Staff remained Offline throughout;
 online availability and separate-browser privacy isolation were not part of
 this manual check. No passwords were read, generated or stored by the agent,
-and no additional staff accounts were created. The website remains undeployed.
+and no additional staff accounts were created. The frontend was subsequently
+deployed on **27 October 2026** to https://flyo-liart.vercel.app.
 
 Implementation verification on 26 October 2026: **20 database/content tests and
 18 desktop/mobile browser tests passed**; the two real Supabase flow cases
