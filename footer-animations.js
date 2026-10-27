@@ -116,7 +116,8 @@ const footerOffices = [
     title: "UAE Office",
     subtitle: "Cooperative Office",
     rows: [
-      { icon: "phone", label: "Phone", text: "04 396 4626", href: "tel:043964626" },
+      { icon: "phone", label: "Landline", text: "04 369 4626", href: "tel:043694626" },
+      { icon: "phone", label: "Mobile", text: "+971 50 535 7300", href: "tel:+971505357300" },
       { icon: "email", label: "Email", text: "info.dubai@flyotour.com", href: "mailto:info.dubai@flyotour.com" },
       { icon: "location", label: "Location", text: "Deira, Dubai" },
     ]
@@ -124,7 +125,8 @@ const footerOffices = [
   {
     title: "India Office",
     rows: [
-      { icon: "phone", label: "Phone", text: "+91 6361 25 4400", href: "tel:+916361254400" },
+      { icon: "phone", label: "Landline", text: "0824 4605375", href: "tel:+918244605375" },
+      { icon: "phone", label: "Mobile", text: "+91 6361 25 4400", href: "tel:+916361254400" },
       { icon: "email", label: "Email", text: "info.india@flyotour.com", href: "mailto:info.india@flyotour.com" },
       { icon: "location", label: "Location", text: "Karnataka, India" }
     ]

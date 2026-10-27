@@ -8,7 +8,7 @@ test('FAQ dataset contains all 36 Option 2 questions across the requested catego
   assert.equal(new Set(faqs.map(f=>f.category)).size,8);
   assert.ok(faqs.every(f=>f.question&&f.answer));assert.ok(!JSON.stringify(faqs).includes('[Edit'));
   assert.ok(!JSON.stringify(faqs).includes('50 594 5077'));
-  assert.match(faqs[35].answer,/04 396 4626/);assert.match(faqs[35].answer,/50 535 7300/);
+  assert.match(faqs[35].answer,/04 369 4626/);assert.match(faqs[35].answer,/50 535 7300/);
 });
 test('keyword search matches questions and answers, combines words, and respects categories',()=>{
   assert.ok(searchFaqs(faqs,'visa').length>=3);assert.equal(searchFaqs(faqs,'SIC')[0].id,5);

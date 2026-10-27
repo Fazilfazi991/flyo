@@ -1,6 +1,6 @@
 import { groupPackages } from './group-packages.js';
 
-const phone = "04 396 4626";
+const phone = "04 369 4626";
 const whatsapp = "#";
 const email = "info.dubai@flyotour.com";
 

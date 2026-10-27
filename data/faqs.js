@@ -215,6 +215,6 @@ export const faqs = [
     "id": 36,
     "category": "Contact information",
     "question": "How can I contact FLY O Tours & Travel?",
-    "answer": "You can contact our travel team for quotations, bookings, visa assistance, and travel enquiries. UAE office: Deira, Dubai. Phone: 04 396 4626. UAE WhatsApp: +971 50 535 7300. Email: info.dubai@flyotour.com. India office: Karnataka, India. Phone / WhatsApp: +91 6361 25 4400. Email: info.india@flyotour.com. Website: www.flyotour.com."
+    "answer": "You can contact our travel team for quotations, bookings, visa assistance, and travel enquiries. UAE office: Deira, Dubai. Landline: 04 369 4626. UAE WhatsApp: +971 50 535 7300. Email: info.dubai@flyotour.com. India office: Karnataka, India. Landline: 0824 4605375. Mobile / WhatsApp: +91 6361 25 4400. Email: info.india@flyotour.com. Website: www.flyotour.com."
   }
 ];
