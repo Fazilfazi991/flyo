@@ -91,6 +91,10 @@ export const getSupabaseSession = async () => {
   const client = await getSupabaseClient();
   if (!client) return null;
   const { data } = await client.auth.getSession();
+  if (data.session) {
+    const {data:profile,error}=await client.rpc('flyo_chat_command',{action:'profile'});
+    if (error || !profile || !['admin','editor'].includes(profile.role)) return null;
+  }
   return data.session;
 };
 
@@ -99,6 +103,11 @@ export const signInAdmin = async (email, password) => {
   if (!client) throw new Error("Supabase is not configured.");
   const { data, error } = await client.auth.signInWithPassword({ email, password });
   if (error) throw error;
+  const {data:profile,error:accessError}=await client.rpc('flyo_chat_command',{action:'profile'});
+  if (accessError || !profile || !['admin','editor'].includes(profile.role)) {
+    await client.auth.signOut();
+    throw new Error('This account is not authorized for package administration. Travel support staff can use /admin/live-chat/.');
+  }
   return data.session;
 };
 
@@ -124,11 +133,17 @@ export const getAdminPackagesAsync = async () => {
 
 export const getPublicPackagesAsync = async () => {
   try {
-    return (await getAdminPackagesAsync())
+    const stored = await getAdminPackagesAsync();
+    // New brief-backed packages ship with this static release. Preserve existing
+    // CMS/local versions whenever a record with the same slug is present.
+    const added = sourcePackages.filter(item => item.sourceBrief && !stored.some(saved => saved.slug === item.slug));
+    return stored.concat(added)
       .filter(item => (item.adminStatus || "published") === "published")
       .sort((a, b) => (Number(a.displayOrder) || 9999) - (Number(b.displayOrder) || 9999));
   } catch {
-    return getPublicPackages();
+    const stored = getAdminPackages();
+    return stored.concat(sourcePackages.filter(item => item.sourceBrief && !stored.some(saved => saved.slug === item.slug)))
+      .filter(item => (item.adminStatus || 'published') === 'published');
   }
 };
 

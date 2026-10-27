@@ -28,6 +28,9 @@ if (!packageData) {
 }
 
 const byId = id => document.getElementById(id);
+const packageChatContext = {package_id:packageData.slug,package_name:packageData.title,destination:packageData.route || packageData.country,
+  package_url:`${location.origin}/packages/${encodeURIComponent(packageData.slug)}/`};
+window.flyoChatContext = packageChatContext;
 const textToLines = text => String(text).split("\n").join("<br>");
 const stars = count => "★★★★★".slice(0, count);
 const relatedPackages = packages.filter(item => item.slug !== packageData.slug).slice(0, 5);
@@ -35,12 +38,12 @@ const startingPrice = packageData.startingPrice || packageData.price || "Price o
 const startingPriceAed = parseAedPrice(startingPrice);
 const startingPriceText = () => !startingPriceAed || /request/i.test(startingPrice)
   ? "Price on request"
-  : `${formatPackageAmount(startingPriceAed)} / person`;
+  : `${formatPackageAmount(startingPriceAed)} ${packageData.sourceBrief ? (packageData.priceNote || 'per person') : '/ person'}`;
 const baseWhatsappMessage = whatsappMessages.package(packageData.title);
 const callHref = `tel:${contact.phone.replace(/\D/g, "")}`;
 const emailHref = `mailto:${contact.email}?subject=${encodeURIComponent(packageData.title)}&body=${encodeURIComponent(baseWhatsappMessage)}`;
 
-const whatsappAttrsFor = () => `href="#" data-whatsapp-package="${packageData.title}"`;
+const whatsappAttrsFor = () => packageData.sourceBrief ? `href="#" data-flyo-chat` : `href="#" data-whatsapp-package="${packageData.title}"`;
 
 const iconPaths = {
   destination: "/public/flyo-icons/package-meta/destination.svg",
@@ -77,6 +80,7 @@ const siteHrefMap = {
   Experiences: "/experiences.html",
   "Visa Services": "/visa-services/",
   Contact: "/contact/",
+  "Frequently Asked Questions": "/faq/",
   "Flight Booking Assistance": "/flights/",
   "Holiday Packages": "/packages/",
   "International Packages": "/packages/",
@@ -194,8 +198,10 @@ const renderPricingTable = options => `
 const shouldRenderPricingTable = pricingOptions.length > 3 || hasComplexPricing;
 
 document.title = `${packageData.title} | Flyo Tours & Travels`;
+if (packageData.sourceBrief) document.querySelector('meta[name="description"]').content = packageData.summary;
 document.documentElement.style.setProperty("--package-hero-image", `url("${packageData.heroImage}")`);
 byId("packageMainImage").style.backgroundImage = `url("${packageData.heroImage}")`;
+if (packageData.heroAlt) byId('packageMainImage').setAttribute('aria-label', packageData.heroAlt);
 const imageHighlights = packageData.imageHighlights || (
   packageData.category === "Cruise Package"
     ? ["Scenic coastal views", "Relax on board", "Memorable escapes"]
@@ -210,7 +216,9 @@ byId("heroFeatures").innerHTML = [
   { icon: "duration", label: "Duration", value: packageData.duration },
   { icon: "startingPrice", label: "Starting Price", value: `<span data-starting-price>${startingPriceText()}</span>` },
   { icon: "route", label: "Availability", value: packageData.availability || "Flexible Dates" },
-  { icon: "destination", label: "Package Type", value: packageData.packageType || packageData.category || "Holiday" }
+  { icon: "destination", label: "Package Type", value: packageData.packageType || packageData.category || "Holiday" },
+  ...(packageData.sourceBrief ? [{icon:'destination',label:'Destination',value:packageData.route},
+    ...(packageData.hotelCategory ? [{icon:'destination',label:'Hotel Category',value:packageData.hotelCategory}] : [])] : [])
 ].map(item => `
   <div class="hero-feature">
     <span class="meta-icon">${iconAsset(item.icon)}</span>
@@ -235,12 +243,7 @@ byId("heroTrust").insertAdjacentHTML("afterend", `
     <article class="package-essentials-card">
       <h3>Package Highlights</h3>
       <ul>
-        <li>Flexible travel dates</li>
-        <li>Hotel stay included</li>
-        <li>Airport transfers available</li>
-        <li>Custom planning support</li>
-        <li>Visa support available</li>
-        <li>24/7 travel assistance</li>
+        ${packageData.sourceBrief ? packageData.highlights.slice(0,6).map(item=>`<li>${item}</li>`).join('') : `<li>Flexible travel dates</li><li>Hotel stay included</li><li>Airport transfers available</li><li>Custom planning support</li><li>Visa support available</li><li>24/7 travel assistance</li>`}
       </ul>
     </article>
     <article class="package-essentials-card">
@@ -260,6 +263,10 @@ byId("bookingDate").placeholder = "Preferred travel date";
 byId("bookingPackage").innerHTML = `<option>${packageData.title}</option>` + pricingOptions.map(item => `<option>${item.label || "Custom Quote"}</option>`).join("");
 byId("bookingButton").textContent = "Send Enquiry";
 byId("bookingNote").textContent = "Flyo will confirm availability, final rates, and customization options.";
+if (packageData.sourceBrief) {
+  byId('bookingNote').textContent='Contact Flyo to confirm the quoted dates, availability and applicable fare before booking.';
+  byId('heroTrust').textContent=packageData.importantInfo?.[0] || 'Contact us to confirm availability and package details.';
+}
 
 document.querySelector("#overviewPanel .section-title span").textContent = "Overview";
 document.querySelector("#overviewPanel .section-title h2").textContent = "Package Overview";
@@ -280,7 +287,7 @@ byId("highlightGrid").innerHTML = packageData.highlights.slice(0, 3).map((highli
     <div class="highlight-image" style="background-image:url('${getPackageVisual(index)}')"></div>
     <div class="highlight-body">
       <div class="number-title"><span>${String(index + 1).padStart(2, "0")}</span><h3>${highlight}</h3></div>
-      <p>${index === 0 ? "A polished start to the trip with key sights and smooth routing." : "Planned with clear timing, comfortable transfers, and easy pacing."}</p>
+      <p>${packageData.sourceBrief ? (packageData.galleryImages?.[index]?.label || 'As described in the itinerary. Contact us for details.') : index === 0 ? "A polished start to the trip with key sights and smooth routing." : "Planned with clear timing, comfortable transfers, and easy pacing."}</p>
     </div>
   </article>
 `).join("");
@@ -321,6 +328,7 @@ const scheduleItems = (packageData.timings || packageData.schedule || []).map(it
 
 if (scheduleItems.length) {
   byId("scheduleSection").hidden = false;
+  if (packageData.scheduleTitle) byId('scheduleSection').querySelector('h2').textContent=packageData.scheduleTitle;
   byId("scheduleGrid").innerHTML = scheduleItems.map(item => `
     <article class="package-timing-card">
       <strong>${item.label || item.day || "Timing"}</strong>
@@ -466,7 +474,7 @@ byId("itineraryAccordion").innerHTML = itineraryItems.map((item, index) => `
           ${item.details.map(detail => `<li>${detail}</li>`).join("")}
         </ul>
         ${item.chips.length ? `<div class="itinerary-chip-row">${item.chips.map(chip => `<span>${chip}</span>`).join("")}</div>` : ""}
-        ${item.images.length ? `<div class="itinerary-image-row">${item.images.slice(0, 3).map((image, imageIndex) => `<img src="${image}" alt="${item.title} preview ${imageIndex + 1}">`).join("")}</div>` : ""}
+        ${item.images.length ? `<div class="itinerary-image-row">${item.images.slice(0, 3).map((image, imageIndex) => `<img src="${image}" alt="${packageGalleryImages.find(entry=>entry.src===image)?.label || `${item.title} preview ${imageIndex + 1}`}" loading="lazy">`).join("")}</div>` : ""}
       </div>
     </div>
   </article>
@@ -506,10 +514,11 @@ if (packageGalleryImages.length) {
   document.querySelector(".gallery-heading h2").textContent = "Package Gallery";
   document.querySelector(".gallery-heading p").textContent = `A closer look at ${packageData.title} using destination-specific visuals.`;
   document.querySelector(".gallery-button").href = "#";
-  document.querySelector(".gallery-button").dataset.whatsappPackage = packageData.title;
+  if (packageData.sourceBrief) document.querySelector('.gallery-button').dataset.flyoChat = '';
+  else document.querySelector(".gallery-button").dataset.whatsappPackage = packageData.title;
   document.querySelector(".gallery-button").textContent = "Enquire Now";
   byId("galleryGrid").innerHTML = packageGalleryImages.slice(0, 5).map((item, index) => `
-    <article class="gallery-card" style="background-image:url('${item.src}')">
+    <article class="gallery-card" style="background-image:url('${item.src}')" role="img" aria-label="${item.label || packageData.title}">
       <strong><span>${packageData.country}</span>${item.label || packageData.imageHighlights?.[index] || packageData.title}</strong>
     </article>
   `).join("");
@@ -527,7 +536,7 @@ if (packageGalleryImages.length) {
 
 document.querySelector(".options-panel .section-title h2").textContent = "Stay Options & Pricing";
 document.querySelector(".options-panel .section-title").insertAdjacentHTML("beforeend", `
-  <p>Choose from the available stay options for this package, or ask Flyo to customize hotels and transfers around your dates.</p>
+  <p>${packageData.sourceBrief ? 'Review the quoted package options below. Contact Flyo to confirm availability and the applicable fare before booking.' : 'Choose from the available stay options for this package, or ask Flyo to customize hotels and transfers around your dates.'}</p>
   ${hasSeasonalPricing ? `<small class="pricing-seasonal-disclaimer">Final price may vary based on travel dates, availability, room type, and number of travelers.</small>` : ""}
 `);
 const pricingGrid = byId("pricingGrid");
@@ -535,7 +544,7 @@ const renderPricingSection = () => {
   pricingGrid.className = `pricing-grid pricing-count-${pricingOptions.length}${shouldRenderPricingTable ? " pricing-table-mode" : ""}`;
   pricingGrid.innerHTML = shouldRenderPricingTable
     ? renderPricingTable(pricingOptions)
-    : `${pricingOptions.map((option, index) => renderPricingCard(option, index, pricingOptions.length === 1 ? "single-featured" : "")).join("")}${pricingOptions.length === 1 ? renderCustomOptionCard() : ""}`;
+    : `${pricingOptions.map((option, index) => renderPricingCard(option, index, pricingOptions.length === 1 ? "single-featured" : "")).join("")}${pricingOptions.length === 1 && !packageData.sourceBrief ? renderCustomOptionCard() : ""}`;
 };
 renderPricingSection();
 
@@ -584,6 +593,12 @@ if (infoCards.length) {
     ` : ""}
   `;
 }
+if (packageData.policySections?.length) {
+  byId('travelNotesSection').hidden=false;
+  byId('travelNotesSection').querySelector('h2').textContent='Important Information & Policies';
+  byId('packageInfoGrid').insertAdjacentHTML('beforeend',packageData.policySections.map(section=>`
+    <article class="travel-note-block important-info-full package-policy-block"><h3>${section.title}</h3><ul class="important-info-list">${section.items.map(item=>`<li>${item}</li>`).join('')}</ul></article>`).join(''));
+}
 byId("packageTrust").innerHTML = [
   { icon: "visaAssistance", title: "Visa Assistance" },
   { icon: "handpickedHotels", title: "Handpicked Hotels" },
@@ -596,6 +611,19 @@ byId("packageTrust").innerHTML = [
     <strong>${item.title}</strong>
   </article>
 `).join("");
+
+if (packageData.sourceBrief) {
+  // Do not attach the template's generic sample testimonials to a new tour.
+  document.querySelector('.reviews-section').hidden = true;
+  const related=packageData.relatedSlugs.map(slug=>packages.find(item=>item.slug===slug)).filter(Boolean);
+  if (related.length) {
+    const section=document.createElement('section');
+    section.className='package-section gallery-section';
+    section.setAttribute('aria-label','Related group packages');
+    section.innerHTML=`<div class="package-container"><div class="gallery-heading"><div><h2>Related Packages</h2><p>Explore more Flyo group tours.</p></div><a class="gallery-button" href="/packages/">View All Packages</a></div><div class="gallery-grid">${related.map(item=>`<a class="gallery-card" href="/packages/${item.slug}/" style="background-image:url('${item.cardImage}')"><strong><span>${item.country}</span>${item.title}</strong></a>`).join('')}</div></div>`;
+    document.querySelector('.gallery-section').after(section);
+  }
+}
 
 byId("reviewBadge").textContent = "Trusted by travelers";
 byId("reviewTitle").innerHTML = textToLines("Built Around\nYour Holiday Style");
@@ -679,6 +707,11 @@ document.querySelector(".footer-bottom-package").innerHTML = `
 
 document.querySelectorAll("form").forEach(form => form.addEventListener("submit", event => {
   event.preventDefault();
+  if (packageData.sourceBrief && window.FlyoChat) {
+    window.FlyoChat.open({...packageChatContext,view:'team',name:byId('bookingName').value,phone:byId('bookingPhone').value,
+      email:byId('bookingEmail').value,travel_date:byId('bookingDate').value,message:byId('bookingMessage').value});
+    return;
+  }
   openWhatsAppChooser(baseWhatsappMessage);
 }));
 document.querySelectorAll(".faq-question").forEach(button => {

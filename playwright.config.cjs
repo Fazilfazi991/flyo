@@ -1,0 +1,2 @@
+const {defineConfig}=require('@playwright/test');
+module.exports=defineConfig({testDir:'./tests/browser',workers:1,timeout:30000,use:{baseURL:process.env.CHAT_E2E_URL||'http://127.0.0.1:4173',trace:'retain-on-failure'},projects:[{name:'desktop',use:{viewport:{width:1280,height:900}}},{name:'mobile',use:{viewport:{width:390,height:844}}}],webServer:{command:'node scripts/build-static.js && node preview-server.js',url:'http://127.0.0.1:4173',reuseExistingServer:true}});

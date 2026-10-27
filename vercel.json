@@ -5,6 +5,14 @@
   "trailingSlash": false,
   "rewrites": [
     {
+      "source": "/admin/live-chat",
+      "destination": "/admin/live-chat/index.html"
+    },
+    {
+      "source": "/faq",
+      "destination": "/faq/index.html"
+    },
+    {
       "source": "/packages/:slug",
       "destination": "/packages/:slug/index.html"
     },

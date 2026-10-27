@@ -17,10 +17,8 @@ import {
 } from "../data/package-store.js";
 import { formatPackageAmount, parseAedPrice } from "../currency.js";
 
-const AUTH_KEY = "flyoAdminAuthenticated";
 const EXTRA_STORAGE_KEY = "flyoAdminExtras";
 const MEDIA_STORAGE_KEY = "flyoAdminMedia";
-const PASSWORD = "flyo-admin";
 
 const state = {
   packages: getAdminPackages(),
@@ -86,6 +84,12 @@ const escapeHtml = value => String(value ?? "")
   .replace(/>/g, "&gt;")
   .replace(/"/g, "&quot;");
 
+const formatUpdatedDate = value => {
+  const date = value ? new Date(value) : null;
+  if (!date || Number.isNaN(date.getTime())) return escapeHtml(value || "Imported");
+  return `<time datetime="${escapeHtml(date.toISOString())}" title="${escapeHtml(date.toLocaleString())}">${escapeHtml(new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }).format(date))}</time>`;
+};
+
 const lines = value => Array.isArray(value) ? value.join("\n") : String(value || "");
 const fromLines = value => String(value || "").split("\n").map(item => item.trim()).filter(Boolean);
 
@@ -109,7 +113,7 @@ const hydrateFromSupabase = async () => {
     setBackendNotice("<strong>Supabase connected:</strong> packages and settings are syncing with the Flyo Supabase database.");
   } catch (error) {
     state.backendMode = "Local fallback";
-    setBackendNotice(`<strong>Local fallback:</strong> Supabase is configured, but the dashboard could not sync yet. Create the schema in <code>supabase/flyo-admin-schema.sql</code> and login with a Supabase admin user. ${escapeHtml(error.message || "")}`);
+    setBackendNotice(`<strong>Connection unavailable:</strong> Check the Supabase connection and staff setup in the README. ${escapeHtml(error.message || "")}`);
   }
 };
 
@@ -136,11 +140,10 @@ const setSection = name => {
 
 const authenticate = async () => {
   const session = await getSupabaseSession().catch(() => null);
-  const loggedIn = localStorage.getItem(AUTH_KEY) === "true" || Boolean(session);
+  const loggedIn = Boolean(session);
   $("[data-auth-shell]").hidden = !loggedIn;
   $("[data-login-screen]").hidden = loggedIn;
   if (session) {
-    localStorage.setItem(AUTH_KEY, "true");
     state.backendMode = "Supabase connected";
   }
   return loggedIn;
@@ -217,7 +220,7 @@ const renderPackages = () => {
         <td>${escapeHtml(getPrice(item))}</td>
         <td><span class="status-pill status-${status}">${status}</span></td>
         <td>${item.featured ? "Yes" : "No"}</td>
-        <td>${escapeHtml(item.lastUpdated || "Imported")}</td>
+        <td class="updated-cell">${formatUpdatedDate(item.lastUpdated)}</td>
         <td>
           <div class="row-actions">
             <button type="button" data-edit-package="${escapeHtml(item.slug)}">Edit</button>
@@ -679,7 +682,6 @@ document.addEventListener("click", async event => {
     await persistPackages();
   }
   if (button.matches("[data-logout]")) {
-    localStorage.removeItem(AUTH_KEY);
     await signOutAdmin().catch(() => {});
     await authenticate();
   }
@@ -784,22 +786,13 @@ $("#loginForm").addEventListener("submit", async event => {
   const password = $("#adminPassword").value;
   try {
     await signInAdmin(email, password);
-    localStorage.setItem(AUTH_KEY, "true");
     await authenticate();
     await hydrateFromSupabase();
     renderAll();
     notify("Logged in with Supabase.");
     return;
   } catch (error) {
-    if (password !== PASSWORD) {
-      notify(`Supabase login failed: ${error.message || "check credentials"}`);
-      return;
-    }
-    localStorage.setItem(AUTH_KEY, "true");
-    await authenticate();
-    await hydrateFromSupabase();
-    renderAll();
-    notify("Logged in with local fallback.");
+    notify(`Staff login failed: ${error.message || "check credentials"}`);
   }
 });
 

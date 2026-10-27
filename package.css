@@ -1,3 +1,9 @@
+.travel-note-block.package-policy-block {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--primary-08, rgba(6, 21, 112, .08));
+}
+
 @font-face {
   font-family: "Creato Display";
   src: local("Creato Display"), local("CreatoDisplay");

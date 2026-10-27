@@ -17,6 +17,7 @@
       </a>
       <button class="admin-mobile-toggle" type="button" data-sidebar-toggle>Menu</button>
       <nav class="admin-nav" aria-label="Admin sections">
+        <a href="/admin/live-chat/">Live chat & enquiries</a>
         <button class="active" type="button" data-admin-section="dashboard">Dashboard</button>
         <button type="button" data-admin-section="packages">Packages</button>
         <button type="button" data-admin-section="countries">Countries</button>
@@ -42,7 +43,7 @@
       </header>
 
       <div class="admin-alert" data-store-notice>
-        <strong>Supabase mode:</strong> this dashboard syncs packages and settings with Flyo Supabase when the database schema and admin login are ready. Local fallback remains available during setup.
+        <strong>Staff access:</strong> packages and settings use Flyo Supabase. Sign in with an authorized staff account; travel support is available in the live-chat inbox.
       </div>
 
       <section class="admin-section active" data-section-panel="dashboard">
@@ -160,11 +161,11 @@
     <form class="login-card" id="loginForm">
       <img src="/public/flyo-logo-navy.svg" alt="Flyo Tours & Travels">
       <h1>Admin Login</h1>
-      <p>Login with a Supabase admin user. Temporary local fallback remains available during setup.</p>
+      <p>Sign in with an authorized Flyo administrator or editor account.</p>
       <label><span>Email</span><input id="adminEmail" type="email" value="admin@flyotour.com" required></label>
       <label><span>Password</span><input id="adminPassword" type="password" placeholder="Enter password" required></label>
       <button type="submit">Login</button>
-      <small>Local fallback password: <strong>flyo-admin</strong></small>
+      <small>Use an authorized Flyo staff account. Travel support staff can <a href="/admin/live-chat/">open the live-chat inbox</a>.</small>
     </form>
   </section>
 

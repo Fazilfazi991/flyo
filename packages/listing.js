@@ -139,6 +139,7 @@ const getDetails = item => cardDetails[item.slug] || {
 };
 
 function monthsForPackage(item) {
+  if (item.sourceBrief) return item.recommendedMonths || [];
   if (item.recommendedMonths?.length) return item.recommendedMonths;
   if (/cruise|aroya/i.test(`${item.category} ${item.tags?.join(" ") || ""}`)) return ["January", "February", "March", "April", "November", "December"];
   if (/uae|dubai|desert/i.test(`${item.country} ${item.route} ${item.title}`)) return ["January", "February", "March", "April", "October", "November", "December"];
@@ -245,10 +246,11 @@ const packageCard = ({ item, details, priceAed }, index) => `
   <article class="package-card reveal is-visible ${revealDelay(index)}">
     <a class="package-card-image reveal-image is-visible" href="/packages/${item.slug}/" aria-label="View ${item.title}">
       <img src="${details.image || item.cardImage}" alt="${item.title}" loading="${index < 3 ? "eager" : "lazy"}">
-      <span class="package-badge">${icon("star")}Best Seller</span>
+      <span class="package-badge">${icon("star")}${item.sourceBrief ? 'Group Tour' : 'Best Seller'}</span>
     </a>
     <div class="package-card-body">
       <h3>${item.title}</h3>
+      ${item.sourceBrief ? `<p class="package-card-summary">${item.summary}</p>` : ''}
       <div class="package-card-meta">
         <span>${icon("route")}<b>Route:</b> ${details.location}</span>
         <span>${icon("duration")}<b>Duration:</b> ${details.duration}</span>
@@ -258,14 +260,14 @@ const packageCard = ({ item, details, priceAed }, index) => `
       </div>
       <div class="package-card-footer">
         <div class="package-price">
-          <small>From</small>
-          <strong data-price-aed="${priceAed || ""}">${formatPackageAmount(priceAed)}</strong>
-          <span>/person</span>
+          <small>${priceAed ? 'From' : 'Enquire for pricing'}</small>
+          <strong class="${!priceAed ? 'package-price-request' : ''}" data-price-aed="${priceAed || ""}">${formatPackageAmount(priceAed)}</strong>
+          ${priceAed ? '<span>/person</span>' : ''}
         </div>
       </div>
       <div class="package-action-row">
         <a class="package-view-link" href="/packages/${item.slug}/">${icon("bag")}View Package</a>
-        <a class="package-enquire-link" href="#" data-whatsapp-package="${item.title}">${icon("chat")}Enquire Now</a>
+        <a class="package-enquire-link" href="#" ${item.sourceBrief ? `data-flyo-chat data-package-id="${item.slug}" data-package-name="${item.title}" data-package-url="${location.origin}/packages/${item.slug}/" data-destination="${item.route || item.country}"` : `data-whatsapp-package="${item.title}"`}>${icon("chat")}Enquire Now</a>
       </div>
     </div>
   </article>

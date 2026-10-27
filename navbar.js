@@ -24,6 +24,7 @@ const activeKeyForPath = () => {
   if (path.includes("/packages")) return "holidays";
   if (path.includes("/visa-services")) return "visa";
   if (path.includes("/contact")) return "contact";
+  if (path.includes("/faq")) return "faq";
   if (path.includes("experiences")) return "experiences";
   return "home";
 };

@@ -8,7 +8,7 @@ export const isSupabaseConfigured = () => Boolean(SUPABASE_URL && SUPABASE_ANON_
 export const getSupabaseClient = async () => {
   if (!isSupabaseConfigured()) return null;
   if (!clientPromise) {
-    clientPromise = import("https://esm.sh/@supabase/supabase-js@2").then(({ createClient }) =>
+    clientPromise = import("/vendor/supabase.js").then(({ createClient }) =>
       createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
         auth: {
           autoRefreshToken: true,

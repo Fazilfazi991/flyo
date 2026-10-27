@@ -359,6 +359,8 @@ h1 { max-width: 690px; margin: 0; color: white; font-size: var(--text-hero); lin
 .package-badge { position: absolute; left: 18px; top: 18px; min-height: 38px; padding: 0 16px; border-radius: 999px; background: var(--color-primary); color: var(--color-white); display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 900; box-shadow: 0 10px 24px rgba(6,21,112,.24); }
 .package-badge svg { width: 16px; height: 16px; fill: currentColor; stroke: none; }
 .package-card-body { padding: 24px 26px 26px; display: flex; flex: 1; flex-direction: column; }
+.package-card-summary { margin: 0 0 16px; color: var(--color-black-60); font-size: var(--text-sm); line-height: var(--line-body); }
+.package-price strong.package-price-request { font-size: 26px; line-height: 1.2; }
 .package-card h3 { margin: 0 0 15px; color: var(--color-primary); font-size: clamp(26px, 1.8vw, 32px); line-height: 1.08; letter-spacing: 0; }
 .package-card-meta { display: grid; gap: 9px; color: var(--color-black-60); font-size: 14px; font-weight: 600; }
 .package-card-meta span { display: flex; align-items: center; gap: 10px; min-width: 0; }

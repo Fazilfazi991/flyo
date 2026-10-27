@@ -1,3 +1,5 @@
+import { groupPackages } from './group-packages.js';
+
 const phone = "04 396 4626";
 const whatsapp = "#";
 const email = "info.dubai@flyotour.com";
@@ -1449,7 +1451,7 @@ const holidayPackages = [
   }
 ];
 
-export const packages = holidayPackages.concat(cruisePackages).map(item => ({
+export const packages = holidayPackages.concat(cruisePackages, groupPackages).map(item => ({
   ...item,
   recommendedMonths: item.recommendedMonths || packageRecommendedMonths[item.slug] || []
 }));
@@ -1457,7 +1459,7 @@ export const packages = holidayPackages.concat(cruisePackages).map(item => ({
 export const navLinks = ["Home", "Flights", "Holidays", "Experiences", "Visa Services", "Contact"];
 
 export const footerColumns = [
-  { title: "Quick Links", links: ["Home", "Flights", "Holidays", "Experiences", "Visa Services", "Contact", "Privacy Policy", "Terms & Conditions"] },
+  { title: "Quick Links", links: ["Home", "Flights", "Holidays", "Experiences", "Visa Services", "Contact", "Frequently Asked Questions", "Privacy Policy", "Terms & Conditions"] },
   { title: "Services", links: ["Flight Booking Assistance", "Holiday Packages", "Visa Assistance", "Custom Holidays", "Honeymoon Packages", "Family Holidays", "Group Tours"] }
 ];
 
