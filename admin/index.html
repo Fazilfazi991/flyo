@@ -162,8 +162,8 @@
       <img src="/public/flyo-logo-navy.svg" alt="Flyo Tours & Travels">
       <h1>Admin Login</h1>
       <p>Sign in with an authorized Flyo administrator or editor account.</p>
-      <label><span>Email</span><input id="adminEmail" type="email" value="admin@flyotour.com" required></label>
-      <label><span>Password</span><input id="adminPassword" type="password" placeholder="Enter password" required></label>
+      <label><span>Email</span><input id="adminEmail" name="email" type="email" autocomplete="username" autocapitalize="none" spellcheck="false" placeholder="Your staff email" required></label>
+      <label><span>Password</span><input id="adminPassword" name="password" type="password" autocomplete="current-password" placeholder="Enter password" required></label>
       <button type="submit">Login</button>
       <small>Use an authorized Flyo staff account. Travel support staff can <a href="/admin/live-chat/">open the live-chat inbox</a>.</small>
     </form>
